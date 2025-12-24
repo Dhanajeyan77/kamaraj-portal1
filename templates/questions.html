@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h2>Available Coding Challenges</h2>
+    <p>Select a date to start practicing.</p>
+    <hr>
+    <div class="list-group">
+        {% for q in questions %}
+        <a href="{{ url_for('question_detail', qid=q.id) }}" class="question-card">
+            <div class="q-info">
+                <strong>Challenge Date: {{ q.date }}</strong>
+                <span>Click to Solve &rarr;</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .question-card {
+        display: block;
+        padding: 20px;
+        margin-bottom: 10px;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #333;
+        transition: 0.3s;
+    }
+    .question-card:hover {
+        background: #e9ecef;
+        border-color: #28a745;
+    }
+    .q-info {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container text-center">
+    <h1>Welcome, {{ user }}!</h1>
+    <p>Get ready to sharpen your Python skills. Your progress is tracked automatically.</p>
+    <div class="action-buttons">
+        <a href="{{ url_for('questions') }}" class="btn-primary">View Today's Task</a>
+    </div>
+</div>
+
+<style>
+    .text-center { text-align: center; padding-top: 50px; }
+    .btn-primary {
+        display: inline-block;
+        padding: 15px 30px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container" style="max-width: 900px; margin: auto; padding: 20px;">
+    <h2>My Successfully Solved Challenges</h2>
+    <hr>
+    
+    {% if not solutions %}
+        <p>You haven't completed any challenges yet. Go to <a href="/questions">Challenges</a> to start coding!</p>
+    {% else %}
+        {% for sol in solutions %}
+        <div class="sol-card" style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; border-left: 5px solid #28a745; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0;">Task Date: {{ sol.date }}</h3>
+                <small style="color: #666;">Solved on: {{ sol.timestamp }}</small>
+            </div>
+            <p><strong>Problem:</strong> {{ sol.content }}</p>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>{{ sol.code }}</code></pre>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

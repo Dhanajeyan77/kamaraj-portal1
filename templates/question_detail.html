@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="split-container">
+    <div class="description-side">
+        <h3>Challenge: {{ question.date }}</h3>
+        <hr>
+        <div class="problem-text">
+            <p>{{ question.content }}</p>
+        </div>
+    </div>
+
+    <div class="editor-side">
+        <form method="POST">
+            <div class="editor-label">Python 3</div>
+            <textarea name="user_code" id="editor" placeholder="# Write your code here..."></textarea>
+            <button type="submit" class="run-btn">Run & Submit</button>
+        </form>
+
+        {% if output %}
+        <div class="terminal">
+            <strong>Console:</strong>
+            <pre>{{ output }}</pre>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
