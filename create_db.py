@@ -1,49 +1,56 @@
-import sqlite3
-import os
-
-if not os.path.exists('database'):
-    os.makedirs('database')
+import psycopg2
 
 def init_db():
-    conn = sqlite3.connect('database/users.db')
+    conn = psycopg2.connect(
+        host="db.lgdoppdnlkdrfixxulyb.supabase.co",
+        database="postgres",
+        user="postgres",
+        password="Dhanajeyan@17",
+        port=5432,
+        sslmode="require"
+    )
     cursor = conn.cursor()
 
-    # Users table
-    cursor.execute('''
+    # USERS TABLE
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             roll_no TEXT UNIQUE NOT NULL,
             name TEXT NOT NULL,
             password TEXT NOT NULL,
-            is_admin INTEGER DEFAULT 0
-    )''')
+            is_admin BOOLEAN DEFAULT FALSE
+        );
+    """)
 
-    # FIXED Questions table
-    cursor.execute('''
+    # QUESTIONS TABLE - Added 'title' to match your schema
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS questions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
+            title TEXT NOT NULL,
             date TEXT NOT NULL,
-            content TEXT NOT NULL,      -- Changed from description to content
-            solution TEXT NOT NULL,     -- Added missing solution column
+            content TEXT NOT NULL,
+            solution TEXT NOT NULL,
             expected_output TEXT NOT NULL
-    )''')
+        );
+    """)
 
-    # Attempts table
-    cursor.execute('''
+    # ATTEMPTS TABLE - Using 'timestamp' and adding UNIQUE constraint for ON CONFLICT
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS attempts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_roll TEXT NOT NULL,
-            question_id INTEGER NOT NULL,
-            status TEXT NOT NULL,
+            id SERIAL PRIMARY KEY,
+            user_roll TEXT NOT NULL REFERENCES users(roll_no),
+            question_id INTEGER NOT NULL REFERENCES questions(id),
+            status TEXT,
             code TEXT,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(user_roll) REFERENCES users(roll_no),
-            FOREIGN KEY(question_id) REFERENCES questions(id)
-    )''')
+            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(user_roll, question_id)
+        );
+    """)
 
     conn.commit()
+    cursor.close()
     conn.close()
-    print("✅ Database initialized with correct column names (content and solution).")
+    print("✅ PostgreSQL database initialized successfully.")
 
 if __name__ == "__main__":
     init_db()

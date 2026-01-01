@@ -1,42 +1,38 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import sqlite3
+import psycopg2
+import psycopg2.extras
 import multiprocessing
 import io
+import os
 from contextlib import redirect_stdout
 
 app = Flask(__name__)
 app.secret_key = "kamaraj_college_2025"
-DATABASE = "database/users.db"
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 def get_db_connection():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
     return conn
 
 def execute_user_code(user_code, expected_answer, result_dict):
-    """Executes code using standard Python with a string buffer."""
     f = io.StringIO()
     try:
-        # We run in a clean local dictionary to avoid variable conflicts
         local_vars = {}
-        # Redirect terminal output to our string buffer 'f'
         with redirect_stdout(f):
             exec(user_code, {"__builtins__": __builtins__}, local_vars)
-        
         actual_output = f.getvalue().strip()
         expected_output = str(expected_answer).strip()
-        
         result_dict['output'] = actual_output
-        # Case-insensitive comparison for student fairness
-        result_dict['is_correct'] = (actual_output.lower() == expected_output.lower())
+        result_dict['is_correct'] = actual_output.lower() == expected_output.lower()
     except Exception as e:
-        # If the student has a syntax error, we send it to the console
         result_dict['error'] = str(e)
 
 @app.route("/")
 def index():
-    if "user" in session: return redirect(url_for('home'))
-    return redirect(url_for('login'))
+    if "user" in session:
+        return redirect(url_for("home"))
+    return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -44,7 +40,10 @@ def login():
         username = request.form["username"].upper()
         password = request.form["password"]
         conn = get_db_connection()
-        user = conn.execute("SELECT * FROM users WHERE roll_no=? AND password=?", (username, password)).fetchone()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur.execute("SELECT * FROM users WHERE roll_no=%s AND password=%s", (username, password))
+        user = cur.fetchone()
+        cur.close()
         conn.close()
         if user:
             session["user"] = username
@@ -53,95 +52,134 @@ def login():
 
 @app.route("/home")
 def home():
-    if "user" not in session: return redirect(url_for("login"))
+    if "user" not in session:
+        return redirect(url_for("login"))
     return render_template("home.html", user=session["user"])
 
 @app.route("/questions")
 def questions():
-    if "user" not in session: return redirect(url_for("login"))
+    if "user" not in session:
+        return redirect(url_for("login"))
     conn = get_db_connection()
-    qs = conn.execute("SELECT * FROM questions").fetchall()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM questions ORDER BY date ASC")
+    qs = cur.fetchall()
+    cur.close()
     conn.close()
     return render_template("questions.html", questions=qs)
 
 @app.route("/question/<int:qid>", methods=["GET", "POST"])
 def question_detail(qid):
-    if "user" not in session: return redirect(url_for("login"))
+    if "user" not in session:
+        return redirect(url_for("login"))
     output = ""
     conn = get_db_connection()
-    q = conn.execute("SELECT * FROM questions WHERE id=?", (qid,)).fetchone()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM questions WHERE id=%s", (qid,))
+    q = cur.fetchone()
 
     if request.method == "POST":
         user_code = request.form["user_code"]
         manager = multiprocessing.Manager()
         result_dict = manager.dict()
-        
-        # Protects your Ubuntu OS from infinite loops
         p = multiprocessing.Process(target=execute_user_code, args=(user_code, q['expected_output'], result_dict))
         p.start()
-        p.join(timeout=3) # 3-second limit
-        
+        p.join(timeout=3)
+
         if p.is_alive():
             p.terminate()
-            output = "❌ Timeout Error: Your code took too long to run. Check for infinite loops!"
+            output = "❌ Timeout Error: Infinite loop detected!"
         elif 'error' in result_dict:
             output = f"⚠️ Python Error: {result_dict['error']}"
         else:
             actual = result_dict.get('output', "")
             if result_dict.get('is_correct'):
-                output = f"Result: {actual}\n\n✅ CORRECT! Well done."
-                conn.execute("INSERT OR REPLACE INTO attempts (user_roll, question_id, status, code) VALUES (?, ?, ?, ?)",
-                             (session["user"], qid, "Completed", user_code))
+                output = f"Result: {actual}\n\n✅ CORRECT!"
+                cur.execute("""
+                    INSERT INTO attempts (user_roll, question_id, status, code)
+                    VALUES (%s, %s, %s, %s)
+                    ON CONFLICT (user_roll, question_id)
+                    DO UPDATE SET status='Completed', code=EXCLUDED.code, timestamp=CURRENT_TIMESTAMP
+                """, (session["user"], qid, "Completed", user_code))
                 conn.commit()
             else:
-                output = f"Result: {actual}\n\n❌ INCORRECT. Double check spelling and try again!"
-    
+                output = f"Result: {actual}\n\n❌ INCORRECT."
+    cur.close()
     conn.close()
     return render_template("question_detail.html", question=q, output=output)
+
 @app.route("/solutions")
 def solutions():
-    # 1. Security: Ensure the user is logged in
     if "user" not in session:
         return redirect(url_for("login"))
-    
+
     conn = get_db_connection()
-    # 2. Fetch all 'Completed' attempts for this specific roll number
-    # We JOIN with questions to show the date of each task
-    user_solutions = conn.execute("""
-        SELECT a.code, a.timestamp, q.date, q.content 
-        FROM attempts a 
-        JOIN questions q ON a.question_id = q.id 
-        WHERE a.user_roll = ? AND a.status = 'Completed'
-        ORDER BY q.date DESC
-    """, (session["user"],)).fetchall()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     
+    # Define the roll number from the current session
+    current_user_roll = session["user"]
+    
+    # This query will now work once you run the ALTER TABLE commands above
+    cur.execute("""
+        SELECT a.code, a.timestamp, q.date, q.content, q.title
+        FROM attempts a
+        JOIN questions q ON a.question_id = q.id
+        WHERE a.user_roll = %s
+    """, (current_user_roll,))
+
+    data = cur.fetchall()
+    cur.close()
     conn.close()
-    return render_template("solutions.html", solutions=user_solutions)
+
+    return render_template("solutions.html", solutions=data)
+
 @app.route("/admin/<int:qid>")
 def admin_dashboard(qid):
-    # 1. Security Check
-    if "user" not in session: 
+    if "user" not in session:
         return redirect(url_for("login"))
-    
+        
     conn = get_db_connection()
-    user = conn.execute("SELECT is_admin FROM users WHERE roll_no=?", (session["user"],)).fetchone()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     
-    if not user or user['is_admin'] != 1:
+    # 1. Verify if the logged-in user is an admin
+    cur.execute("SELECT is_admin FROM users WHERE roll_no=%s", (session["user"],))
+    user = cur.fetchone()
+
+    # PostgreSQL BOOLEAN check (True/False)
+    if not user or user['is_admin'] is not True:
+        cur.close()
         conn.close()
-        return "Access Denied", 403
+        return "Access Denied: Admin privileges required.", 403
 
-    # 2. Fetch specific question info
-    q_info = conn.execute("SELECT date, content FROM questions WHERE id=?", (qid,)).fetchone()
-
-    # 3. Fetch report for ALL students for THIS specific question
-    report = conn.execute("""
-        SELECT users.roll_no, users.name, attempts.status, attempts.timestamp 
-        FROM users 
-        LEFT JOIN attempts ON users.roll_no = attempts.user_roll 
-        AND attempts.question_id = ?
-    """, (qid,)).fetchall()
+    # 2. Get the specific question details for the header
+    cur.execute("SELECT date, title, content FROM questions WHERE id=%s", (qid,))
+    q_info = cur.fetchone()
     
+    if not q_info:
+        cur.close()
+        conn.close()
+        return "Question not found", 404
+
+    # 3. Get progress report for all students 
+    # FIXED: Added opening parenthesis for (a.timestamp AT TIME ZONE...)
+    cur.execute("""
+        SELECT 
+            u.roll_no, 
+            u.name, 
+            a.status, 
+            (a.timestamp AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Kolkata') as timestamp
+        FROM users u
+        LEFT JOIN attempts a 
+            ON u.roll_no = a.user_roll 
+            AND a.question_id = %s
+        ORDER BY u.roll_no ASC
+    """, (qid,))
+    
+    report = cur.fetchall()
+    
+    cur.close()
     conn.close()
+    
     return render_template("admin.html", report=report, q_info=q_info, qid=qid)
 @app.route("/logout")
 def logout():
