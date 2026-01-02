@@ -1,37 +1,233 @@
 {% extends "layout.html" %}
+
 {% block content %}
-<div class="coding-page-wrapper">
+<style>
+    /* 1. Global Layout & Scoping */
+    .coding-environment {
+        padding: 15px;
+        background-color: #f1f5f9;
+        min-height: calc(100vh - 80px);
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .coding-environment .split-container {
+        display: flex;
+        gap: 20px;
+        height: 82vh;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    /* 2. Left Side: Problem Description */
+    .coding-environment .description-side {
+        flex: 1;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        border: 1px solid #e2e8f0;
+    }
+
+    .coding-environment .problem-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .coding-environment .content-body {
+        white-space: pre-wrap;
+        line-height: 1.6;
+        font-size: 0.95rem;
+        color: #1e293b;
+    }
+
+    /* 3. Right Side: Editor Section */
+    .coding-environment .editor-side {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .coding-environment .editor-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #1e293b;
+        padding: 10px 20px;
+        border-radius: 12px 12px 0 0;
+        color: white;
+    }
+
+    .coding-environment .lang-select-dropdown {
+        background: #334155;
+        color: #4ade80;
+        border: 1px solid #475569;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        outline: none;
+    }
+
+    /* Java Specific Warning */
+    #java-info {
+        display: none;
+        background: #fef3c7;
+        color: #92400e;
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        border-bottom: 1px solid #fde68a;
+    }
+
+    .coding-environment #editor {
+        width: 100%;
+        flex-grow: 1;
+        background: #0f172a;
+        color: #f1f5f9;
+        font-family: 'Fira Code', 'Cascadia Code', monospace;
+        padding: 20px;
+        border: none;
+        resize: none;
+        font-size: 1rem;
+        outline: none;
+    }
+
+    .coding-environment .run-btn {
+        background: #10b981;
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .coding-environment .run-btn:hover {
+        background: #059669;
+    }
+
+    /* 4. Terminal/Output Styles */
+    .coding-environment .terminal {
+        background: #000;
+        border-radius: 0 0 12px 12px;
+        height: 180px;
+        overflow-y: auto;
+        border: 1px solid #1e293b;
+    }
+
+    .coding-environment .terminal-nav {
+        background: #1e293b;
+        color: #94a3b8;
+        padding: 5px 15px;
+        font-size: 0.75rem;
+    }
+
+    .coding-environment .output-text {
+        padding: 15px;
+        color: #4ade80;
+        font-family: monospace;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="coding-environment">
     <div class="split-container">
+        
         <div class="description-side">
             <div class="problem-header">
-                <h3>{{ question.date }}</h3>
-                <span class="difficulty-tag">Challenge yourself</span>
+                <h3 style="margin:0;">{{ question.date }}</h3>
+                <span style="background:#f1f5f9; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:600;">Challenge</span>
             </div>
             <hr>
-            <div class="problem-text">
-                <pre class="content-display">{{ question.content }}</pre>
+            <div class="content-body">
+                {{ question.content }}
             </div>
         </div>
 
         <div class="editor-side">
-            <form method="POST" id="submission-form">
-                <div class="editor-toolbar">
-                    <span class="lang-label">Python 3</span>
+            <form method="POST" id="submission-form" style="display:contents;">
+                <div class="editor-controls">
+                    <div>
+                        <label style="font-size: 0.8rem; margin-right: 5px; color: #94a3b8;">Language:</label>
+                        <select name="lang_choice" id="lang_choice" class="lang-select-dropdown">
+                            <option value="python">Python 3</option>
+                            <option value="java">Java 11</option>
+                        </select>
+                    </div>
                     <button type="submit" class="run-btn">Run & Submit</button>
                 </div>
-                <textarea name="user_code" id="editor" placeholder="# Write your code here...
-# Follow the 'Actual Input' logic provided on the left.">{{ user_code if user_code else "" }}</textarea>
+                
+                <div id="java-info">
+                    ⚠️ <b>Java Rule:</b> Class name must be <code>Solution</code>
+                </div>
+
+                <textarea name="user_code" id="editor" placeholder="# Write your code here...">{{ user_code if user_code else "" }}</textarea>
             </form>
 
             {% if output %}
-            <div class="terminal-container">
-                <div class="terminal-header">Execution Result</div>
-                <div class="terminal">
-                    <pre>{{ output }}</pre>
-                </div>
+            <div class="terminal">
+                <div class="terminal-nav">Execution Result</div>
+                <pre class="output-text">{{ output }}</pre>
             </div>
             {% endif %}
         </div>
+
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const editor = document.getElementById('editor');
+    const langSelect = document.getElementById('lang_choice');
+    const javaInfo = document.getElementById('java-info');
+    const terminal = document.querySelector('.terminal');
+
+    // 1. Tab Key support (4 spaces)
+    editor.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+
+            this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+            this.selectionStart = this.selectionEnd = start + 4;
+        }
+    });
+
+    // 2. Language Toggle Logic
+    langSelect.addEventListener('change', function() {
+        if (this.value === 'java') {
+            javaInfo.style.display = 'block';
+            if (editor.value.trim() === "") {
+                editor.value = "public class Solution {\n    public static void main(String[] args) {\n        \n    }\n}";
+            }
+        } else {
+            javaInfo.style.display = 'none';
+            if (editor.value.includes("public class Solution")) {
+                editor.value = "";
+            }
+        }
+    });
+
+    // 3. ANTI-CHEATING: Block Paste and Cut
+    editor.addEventListener('paste', function(e) {
+        e.preventDefault();
+        alert("⚠️ Copy-pasting is disabled! Please type your solution manually to learn better.");
+    });
+
+    editor.addEventListener('cut', function(e) {
+        e.preventDefault();
+        alert("⚠️ Cutting code is disabled.");
+    });
+
+    // 4. Auto-scroll terminal
+    if (terminal) {
+        terminal.scrollTop = terminal.scrollHeight;
+    }
+});
+</script>
 {% endblock %}

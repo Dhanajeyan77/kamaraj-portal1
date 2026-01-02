@@ -14,19 +14,70 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 def get_db_connection():
     conn = psycopg2.connect(DATABASE_URL, sslmode="require")
     return conn
+import subprocess
+import os
+import io
+from contextlib import redirect_stdout
 
-def execute_user_code(user_code, expected_answer, result_dict):
-    f = io.StringIO()
-    try:
-        local_vars = {}
-        with redirect_stdout(f):
-            exec(user_code, {"__builtins__": __builtins__}, local_vars)
-        actual_output = f.getvalue().strip()
-        expected_output = str(expected_answer).strip()
-        result_dict['output'] = actual_output
-        result_dict['is_correct'] = actual_output.lower() == expected_output.lower()
-    except Exception as e:
-        result_dict['error'] = str(e)
+def execute_user_code(user_code, expected_answer, result_dict, lang='python'):
+    expected_output = str(expected_answer).strip().lower()
+    
+    # --- PYTHON EXECUTION ---
+    if lang == 'python':
+        f = io.StringIO()
+        try:
+            local_vars = {}
+            with redirect_stdout(f):
+                # Using exec for internal Python execution
+                exec(user_code, {"__builtins__": __builtins__}, local_vars)
+            actual_output = f.getvalue().strip()
+            result_dict['output'] = actual_output
+            result_dict['is_correct'] = actual_output.lower() == expected_output
+        except Exception as e:
+            result_dict['error'] = f"Python Error: {str(e)}"
+            
+    # --- JAVA EXECUTION ---
+    elif lang == 'java':
+        java_file = "Solution.java"
+        class_file = "Solution.class"
+        try:
+            # 1. Write the student's code to a file
+            with open(java_file, "w") as f:
+                f.write(user_code)
+            
+            # 2. Compile the Java file (requires javac installed)
+            compile_process = subprocess.run(
+                ['javac', java_file], 
+                capture_output=True, 
+                text=True
+            )
+            
+            if compile_process.returncode != 0:
+                result_dict['error'] = "Compilation Error:\n" + compile_process.stderr
+                return
+
+            # 3. Execute the compiled class (requires java installed)
+            run_process = subprocess.run(
+                ['java', 'Solution'], 
+                capture_output=True, 
+                text=True, 
+                timeout=3 # Matches your Python timeout
+            )
+            
+            actual_output = run_process.stdout.strip()
+            result_dict['output'] = actual_output
+            result_dict['is_correct'] = actual_output.lower() == expected_output
+            
+        except subprocess.TimeoutExpired:
+            result_dict['error'] = "Timeout Error: Your Java code took too long to run!"
+        except Exception as e:
+            result_dict['error'] = f"Java Execution Error: {str(e)}"
+        finally:
+            # Cleanup: Delete the .java and .class files after execution
+            if os.path.exists(java_file):
+                os.remove(java_file)
+            if os.path.exists(class_file):
+                os.remove(class_file)
 
 @app.route("/")
 def index():
@@ -80,17 +131,27 @@ def question_detail(qid):
 
     if request.method == "POST":
         user_code = request.form["user_code"]
+        
+        # 1. Capture the language choice from the dropdown
+        selected_lang = request.form.get("lang_choice", "python") 
+        
         manager = multiprocessing.Manager()
         result_dict = manager.dict()
-        p = multiprocessing.Process(target=execute_user_code, args=(user_code, q['expected_output'], result_dict))
+        
+        # 2. Pass the selected_lang to the execution function
+        p = multiprocessing.Process(
+            target=execute_user_code, 
+            args=(user_code, q['expected_output'], result_dict, selected_lang)
+        )
         p.start()
-        p.join(timeout=3)
+        p.join(timeout=4) # Increased to 4s because Java compilation takes a second
 
         if p.is_alive():
             p.terminate()
-            output = "❌ Timeout Error: Infinite loop detected!"
+            output = "❌ Timeout Error: Code took too long!"
         elif 'error' in result_dict:
-            output = f"⚠️ Python Error: {result_dict['error']}"
+            # 3. Make the error message dynamic (Python or Java)
+            output = f"⚠️ {result_dict['error']}"
         else:
             actual = result_dict.get('output', "")
             if result_dict.get('is_correct'):
@@ -104,10 +165,12 @@ def question_detail(qid):
                 conn.commit()
             else:
                 output = f"Result: {actual}\n\n❌ INCORRECT."
+    
     cur.close()
     conn.close()
+    
+    # Pass selected_lang back to template so the dropdown stays on 'java' after refresh
     return render_template("question_detail.html", question=q, output=output)
-
 @app.route("/solutions")
 def solutions():
     if "user" not in session:
