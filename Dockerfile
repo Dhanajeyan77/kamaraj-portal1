@@ -17,5 +17,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 5. Tell Render we are using a dynamic port
 EXPOSE 5000
 
-# 6. Start Gunicorn and bind to the $PORT Render gives us
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT app:app"]
+# 6. Start Gunicorn with ONE worker and bind to the $PORT
+# Added --workers 1 to prevent memory issues and multiprocessing conflicts
+CMD ["sh", "-c", "gunicorn --workers 1 --bind 0.0.0.0:$PORT app:app"]

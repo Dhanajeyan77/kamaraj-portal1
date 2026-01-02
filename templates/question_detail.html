@@ -144,6 +144,7 @@
             </div>
             <hr>
             <div class="content-body">
+                <strong>{{ question.title }}</strong><br><br>
                 {{ question.content }}
             </div>
         </div>
@@ -154,8 +155,8 @@
                     <div>
                         <label style="font-size: 0.8rem; margin-right: 5px; color: #94a3b8;">Language:</label>
                         <select name="lang_choice" id="lang_choice" class="lang-select-dropdown">
-                            <option value="python">Python 3</option>
-                            <option value="java">Java 11</option>
+                            <option value="python">Python 3.11</option>
+                            <option value="java">Java 21</option>
                         </select>
                     </div>
                     <button type="submit" class="run-btn">Run & Submit</button>
@@ -192,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const start = this.selectionStart;
             const end = this.selectionEnd;
-
             this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
             this.selectionStart = this.selectionEnd = start + 4;
         }
@@ -207,16 +207,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             javaInfo.style.display = 'none';
-            if (editor.value.includes("public class Solution")) {
-                editor.value = "";
-            }
         }
     });
 
-    // 3. ANTI-CHEATING: Block Paste and Cut
+    // 3. ENHANCED ANTI-CHEATING (Laptop & Mobile)
+    
+    // Block Keyboard/Context Menu Paste (Laptops)
     editor.addEventListener('paste', function(e) {
         e.preventDefault();
-        alert("⚠️ Copy-pasting is disabled! Please type your solution manually to learn better.");
+        alert("⚠️ Copy-pasting is disabled! Please type your solution manually.");
+    });
+
+    // Block Mobile OS Injection & Large Text Jumps
+    editor.addEventListener('input', function(e) {
+        // Detect mobile 'insertFromPaste' event or sudden high-volume input
+        if (e.inputType === 'insertFromPaste' || (e.data && e.data.length > 5)) {
+            editor.value = ""; // Clear editor
+            alert("⚠️ Mobile pasting detected and blocked!");
+        }
     });
 
     editor.addEventListener('cut', function(e) {
