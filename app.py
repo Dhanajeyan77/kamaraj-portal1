@@ -60,7 +60,7 @@ def execute_user_code(user_code, expected_answer, queue, lang='python'):
                     ['java', 'Solution'], 
                     capture_output=True, 
                     text=True, 
-                    timeout=3
+                    timeout=15
                 )
                 actual_output = run_process.stdout.strip()
                 result['output'] = actual_output
