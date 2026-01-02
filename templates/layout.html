@@ -34,9 +34,9 @@
                 
                 <a href="{{ url_for('solutions') }}">My Solutions</a>
 
-                {% if session.get('user') == '24UCS027' %}
-                    <a href="/admin/1" class="admin-link">📊 Admin Panel</a>
-                {% endif %}
+            {% if session.get('user') in ['24UCS027', '24CP001'] %}
+                  <a href="/admin/1" class="admin-link">📊 Admin Panel</a>
+            {% endif %}
 
                 <a href="{{ url_for('logout') }}" class="logout-link">Logout ({{ session['user'] }})</a>
             {% else %}
