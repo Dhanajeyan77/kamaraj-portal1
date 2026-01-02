@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Block Mobile OS Injection & Large Text Jumps
     editor.addEventListener('input', function(e) {
         // Detect mobile 'insertFromPaste' event or sudden high-volume input
-        if (e.inputType === 'insertFromPaste' || (e.data && e.data.length > 5)) {
+        if (e.inputType === 'insertFromPaste' || (e.data && e.data.length > 30)) {
             editor.value = ""; // Clear editor
             alert("⚠️ Mobile pasting detected and blocked!");
         }
