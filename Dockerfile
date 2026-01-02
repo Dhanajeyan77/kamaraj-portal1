@@ -19,4 +19,5 @@ EXPOSE 5000
 
 # 6. Start Gunicorn with ONE worker and bind to the $PORT
 # Added --workers 1 to prevent memory issues and multiprocessing conflicts
-CMD ["sh", "-c", "gunicorn --workers 1 --bind 0.0.0.0:$PORT app:app"]
+# Add --timeout 90 to prevent Gunicorn from killing the worker during Java compilation
+CMD ["sh", "-c", "gunicorn --workers 1 --timeout 120 --bind 0.0.0.0:$PORT app:app"]
