@@ -1,17 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamaraj Portal | Login</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Full Screen Background */
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("{{ url_for('static', filename='login_bg.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Glass Container Effect */
+        .container {
+            width: 95%;
+            max-width: 400px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
+            color: #fff;
+        }
+
+        h2 { margin-bottom: 30px; font-size: 2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .run-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background: #8B3E2F;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .run-btn:hover { background: #a04a38; transform: translateY(-2px); }
+    </style>
 </head>
-<body style="display:flex; justify-content:center; align-items:center; height:100vh;">
-    <div class="container" style="max-width:400px; text-align:center;">
-        <h2>Login</h2>
+<body>
+
+    <div class="container">
+        <h2>Kamaraj Portal</h2>
         <form method="POST">
-            <input type="text" name="username" placeholder="Roll Number" required style="width:90%; padding:10px; margin-bottom:10px;"><br>
-            <input type="password" name="password" placeholder="Password" required style="width:90%; padding:10px; margin-bottom:10px;"><br>
-            <button type="submit" class="run-btn" style="width:95%;">Enter Portal</button>
+            <input type="text" name="username" placeholder="ROLL NUMBER" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="run-btn">Enter Portal</button>
         </form>
     </div>
+
+    <script>
+        // 1. Log login attempts (local console only)
+        document.querySelector('form').addEventListener('submit', function() {
+            console.log("Login attempt: " + document.querySelector('input[name="username"]').value);
+        });
+
+        // 2. Health Check: Checks every 30 seconds if the laptop/server is still online
+        setInterval(function() {
+            fetch('/health-check')
+            .then(response => {
+                if (!response.ok) throw new Error('Offline');
+            })
+            .catch(error => {
+                // This alert only triggers if the fetch fails (laptop sleeps/ngrok closes)
+                alert("The Lab Server is currently offline. Please wait or contact the admin.");
+            });
+        }, 30000); // 30,000 milliseconds = 30 seconds
+    </script>
 </body>
 </html>

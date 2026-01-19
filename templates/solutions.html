@@ -9,14 +9,47 @@
     {% else %}
         {% for sol in solutions %}
         <div class="sol-card" style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; border-left: 5px solid #28a745; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <h3 style="margin: 0;">Task Date: {{ sol.date }}</h3>
-                <small style="color: #666;">Solved on: {{ sol.timestamp }}</small>
+                <small style="color: #666;">Solved on: {{ sol.created_at.strftime('%Y-%m-%d %H:%M') if sol.created_at else 'N/A' }}</small>
             </div>
-            <p><strong>Problem:</strong> {{ sol.content }}</p>
-            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>{{ sol.code }}</code></pre>
+            
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+                <p style="margin: 0;"><strong>Problem:</strong> {{ sol.title }}</p>
+                <span style="background: #e1f5fe; color: #01579b; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold;">
+                    {{ sol.language }}
+                </span>
+            </div>
+            
+            <div style="position: relative;">
+                <pre id="code-{{ loop.index }}" style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>{{ sol.code }}</code></pre>
+                
+                <button onclick="downloadCode('code-{{ loop.index }}', '{{ sol.title|replace(' ', '_') }}{{ '.java' if sol.language|lower == 'java' else '.py' }}')" 
+                        style="position: absolute; top: 10px; right: 10px; background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">
+                    Download Code
+                </button>
+            </div>
+            
+            <div style="margin-top: 10px;">
+                <span style="background: #e6ffed; color: #28a745; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">
+                    {{ sol.status }}
+                </span>
+            </div>
         </div>
         {% endfor %}
     {% endif %}
 </div>
+
+<script>
+function downloadCode(elementId, fileName) {
+    const code = document.getElementById(elementId).innerText;
+    const blob = new Blob([code], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+</script>
 {% endblock %}

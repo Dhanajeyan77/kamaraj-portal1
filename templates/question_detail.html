@@ -13,7 +13,8 @@
     .coding-environment .split-container {
         display: flex;
         gap: 20px;
-        height: 82vh;
+        /* Changed height to auto for flexibility on mobile */
+        min-height: 82vh; 
         max-width: 100%;
         margin: 0 auto;
     }
@@ -29,6 +30,37 @@
         border: 1px solid #e2e8f0;
     }
 
+    /* 3. Right Side: Editor Section */
+    .coding-environment .editor-side {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* --- RESPONSIVE MOBILE OVERRIDE --- */
+    @media (max-width: 992px) {
+        .coding-environment .split-container {
+            flex-direction: column; /* Stacks description and editor */
+            height: auto;
+        }
+
+        .coding-environment .description-side, 
+        .coding-environment .editor-side {
+            width: 100%;
+            flex: none; /* Disables equal splitting for mobile */
+        }
+
+        .coding-environment .terminal {
+            height: 250px; /* Gives more room for output on small screens */
+        }
+        
+        .coding-environment .editor-controls {
+            flex-wrap: wrap; /* Prevents button overlap on small phones */
+            gap: 10px;
+        }
+    }
+
+    /* Keep all your other styles exactly as they were */
     .coding-environment .problem-header {
         display: flex;
         justify-content: space-between;
@@ -43,11 +75,20 @@
         color: #1e293b;
     }
 
-    /* 3. Right Side: Editor Section */
-    .coding-environment .editor-side {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
+    .coding-rules {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8fafc;
+        border-left: 4px solid #10b981;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+
+    .coding-rules code {
+        background: #e2e8f0;
+        padding: 2px 4px;
+        border-radius: 3px;
+        color: #0f172a;
     }
 
     .coding-environment .editor-controls {
@@ -71,7 +112,6 @@
         outline: none;
     }
 
-    /* Java Specific Warning */
     #java-info {
         display: none;
         background: #fef3c7;
@@ -83,13 +123,13 @@
 
     .coding-environment #editor {
         width: 100%;
-        flex-grow: 1;
+        min-height: 400px; /* Ensures editor stays visible when stacked */
         background: #0f172a;
         color: #f1f5f9;
         font-family: 'Fira Code', 'Cascadia Code', monospace;
         padding: 20px;
         border: none;
-        resize: none;
+        resize: vertical;
         font-size: 1rem;
         outline: none;
     }
@@ -109,7 +149,6 @@
         background: #059669;
     }
 
-    /* 4. Terminal/Output Styles */
     .coding-environment .terminal {
         background: #000;
         border-radius: 0 0 12px 12px;
@@ -147,6 +186,18 @@
                 <strong>{{ question.title }}</strong><br><br>
                 {{ question.content }}
             </div>
+
+            <div class="coding-rules">
+                <p><strong>🚀 Standard I/O Rules:</strong></p>
+                <div id="python-rules">
+                    • <b>Input:</b> Use the variable <code>input_val</code>.<br>
+                    • <b>Output:</b> Assign your result to <code>output_val</code>.
+                </div>
+                <div id="java-rules" style="display:none;">
+                    • <b>Input:</b> Access via <code>args[0]</code>.<br>
+                    • <b>Output:</b> Use <code>System.out.println()</code>.
+                </div>
+            </div>
         </div>
 
         <div class="editor-side">
@@ -181,13 +232,15 @@
 </div>
 
 <script>
+// All your existing JS logic (Tab, Enter, Anti-cheating) stays here...
 document.addEventListener('DOMContentLoaded', function() {
     const editor = document.getElementById('editor');
     const langSelect = document.getElementById('lang_choice');
     const javaInfo = document.getElementById('java-info');
+    const pythonRules = document.getElementById('python-rules');
+    const javaRules = document.getElementById('java-rules');
     const terminal = document.querySelector('.terminal');
 
-    // 1. Tab Key support (4 spaces)
     editor.addEventListener('keydown', function(e) {
         if (e.key === 'Tab') {
             e.preventDefault();
@@ -196,33 +249,51 @@ document.addEventListener('DOMContentLoaded', function() {
             this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
             this.selectionStart = this.selectionEnd = start + 4;
         }
-    });
 
-    // 2. Language Toggle Logic
-    langSelect.addEventListener('change', function() {
-        if (this.value === 'java') {
-            javaInfo.style.display = 'block';
-            if (editor.value.trim() === "") {
-                editor.value = "public class Solution {\n    public static void main(String[] args) {\n        \n    }\n}";
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const start = this.selectionStart;
+            const textBeforeCaret = this.value.substring(0, start);
+            const lines = textBeforeCaret.split('\n');
+            const currentLine = lines[lines.length - 1];
+            const matches = currentLine.match(/^(\s*)/);
+            const whitespace = matches ? matches[0] : "";
+            let extraIndent = "";
+            if (currentLine.trim().endsWith(':') || currentLine.trim().endsWith('{')) {
+                extraIndent = "    ";
             }
-        } else {
-            javaInfo.style.display = 'none';
+            const insertion = "\n" + whitespace + extraIndent;
+            this.value = this.value.substring(0, start) + insertion + this.value.substring(start);
+            this.selectionStart = this.selectionEnd = start + insertion.length;
         }
     });
 
-    // 3. ENHANCED ANTI-CHEATING (Laptop & Mobile)
-    
-    // Block Keyboard/Context Menu Paste (Laptops)
+    langSelect.addEventListener('change', function() {
+        if (this.value === 'java') {
+            javaInfo.style.display = 'block';
+            javaRules.style.display = 'block';
+            pythonRules.style.display = 'none';
+            if (editor.value.trim() === "" || editor.value.includes("# Write your code here")) {
+                editor.value = "public class Solution {\n    public static void main(String[] args) {\n        String input_val = args[0];\n        // Write code here\n    }\n}";
+            }
+        } else {
+            javaInfo.style.display = 'none';
+            javaRules.style.display = 'none';
+            pythonRules.style.display = 'block';
+            if (editor.value.includes("public class Solution")) {
+                editor.value = "";
+            }
+        }
+    });
+
     editor.addEventListener('paste', function(e) {
         e.preventDefault();
         alert("⚠️ Copy-pasting is disabled! Please type your solution manually.");
     });
 
-    // Block Mobile OS Injection & Large Text Jumps
     editor.addEventListener('input', function(e) {
-        // Detect mobile 'insertFromPaste' event or sudden high-volume input
         if (e.inputType === 'insertFromPaste' || (e.data && e.data.length > 30)) {
-            editor.value = ""; // Clear editor
+            editor.value = ""; 
             alert("⚠️ Mobile pasting detected and blocked!");
         }
     });
@@ -232,7 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
         alert("⚠️ Cutting code is disabled.");
     });
 
-    // 4. Auto-scroll terminal
     if (terminal) {
         terminal.scrollTop = terminal.scrollHeight;
     }
