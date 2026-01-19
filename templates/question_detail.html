@@ -61,8 +61,15 @@
 
     /* --- LAPTOP VIEW CORRECTION --- */
     @media (min-width: 993px) {
+        /* Make editor slightly shorter to give terminal room */
+        .coding-environment #editor {
+            min-height: 350px !important; 
+        }
+
+        /* Force terminal to be taller on laptop */
         .coding-environment .terminal {
-            height: 300px !important; /* Increased height for better lap view */
+            height: 350px !important; 
+            flex-grow: 1;
         }
     }
 
@@ -129,7 +136,6 @@
 
     .coding-environment #editor {
         width: 100%;
-        min-height: 400px; 
         background: #0f172a;
         color: #f1f5f9;
         font-family: 'Fira Code', 'Cascadia Code', monospace;
@@ -158,7 +164,7 @@
     .coding-environment .terminal {
         background: #000;
         border-radius: 0 0 12px 12px;
-        margin-top: 5px; /* Added spacing from editor */
+        margin-top: 10px; /* Spacing from editor */
         overflow-y: auto;
         border: 1px solid #1e293b;
     }
@@ -238,7 +244,7 @@
 </div>
 
 <script>
-// Your JS logic remains completely untouched
+// Logic for Tab, Enter, and Anti-cheating remains active
 document.addEventListener('DOMContentLoaded', function() {
     const editor = document.getElementById('editor');
     const langSelect = document.getElementById('lang_choice');
