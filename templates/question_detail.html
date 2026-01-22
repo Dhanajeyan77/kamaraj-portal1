@@ -3,194 +3,209 @@
 {% block content %}
 <style>
     /* ==========================================
-       1. GLOBAL LAYOUT & SPACING
-       Optimized for high-density student portals
+       1. GLOBAL THEME & GRID
        ========================================== */
-    .coding-environment {
-        padding: 20px;
-        background-color: #f3f4f6;
-        min-height: calc(100vh - 80px);
-        font-family: 'Inter', system-ui, sans-serif;
+    :root {
+        --lc-green: #2db55d;
+        --lc-orange: #ffa116;
+        --lc-border: #e2e8f0;
+        --editor-bg: #0d1117;
     }
 
-    /* Container for the side-by-side view */
-    .coding-environment .split-container {
+    /* Fixed Layout: Prevents footer overlay */
+    .coding-environment {
+        padding: 20px;
+        background-color: #f0f2f5;
+        height: calc(100vh - 80px); 
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; 
+        font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .split-container {
         display: flex;
         gap: 16px; 
-        min-height: 85vh; 
-        max-width: 1550px;
+        flex: 1;
+        max-width: 1850px;
         margin: 0 auto;
+        width: 100%;
+        overflow: hidden; /* Independent scrolling */
     }
 
     /* ==========================================
-       2. DESCRIPTION SIDE (LEFT PANE)
+       2. LEFT PANE: FIXED PROBLEM DESCRIPTION
        ========================================== */
-    .coding-environment .description-side {
-        flex: 1; /* Approximately 40% width */
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        border: 1px solid #e5e7eb;
-        overflow-y: auto;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    .description-side {
+        flex: 1;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 12px;
+        border: 1px solid var(--lc-border);
+        overflow-y: auto; /* Independent scroll */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
     }
 
-    /* Header for the question */
-    .coding-environment h2 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: #111827;
-        margin-bottom: 8px;
+    .description-side h2 {
+        font-size: 1.85rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-bottom: 12px;
     }
 
     .difficulty-tag {
-        display: inline-block;
-        background: #fef3c7;
-        color: #d97706; 
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
+        display: inline-flex;
+        background: #fff7ed;
+        color: var(--lc-orange); 
+        padding: 5px 14px;
+        border-radius: 4px;
+        font-size: 0.8rem;
         font-weight: 700;
-        margin-bottom: 12px;
         text-transform: uppercase;
+        margin-bottom: 25px;
+        width: fit-content;
     }
 
-    /* Body text for the problem */
-    .coding-environment .content-body {
+    .content-body {
         line-height: 1.8;
-        font-size: 1rem;
+        font-size: 1.05rem;
         color: #374151;
         white-space: pre-wrap;
     }
 
+    /* INSTRUCTION DESIGN */
+    .setup-instructions {
+        margin-top: 40px;
+        padding: 25px;
+        background: #f0fdf4;
+        border-left: 8px solid var(--lc-green);
+        border-radius: 12px;
+    }
+
+    .setup-instructions h4 {
+        color: #166534;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.15rem;
+    }
+
+    .setup-instructions li {
+        margin-bottom: 10px;
+        color: #14532d;
+        font-size: 0.95rem;
+        list-style: none;
+    }
+
+    .setup-instructions code {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-weight: 800;
+        font-family: 'Fira Code', monospace;
+    }
+
     /* ==========================================
-       3. EDITOR SIDE (RIGHT PANE)
+       3. RIGHT PANE: LARGE EDITOR & ENHANCED CONSOLE
        ========================================== */
-    .coding-environment .editor-side {
-        flex: 1.5; /* Approximately 60% width */
+    .editor-side {
+        flex: 1.6; 
         display: flex;
         flex-direction: column;
         gap: 12px;
+        height: 100%;
     }
 
-    /* --- RESPONSIVE MOBILE OVERRIDE --- */
-    @media (max-width: 1024px) {
-        .coding-environment .split-container {
-            flex-direction: column; 
-            height: auto;
-        }
-        .coding-environment .description-side, 
-        .coding-environment .editor-side {
-            width: 100%;
-            flex: none; 
-        }
-        .coding-environment .terminal {
-            height: 300px !important;
-        }
+    /* MASSIVE TYPING AREA */
+    .editor-wrapper {
+        flex: 2.8; /* Extended length for coding */
+        display: flex;
+        flex-direction: column;
+        background: #1e1e1e;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #333;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
-    /* --- LAPTOP VIEW FIXES --- */
-    @media (min-width: 1025px) {
-        .coding-environment #editor {
-            min-height: 480px !important; 
-        }
-        .coding-environment .terminal {
-            min-height: 350px !important; 
-            flex-grow: 1;
-        }
-    }
-
-    /* ==========================================
-       4. EDITOR COMPONENTS
-       ========================================== */
-    .coding-environment .editor-controls {
+    .editor-header {
+        background: #2d2d2d;
+        padding: 12px 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #1f2937;
-        padding: 12px 20px;
-        border-radius: 10px 10px 0 0;
     }
 
-    .coding-environment .lang-select-dropdown {
-        background: #374151;
-        color: #10b981;
-        border: 1px solid #4b5563;
-        padding: 6px 14px;
-        border-radius: 6px;
-        font-weight: 600;
-        outline: none;
-        cursor: pointer;
-    }
-
-    /* The Code Editor Box */
-    .coding-environment #editor {
+    #editor {
+        flex: 1;
         width: 100%;
-        background: #0f172a;
-        color: #f8fafc;
-        font-family: 'Fira Code', 'Cascadia Code', 'Source Code Pro', monospace;
+        background: var(--editor-bg);
+        color: #e6edf3;
+        font-family: 'Fira Code', 'Cascadia Code', monospace;
         padding: 25px;
-        border: 1px solid #1e293b;
-        border-radius: 0;
-        font-size: 1.05rem;
+        border: none;
+        font-size: 1.1rem;
         line-height: 1.6;
         outline: none;
         resize: none;
     }
 
-    .coding-environment .run-btn {
-        background: #10b981;
-        color: white;
-        padding: 8px 24px;
-        border: none;
-        border-radius: 6px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .coding-environment .run-btn:hover { 
-        background: #059669; 
-        transform: translateY(-1px); 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    /* ==========================================
-       5. TERMINAL / CONSOLE SECTION
-       ========================================== */
-    .coding-environment .terminal {
-        background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-radius: 0 0 10px 10px;
-        overflow-y: auto;
+    /* INCREASED EXECUTION BOX */
+    .terminal {
+        flex: 0.9; /* INCREASED SIZE from 0.7 to 0.9 */
+        background: white;
+        border: 2px solid var(--lc-border);
+        border-radius: 12px;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
+        margin-bottom: 40px; 
     }
 
-    .coding-environment .terminal-nav {
-        background: #f9fafb;
-        color: #4b5563;
-        padding: 10px 20px;
-        font-weight: 700;
+    .terminal-header {
+        background: #f8fafc;
+        padding: 10px 24px;
+        font-weight: 800;
         font-size: 0.85rem;
-        border-bottom: 1px solid #e5e7eb;
+        color: #475569;
+        border-bottom: 1px solid var(--lc-border);
     }
 
-    .coding-environment .output-text {
+    .output-text {
         padding: 20px;
-        color: #111827;
         font-family: 'Fira Code', monospace;
-        font-size: 0.95rem;
-        margin: 0;
+        font-size: 1rem;
+        white-space: pre-wrap; /* Fixes congestion */
+        overflow-y: auto;
     }
 
-    /* Rules section */
-    .coding-rules {
-        margin-top: 30px; 
-        padding: 20px; 
-        background: #f9fafb; 
-        border-left: 5px solid #10b981; 
+    /* CSS Linter Fix: Classes for status colors */
+    .status-success { color: #16a34a; font-weight: 800; }
+    .status-failed { color: #dc2626; font-weight: 800; }
+
+    .run-btn {
+        background: var(--lc-green);
+        color: white;
+        padding: 10px 30px;
         border-radius: 8px;
+        font-weight: 800;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* FOOTER GUARD */
+    .footer-guard {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f2f5;
+        font-size: 0.8rem;
+        color: #94a3b8;
     }
 </style>
 
@@ -198,144 +213,127 @@
     <div class="split-container">
         
         <div class="description-side">
-            <span class="difficulty-tag">Coding Challenge</span>
+            <div class="difficulty-tag">Challenge 2026</div>
             <h2>{{ question.title }}</h2>
-            <p style="color: #6b7280; font-size: 0.85rem; margin-bottom: 20px;">📅 Challenge Date: {{ question.date }}</p>
-            
-            <hr style="border: 0; border-top: 1px solid #f3f4f6; margin-bottom: 25px;">
-            
-            <div class="content-body">
-                {{ question.content }}
-            </div>
+            <hr style="border: 0; border-top: 1px solid #f1f5f9; margin-bottom: 25px;">
+            <div class="content-body">{{ question.content }}</div>
 
-            <div class="coding-rules">
-                <p style="font-weight: 800; color: #111827; margin-bottom: 10px;">📋 Submission Rules:</p>
-                <div id="python-rules" style="font-size: 0.9rem;">
-                    • <b>Python:</b> Use <code>input_val</code> and assign the result to <code>output_val</code>.<br>
-                    • <b>Academic Integrity:</b> No copy-pasting allowed.
+            <div class="setup-instructions">
+                <h4>🚀 Setup Instructions:</h4>
+                <div id="java-instructions" style="display:none;">
+                    <li>• <strong>Main Class:</strong> <code>public class Solution</code></li>
+                    <li>• <strong>Input:</strong> Accessed via <code>args[0]</code></li>
                 </div>
-                <div id="java-rules" style="display:none; font-size: 0.9rem;">
-                    • <b>Java:</b> Use <code>args[0]</code> and print via <code>System.out.println()</code>.
+                <div id="python-instructions">
+                    <li>• <strong>Variables:</strong> Use <code>input_val</code> and <code>output_val</code></li>
                 </div>
             </div>
         </div>
 
         <div class="editor-side">
-            <form method="POST" id="submission-form" style="display:contents;">
-                <div class="editor-controls">
-                    <div>
-                        <select name="lang_choice" id="lang_choice" class="lang-select-dropdown">
-                            <option value="python">Python 3.11</option>
-                            <option value="java">Java 21</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="run-btn">Run & Submit Code</button>
+            <form method="POST" id="submission-form" class="editor-wrapper">
+                <div class="editor-header">
+                    <select name="lang_choice" id="lang_choice" style="background:#444; color:#fff; border:none; padding:6px 12px; border-radius:6px; font-weight:700;">
+                        <option value="python">Python 3.11</option>
+                        <option value="java">Java 21</option>
+                    </select>
+                    <button type="submit" class="run-btn">Run & Submit</button>
                 </div>
                 
-                <div id="java-info" style="display:none; background:#fffbeb; color:#92400e; padding:10px 20px; font-size:0.85rem; border-bottom:1px solid #fde68a;">
-                    ⚠️ <b>Java Rule:</b> Your main class must be named <b>Solution</b>.
+                <div id="java-alert" style="display:none; background:#fff9db; color:#856404; padding:8px 25px; font-size:0.8rem; border-bottom:1px solid #ffeeba;">
+                    ⚠️ <strong>Java Rule:</strong> Class name must be <strong>Solution</strong>.
                 </div>
 
-                <textarea name="user_code" id="editor" spellcheck="false" placeholder="# Start your implementation here...">{{ user_code if user_code else "" }}</textarea>
+                <textarea name="user_code" id="editor" spellcheck="false">{{ user_code if user_code else "" }}</textarea>
             </form>
 
             <div class="terminal">
-                <div class="terminal-nav">Execution Console</div>
+                <div class="terminal-header">
+                    <span style="color:var(--lc-green)">●</span> Execution Console Result
+                </div>
                 <div class="output-text">
                     {% if output %}
-                        <div style="color: #065f46; font-weight: 600;">{{ output }}</div>
+                        <div class="{% if 'FAILED' in output %}status-failed{% else %}status-success{% endif %}">
+                            {% if 'FAILED' in output %}❌ FAILED{% else %}✅ SUCCESS{% endif %}
+                        </div>
+                        <div style="margin-top: 8px;">{{ output }}</div>
                     {% else %}
-                        <div style="color: #9ca3af;">System ready. Waiting for student code...</div>
+                        <span style="color: #94a3b8; font-style: italic;">Awaiting student code results...</span>
                     {% endif %}
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="footer-guard">
+        © 2026 Kamaraj College - Computer Science Department
     </div>
 </div>
 
 <script>
-    /**
-     * DOM Readiness handler
-     * Manages Editor features and Anti-Cheating logic
-     */
     document.addEventListener('DOMContentLoaded', function() {
         const editor = document.getElementById('editor');
-        const terminal = document.querySelector('.terminal');
         const langSelect = document.getElementById('lang_choice');
-        const javaInfo = document.getElementById('java-info');
-        const pythonRules = document.getElementById('python-rules');
-        const javaRules = document.getElementById('java-rules');
+        const javaIns = document.getElementById('java-instructions');
+        const pyIns = document.getElementById('python-instructions');
+        const alertBox = document.getElementById('java-alert');
 
-        // --- 1. LANGUAGE TOGGLE LOGIC ---
+        /**
+         * 1. FIXED BOILERPLATE LOGIC
+         * Properly switches templates and ensures Java boilerplate appears
+         */
         langSelect.addEventListener('change', function() {
             if (this.value === 'java') {
-                javaInfo.style.display = 'block';
-                javaRules.style.display = 'block';
-                pythonRules.style.display = 'none';
+                javaIns.style.display = 'block';
+                pyIns.style.display = 'none';
+                alertBox.style.display = 'block';
+                
+                // Switch to Java Template
+                editor.value = "public class Solution {\n    public static void main(String[] args) {\n        String input_val = args[0];\n        // Write logic below\n    }\n}";
             } else {
-                javaInfo.style.display = 'none';
-                javaRules.style.display = 'none';
-                pythonRules.style.display = 'block';
+                javaIns.style.display = 'none';
+                pyIns.style.display = 'block';
+                alertBox.style.display = 'none';
+                
+                // Clear and reset Python Template
+                editor.value = "# Start implementing Python solution\n\ninput_val = ...\noutput_val = ...";
             }
         });
 
-        // --- 2. EDITOR BEHAVIOR (Indentation & Tabs) ---
+        /**
+         * 2. Advanced Indentation Support
+         */
         editor.addEventListener('keydown', function(e) {
-            // Handle Tab Key for 4-space indentation
             if (e.key === 'Tab') {
                 e.preventDefault();
                 const start = this.selectionStart;
                 this.value = this.value.substring(0, start) + "    " + this.value.substring(this.selectionEnd);
                 this.selectionStart = this.selectionEnd = start + 4;
             }
-            
-            // Handle Smart Enter for automatic indentation
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const start = this.selectionStart;
-                const lines = this.value.substring(0, start).split('\n');
-                const currentLine = lines[lines.length - 1];
+                const textBefore = this.value.substring(0, start);
+                const currentLine = textBefore.split('\n').pop();
                 const whitespace = currentLine.match(/^(\s*)/)[0];
                 let extra = (currentLine.trim().endsWith(':') || currentLine.trim().endsWith('{')) ? "    " : "";
-                const insertion = "\n" + whitespace + extra;
-                this.value = this.value.substring(0, start) + insertion + this.value.substring(start);
-                this.selectionStart = this.selectionEnd = start + insertion.length;
+                const insert = "\n" + whitespace + extra;
+                this.value = this.value.substring(0, start) + insert + this.value.substring(start);
+                this.selectionStart = this.selectionEnd = start + insert.length;
             }
         });
 
-        // --- 3. ANTI-CHEATING SUITE ---
-        // Block standard keyboard paste
-        editor.addEventListener('paste', function(e) {
-            e.preventDefault();
-            alert("⚠️ Academic Integrity: Manual typing is required for this lab.");
+        /**
+         * 3. Anti-Cheating Suite
+         */
+        editor.addEventListener('paste', e => { 
+            e.preventDefault(); 
+            alert("⚠️ Academic Integrity: Manual typing is required for credit."); 
         });
-
-        // Block standard cut operation
-        editor.addEventListener('cut', function(e) {
-            e.preventDefault();
-            alert("⚠️ Cut operation disabled.");
-        });
-
-        // Block Right-Click Context Menu to prevent mouse-pasting
-        editor.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert("⚠️ Right-click disabled in the coding environment.");
-        });
+        editor.addEventListener('contextmenu', e => e.preventDefault());
         
-        // Handle Mobile/Advanced Pasting detection
-        editor.addEventListener('input', function(e) {
-            // Detects large text blocks inserted at once
-            if (e.inputType === 'insertFromPaste' || (e.data && e.data.length > 25)) {
-                this.value = ""; 
-                alert("⚠️ External code detected. Editor has been cleared.");
-            }
-        });
-
-        // Keep terminal scrolled to the bottom on page load
-        if (terminal) { 
-            terminal.scrollTop = terminal.scrollHeight; 
-        }
+        // Auto-scroll terminal
+        const term = document.querySelector('.output-text');
+        if (term) term.scrollTop = term.scrollHeight;
     });
 </script>
 {% endblock %}
