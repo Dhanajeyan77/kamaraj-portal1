@@ -50,7 +50,7 @@
         }
 
         .coding-environment .terminal {
-            height: 250px !important; /* Fixed height for mobile stacking */
+            height: 250px !important; 
         }
         
         .coding-environment .editor-controls {
@@ -61,19 +61,16 @@
 
     /* --- LAPTOP VIEW CORRECTION --- */
     @media (min-width: 993px) {
-        /* Make editor slightly shorter to give terminal room */
         .coding-environment #editor {
             min-height: 350px !important; 
         }
 
-        /* Force terminal to be taller on laptop */
         .coding-environment .terminal {
             height: 350px !important; 
             flex-grow: 1;
         }
     }
 
-    /* Keep all your other styles exactly as they were */
     .coding-environment .problem-header {
         display: flex;
         justify-content: space-between;
@@ -164,7 +161,7 @@
     .coding-environment .terminal {
         background: #000;
         border-radius: 0 0 12px 12px;
-        margin-top: 10px; /* Spacing from editor */
+        margin-top: 10px;
         overflow-y: auto;
         border: 1px solid #1e293b;
     }
@@ -244,7 +241,6 @@
 </div>
 
 <script>
-// Logic for Tab, Enter, and Anti-cheating remains active
 document.addEventListener('DOMContentLoaded', function() {
     const editor = document.getElementById('editor');
     const langSelect = document.getElementById('lang_choice');
@@ -253,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const javaRules = document.getElementById('java-rules');
     const terminal = document.querySelector('.terminal');
 
+    // INDENTATION LOGIC (Kept for usability)
     editor.addEventListener('keydown', function(e) {
         if (e.key === 'Tab') {
             e.preventDefault();
@@ -280,6 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // LANGUAGE SWITCH LOGIC (Kept for usability)
     langSelect.addEventListener('change', function() {
         if (this.value === 'java') {
             javaInfo.style.display = 'block';
@@ -298,22 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    editor.addEventListener('paste', function(e) {
-        e.preventDefault();
-        alert("⚠️ Copy-pasting is disabled! Please type your solution manually.");
-    });
-
-    editor.addEventListener('input', function(e) {
-        if (e.inputType === 'insertFromPaste' || (e.data && e.data.length > 30)) {
-            editor.value = ""; 
-            alert("⚠️ Mobile pasting detected and blocked!");
-        }
-    });
-
-    editor.addEventListener('cut', function(e) {
-        e.preventDefault();
-        alert("⚠️ Cutting code is disabled.");
-    });
+    // ALL PASTE/CUT/CHEATING BLOCKERS REMOVED
 
     if (terminal) {
         terminal.scrollTop = terminal.scrollHeight;
