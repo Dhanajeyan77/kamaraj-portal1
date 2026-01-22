@@ -4,36 +4,37 @@
 <style>
     /* 1. Global Layout & Scoping */
     .coding-environment {
-        padding: 15px;
-        background-color: #f1f5f9;
+        padding: 20px;
+        background-color: #fafafa; /* LeetCode-style clean background */
         min-height: calc(100vh - 80px);
         font-family: 'Inter', system-ui, sans-serif;
     }
 
     .coding-environment .split-container {
         display: flex;
-        gap: 20px;
-        min-height: 82vh; 
-        max-width: 100%;
+        gap: 12px; 
+        min-height: 85vh; 
+        max-width: 1450px;
         margin: 0 auto;
     }
 
-    /* 2. Left Side: Problem Description */
+    /* 2. Left Side: Problem Description (White & Clean) */
     .coding-environment .description-side {
         flex: 1;
         background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border-radius: 8px;
+        border: 1px solid #e5e5e5;
         overflow-y: auto;
-        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
     /* 3. Right Side: Editor Section */
     .coding-environment .editor-side {
-        flex: 1;
+        flex: 1.2; 
         display: flex;
         flex-direction: column;
+        gap: 10px;
     }
 
     /* --- RESPONSIVE MOBILE OVERRIDE --- */
@@ -50,135 +51,151 @@
         }
 
         .coding-environment .terminal {
-            height: 250px !important; 
-        }
-        
-        .coding-environment .editor-controls {
-            flex-wrap: wrap; 
-            gap: 10px;
+            height: 250px !important;
         }
     }
 
     /* --- LAPTOP VIEW CORRECTION --- */
     @media (min-width: 993px) {
+        /* Editor height adjusted for laptop visibility */
         .coding-environment #editor {
-            min-height: 350px !important; 
+            min-height: 450px !important; 
         }
 
+        /* Large Terminal for Laptop */
         .coding-environment .terminal {
             height: 350px !important; 
             flex-grow: 1;
         }
     }
 
-    .coding-environment .problem-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    /* 4. Problem Header Styling */
+    .coding-environment h2 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #262626;
+        margin-top: 0;
+    }
+
+    .difficulty-tag {
+        display: inline-block;
+        background: #f0f0f0;
+        color: #ffa116; /* LeetCode Orange */
+        padding: 3px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
         margin-bottom: 15px;
     }
 
     .coding-environment .content-body {
-        white-space: pre-wrap;
-        line-height: 1.6;
-        font-size: 0.95rem;
-        color: #1e293b;
+        line-height: 1.7;
+        font-size: 0.98rem;
+        color: #444;
     }
 
     .coding-rules {
-        margin-top: 20px;
+        margin-top: 25px;
         padding: 15px;
-        background: #f8fafc;
-        border-left: 4px solid #10b981;
+        background: #fcfcfc;
+        border-left: 4px solid #2db55d;
+        border: 1px solid #eee;
+        border-left: 4px solid #2db55d;
         border-radius: 4px;
         font-size: 0.85rem;
     }
 
-    .coding-rules code {
-        background: #e2e8f0;
-        padding: 2px 4px;
-        border-radius: 3px;
-        color: #0f172a;
-    }
-
+    /* 5. Editor Controls (Tabbed Look) */
     .coding-environment .editor-controls {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #1e293b;
-        padding: 10px 20px;
-        border-radius: 12px 12px 0 0;
-        color: white;
+        background: #f7f7f7;
+        padding: 10px 18px;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px 8px 0 0;
+        border-bottom: none;
     }
 
     .coding-environment .lang-select-dropdown {
-        background: #334155;
-        color: #4ade80;
-        border: 1px solid #475569;
-        padding: 6px 12px;
-        border-radius: 6px;
+        background: white;
+        color: #262626;
+        border: 1px solid #d9d9d9;
+        padding: 5px 10px;
+        border-radius: 5px;
         cursor: pointer;
         font-weight: 600;
+        font-size: 0.85rem;
         outline: none;
     }
 
     #java-info {
         display: none;
-        background: #fef3c7;
-        color: #92400e;
-        padding: 8px 20px;
+        background: #fff9db;
+        color: #856404;
+        padding: 10px 20px;
         font-size: 0.85rem;
-        border-bottom: 1px solid #fde68a;
+        border-bottom: 1px solid #ffeeba;
     }
 
+    /* 6. The Code Editor (Dark Mode) */
     .coding-environment #editor {
         width: 100%;
-        background: #0f172a;
-        color: #f1f5f9;
-        font-family: 'Fira Code', 'Cascadia Code', monospace;
-        padding: 20px;
-        border: none;
-        resize: vertical;
+        background: #1e1e1e;
+        color: #d4d4d4;
+        font-family: 'Fira Code', 'Menlo', 'Monaco', monospace;
+        padding: 22px;
+        border: 1px solid #333;
+        border-radius: 0;
         font-size: 1rem;
+        line-height: 1.5;
         outline: none;
+        resize: none; /* Fixed height managed by CSS */
     }
 
+    /* 7. Run Button (LeetCode Green) */
     .coding-environment .run-btn {
-        background: #10b981;
+        background: #2db55d;
         color: white;
-        padding: 8px 20px;
+        padding: 8px 22px;
         border: none;
         border-radius: 6px;
-        font-weight: bold;
+        font-weight: 600;
+        font-size: 0.9rem;
         cursor: pointer;
         transition: background 0.2s;
     }
 
     .coding-environment .run-btn:hover {
-        background: #059669;
+        background: #269a4f;
     }
 
+    /* 8. Terminal (White Console Style) */
     .coding-environment .terminal {
-        background: #000;
-        border-radius: 0 0 12px 12px;
-        margin-top: 10px;
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 0 0 8px 8px;
         overflow-y: auto;
-        border: 1px solid #1e293b;
+        display: flex;
+        flex-direction: column;
     }
 
     .coding-environment .terminal-nav {
-        background: #1e293b;
-        color: #94a3b8;
-        padding: 5px 15px;
-        font-size: 0.75rem;
+        background: #f7f7f7;
+        color: #262626;
+        padding: 10px 18px;
+        font-weight: 600;
+        font-size: 0.8rem;
+        border-bottom: 1px solid #e5e5e5;
     }
 
     .coding-environment .output-text {
-        padding: 15px;
-        color: #4ade80;
-        font-family: monospace;
+        padding: 20px;
+        color: #262626;
+        font-family: 'Fira Code', 'Cascadia Code', monospace;
         margin: 0;
         font-size: 0.9rem;
+        white-space: pre-wrap;
     }
 </style>
 
@@ -186,24 +203,26 @@
     <div class="split-container">
         
         <div class="description-side">
-            <div class="problem-header">
-                <h3 style="margin:0;">{{ question.date }}</h3>
-                <span style="background:#f1f5f9; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:600;">Challenge</span>
-            </div>
-            <hr>
+            <span class="difficulty-tag">Challenge</span>
+            <h2>{{ question.title }}</h2>
+            <p style="color: #8c8c8c; font-size: 0.8rem; margin-bottom: 25px;">
+                <i class="far fa-calendar-alt"></i> Released on: {{ question.date }}
+            </p>
+            
+            <hr style="border: 0; border-top: 1px solid #f0f0f0; margin: 20px 0;">
+            
             <div class="content-body">
-                <strong>{{ question.title }}</strong><br><br>
                 {{ question.content }}
             </div>
 
             <div class="coding-rules">
-                <p><strong>🚀 Standard I/O Rules:</strong></p>
+                <p style="font-weight: 700; color: #262626; margin-bottom: 10px;">🚀 System Instructions:</p>
                 <div id="python-rules">
                     • <b>Input:</b> Use the variable <code>input_val</code>.<br>
                     • <b>Output:</b> Assign your result to <code>output_val</code>.
                 </div>
                 <div id="java-rules" style="display:none;">
-                    • <b>Input:</b> Access via <code>args[0]</code>.<br>
+                    • <b>Input:</b> Use <code>args[0]</code>.<br>
                     • <b>Output:</b> Use <code>System.out.println()</code>.
                 </div>
             </div>
@@ -213,28 +232,31 @@
             <form method="POST" id="submission-form" style="display:contents;">
                 <div class="editor-controls">
                     <div>
-                        <label style="font-size: 0.8rem; margin-right: 5px; color: #94a3b8;">Language:</label>
                         <select name="lang_choice" id="lang_choice" class="lang-select-dropdown">
                             <option value="python">Python 3.11</option>
                             <option value="java">Java 21</option>
                         </select>
                     </div>
-                    <button type="submit" class="run-btn">Run & Submit</button>
+                    <button type="submit" class="run-btn">Run Code</button>
                 </div>
                 
                 <div id="java-info">
-                    ⚠️ <b>Java Rule:</b> Class name must be <code>Solution</code>
+                    ⚠️ <b>Java Requirement:</b> The class name must be <b>Solution</b>.
                 </div>
 
-                <textarea name="user_code" id="editor" placeholder="# Write your code here...">{{ user_code if user_code else "" }}</textarea>
+                <textarea name="user_code" id="editor" spellcheck="false" placeholder="# Start coding here...">{{ user_code if user_code else "" }}</textarea>
             </form>
 
-            {% if output %}
             <div class="terminal">
-                <div class="terminal-nav">Execution Result</div>
-                <pre class="output-text">{{ output }}</pre>
+                <div class="terminal-nav">Console Output</div>
+                <div class="output-text">
+                    {% if output %}
+                        <div style="color: #262626;">{{ output }}</div>
+                    {% else %}
+                        <div style="color: #bfbfbf;">No execution results yet. Run your code to begin.</div>
+                    {% endif %}
+                </div>
             </div>
-            {% endif %}
         </div>
 
     </div>
@@ -249,13 +271,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const javaRules = document.getElementById('java-rules');
     const terminal = document.querySelector('.terminal');
 
-    // INDENTATION LOGIC (Kept for usability)
+    // --- 1. EDITOR UTILITIES ---
     editor.addEventListener('keydown', function(e) {
         if (e.key === 'Tab') {
             e.preventDefault();
             const start = this.selectionStart;
-            const end = this.selectionEnd;
-            this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+            this.value = this.value.substring(0, start) + "    " + this.value.substring(this.selectionEnd);
             this.selectionStart = this.selectionEnd = start + 4;
         }
 
@@ -265,25 +286,45 @@ document.addEventListener('DOMContentLoaded', function() {
             const textBeforeCaret = this.value.substring(0, start);
             const lines = textBeforeCaret.split('\n');
             const currentLine = lines[lines.length - 1];
-            const matches = currentLine.match(/^(\s*)/);
-            const whitespace = matches ? matches[0] : "";
-            let extraIndent = "";
-            if (currentLine.trim().endsWith(':') || currentLine.trim().endsWith('{')) {
-                extraIndent = "    ";
-            }
+            const whitespace = currentLine.match(/^(\s*)/)[0];
+            let extraIndent = (currentLine.trim().endsWith(':') || currentLine.trim().endsWith('{')) ? "    " : "";
             const insertion = "\n" + whitespace + extraIndent;
             this.value = this.value.substring(0, start) + insertion + this.value.substring(start);
             this.selectionStart = this.selectionEnd = start + insertion.length;
         }
     });
 
-    // LANGUAGE SWITCH LOGIC (Kept for usability)
+    // --- 2. ANTI-CHEATING SUITE (Paste, Cut, Right-Click) ---
+    editor.addEventListener('paste', function(e) {
+        e.preventDefault();
+        alert("⚠️ Copy-pasting is disabled! Please type your solution manually.");
+    });
+
+    editor.addEventListener('cut', function(e) {
+        e.preventDefault();
+        alert("⚠️ Cutting code is disabled.");
+    });
+
+    editor.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        alert("⚠️ Right-click menu is disabled to ensure original work!");
+    });
+
+    editor.addEventListener('input', function(e) {
+        // Detects massive text injections (Mobile long-press or script injections)
+        if (e.inputType === 'insertFromPaste' || (e.data && e.data.length > 25)) {
+            editor.value = ""; 
+            alert("⚠️ External code block detected and cleared for academic integrity!");
+        }
+    });
+
+    // --- 3. LANGUAGE SWITCHING ---
     langSelect.addEventListener('change', function() {
         if (this.value === 'java') {
             javaInfo.style.display = 'block';
             javaRules.style.display = 'block';
             pythonRules.style.display = 'none';
-            if (editor.value.trim() === "" || editor.value.includes("# Write your code here")) {
+            if (editor.value.trim() === "" || editor.value.includes("# Start coding here")) {
                 editor.value = "public class Solution {\n    public static void main(String[] args) {\n        String input_val = args[0];\n        // Write code here\n    }\n}";
             }
         } else {
@@ -296,8 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ALL PASTE/CUT/CHEATING BLOCKERS REMOVED
-
+    // --- 4. TERMINAL BEHAVIOR ---
     if (terminal) {
         terminal.scrollTop = terminal.scrollHeight;
     }
