@@ -4,7 +4,6 @@
 <style>
     .deep-dive-container { padding: 30px; max-width: 1100px; margin: auto; }
     
-    /* Grid for Months */
     .heatmap-grid { 
         display: grid; 
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
@@ -22,7 +21,6 @@
 
     .month-name { font-weight: bold; font-size: 14px; margin-bottom: 8px; display: block; color: #333; }
 
-    /* 7 Columns for Days (Week View) */
     .days-layout { 
         display: grid; 
         grid-template-columns: repeat(7, 1fr); 
@@ -35,11 +33,10 @@
         background: #333; color: #fff; padding: 5px; border-radius: 5px; font-size: 10px; white-space: nowrap; z-index: 10; 
     }
     
-    /* Heatmap Levels */
     .level-0 { background-color: #ebedf0; }
-    .level-1 { background-color: #e9be9b; } /* 1-2 solved */
-    .level-2 { background-color: #c44092; } /* 3-5 solved */
-    .level-3 { background-color: #216e39; } /* 5+ solved */
+    .level-1 { background-color: #e9be9b; } 
+    .level-2 { background-color: #c44092; } 
+    .level-3 { background-color: #216e39; } 
 
     .problem-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 20px; }
     .p-box { padding: 8px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px; background: #e8f5e9; color: #2e7d32; text-align: center; font-weight: 500; }
@@ -50,23 +47,16 @@
     <a href="javascript:history.back()" class="btn-back">← Back to Report</a>
     
     <h2>Deep Dive: {{ user }}</h2>
-    <p>Academic Year 2026 | Total Completed: <strong>{{ solved|length }} / 90</strong></p>
+    <p>Academic Year 2025-2026 | Total Completed: <strong>{{ solved|length }} / 90</strong></p>
 
     <h3>Activity Tracker</h3>
     <div class="heatmap-grid">
-    {% set months = [
-        ("Jan", 31), ("Feb", 28), ("Mar", 31), ("Apr", 30), 
-        ("May", 31), ("Jun", 30), ("Jul", 31), ("Aug", 31), 
-        ("Sep", 30), ("Oct", 31), ("Nov", 30), ("Dec", 31)
-    ] %}
-
-    {% for name, days in months %}
-        {% set month_num = loop.index %} {# Explicitly capture the month number here #}
+        
         <div class="month-card">
-            <span class="month-name">{{ name }}</span>
+            <span class="month-name">Dec 2025</span>
             <div class="days-layout">
-                {% for day in range(1, days + 1) %}
-                    {% set date_str = "2026-" ~ "%02d"|format(month_num) ~ "-" ~ "%02d"|format(day) %}
+                {% for day in range(24, 32) %}
+                    {% set date_str = "2025-12-" ~ "%02d"|format(day) %}
                     {% set count = heatmap.get(date_str, 0) %}
                     
                     {% set level = "level-0" %}
@@ -78,8 +68,34 @@
                 {% endfor %}
             </div>
         </div>
-    {% endfor %}
-</div>
+
+        {% set months_2026 = [
+            ("Jan", 31), ("Feb", 28), ("Mar", 31), ("Apr", 30), 
+            ("May", 31), ("Jun", 30), ("Jul", 31), ("Aug", 31), 
+            ("Sep", 30), ("Oct", 31), ("Nov", 30), ("Dec", 31)
+        ] %}
+
+        {% for name, days in months_2026 %}
+            {% set month_num = loop.index %}
+            <div class="month-card">
+                <span class="month-name">{{ name }} 2026</span>
+                <div class="days-layout">
+                    {% for day in range(1, days + 1) %}
+                        {% set date_str = "2026-" ~ "%02d"|format(month_num) ~ "-" ~ "%02d"|format(day) %}
+                        {% set count = heatmap.get(date_str, 0) %}
+                        
+                        {% set level = "level-0" %}
+                        {% if count > 0 and count <= 2 %}{% set level = "level-1" %}
+                        {% elif count > 2 and count <= 5 %}{% set level = "level-2" %}
+                        {% elif count > 5 %}{% set level = "level-3" %}{% endif %}
+
+                        <div class="day-box {{ level }}" title="{{ date_str }}: {{ count }} solved"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
     <h3>List of Completed Problems</h3>
     <div class="problem-list">
         {% for pid in solved %}
