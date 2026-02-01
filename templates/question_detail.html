@@ -13,21 +13,21 @@
     }
 
     .coding-environment {
-        padding: 20px;
+        padding: 15px;
         background-color: #f0f2f5;
-        height: calc(100vh - 80px); 
+        height: calc(100vh - 70px); 
         display: flex;
         flex-direction: column;
         overflow: hidden; 
-        font-family: 'Inter', -apple-system, sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
-    /* Anti-Cheating Alert Overlay */
+    /* ANTI-CHEATING & SCREENSHOT GUARD */
     #cheating-overlay {
         display: none;
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85);
+        background: rgba(0,0,0,0.9);
         color: white;
         z-index: 9999;
         flex-direction: column;
@@ -36,121 +36,82 @@
         text-align: center;
     }
 
+    .blur-guard {
+        filter: blur(25px);
+        pointer-events: none;
+        user-select: none;
+    }
+
     .split-container {
-        display: flex;
-        gap: 16px; 
+        display: flex; gap: 12px; flex: 1; width: 100%; overflow: hidden; 
+    }
+
+    /* LEFT COLUMN: DESCRIPTION + TERMINAL */
+    .left-column {
         flex: 1;
-        max-width: 1850px;
-        margin: 0 auto;
-        width: 100%;
-        overflow: hidden; 
-    }
-
-    /* LEFT PANE: PROBLEM DESCRIPTION */
-    .description-side {
-        flex: 1;
-        background: #ffffff;
-        padding: 35px;
-        border-radius: 12px;
-        border: 1px solid var(--lc-border);
-        overflow-y: auto; 
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-    }
-
-    .description-side h2 {
-        font-size: 1.85rem;
-        font-weight: 800;
-        color: #1a1a1a;
-        margin-bottom: 12px;
-    }
-
-    .difficulty-tag {
-        display: inline-flex;
-        background: #fff7ed;
-        color: var(--lc-orange); 
-        padding: 5px 14px;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-bottom: 25px;
-        width: fit-content;
-    }
-
-    .content-body {
-        line-height: 1.8;
-        font-size: 1.05rem;
-        color: #374151;
-        white-space: pre-wrap;
-    }
-
-    /* INSTRUCTION DESIGN */
-    .setup-instructions {
-        margin-top: 30px;
-        padding: 25px;
-        background: #f0fdf4;
-        border-left: 8px solid var(--lc-green);
-        border-radius: 12px;
-    }
-
-    .setup-instructions h4 {
-        color: #166534;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1.15rem;
-    }
-
-    .setup-instructions li {
-        margin-bottom: 10px;
-        color: #14532d;
-        font-size: 0.95rem;
-        list-style: none;
-    }
-
-    .setup-instructions code {
-        background: #d1fae5;
-        color: #065f46;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-weight: 700;
-        font-family: 'Fira Code', monospace;
-    }
-
-    .test-case-info {
-        margin-top: 20px;
-        padding: 20px;
-        background: #f8fafc;
-        border: 1px solid var(--lc-border);
-        border-radius: 12px;
-    }
-
-    /* RIGHT PANE: EDITOR & TERMINAL */
-    .editor-side {
-        flex: 1.6; 
         display: flex;
         flex-direction: column;
         gap: 12px;
         height: 100%;
+        overflow: hidden;
+    }
+
+    .description-side {
+        flex: 1.8;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid var(--lc-border);
+        overflow-y: auto;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .setup-instructions {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f0fdf4;
+        border-left: 4px solid var(--lc-green);
+        border-radius: 8px;
+    }
+
+    .setup-instructions h4 {
+        color: #166534;
+        margin: 0 0 10px 0;
+        font-size: 1rem;
+    }
+
+    .terminal {
+        flex: 1.2;
+        background: white;
+        border: 1px solid var(--lc-border);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* RIGHT COLUMN: FULL HEIGHT EDITOR */
+    .editor-side {
+        flex: 1.5; 
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .editor-wrapper {
-        flex: 2.8; 
+        flex: 1;
         display: flex;
         flex-direction: column;
         background: #1e1e1e;
         border-radius: 12px;
         overflow: hidden;
         border: 1px solid #333;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .editor-header {
         background: #2d2d2d;
-        padding: 12px 24px;
+        padding: 10px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -162,29 +123,17 @@
         background: var(--editor-bg);
         color: #e6edf3;
         font-family: 'Fira Code', 'Cascadia Code', monospace;
-        padding: 25px;
+        padding: 20px;
         border: none;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         line-height: 1.6;
         outline: none;
         resize: none;
     }
 
-    /* TERMINAL */
-    .terminal {
-        flex: 0.9; 
-        background: white;
-        border: 2px solid var(--lc-border);
-        border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        margin-bottom: 40px; 
-    }
-
     .terminal-header {
         background: #f8fafc;
-        padding: 10px 24px;
+        padding: 10px 20px;
         font-weight: 800;
         font-size: 0.85rem;
         color: #475569;
@@ -192,63 +141,75 @@
     }
 
     .output-text {
-        padding: 20px;
-        font-family: 'Fira Code', monospace;
-        font-size: 1rem;
-        white-space: pre-wrap; 
+        padding: 15px;
         overflow-y: auto;
+        flex: 1;
     }
-
-    .status-success { color: #16a34a; font-weight: 800; }
-    .status-failed { color: #dc2626; font-weight: 800; }
 
     .run-btn {
         background: var(--lc-green);
         color: white;
-        padding: 10px 30px;
-        border-radius: 8px;
+        padding: 8px 24px;
+        border-radius: 6px;
         font-weight: 800;
         border: none;
         cursor: pointer;
     }
 
-    .footer-guard {
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f0f2f5;
-        font-size: 0.8rem;
-        color: #94a3b8;
+    @media (max-width: 992px) {
+        .coding-environment { height: auto; overflow-y: auto; }
+        .split-container { flex-direction: column; }
+        .left-column, .editor-side { height: auto; width: 100%; }
+        .editor-wrapper { height: 500px; }
+        .terminal { height: 400px; margin-bottom: 50px; }
     }
 </style>
 
 <div id="cheating-overlay">
     <h1 style="font-size: 3rem;">⚠️ WARNING</h1>
-    <p style="font-size: 1.5rem; max-width: 600px;">Switching tabs or screens is strictly prohibited during the assessment. Your activity has been logged.</p>
-    <button onclick="document.getElementById('cheating-overlay').style.display='none'" class="run-btn" style="margin-top: 20px;">Return to Test</button>
+    <p style="font-size: 1.5rem;">Tab switching detected. Your code has been cleared.</p>
+    <button onclick="document.getElementById('cheating-overlay').style.display='none'" class="run-btn" style="margin-top: 20px;">I Understand</button>
 </div>
 
-<div class="coding-environment" oncontextmenu="return false;"> <div class="split-container">
+<div class="coding-environment" id="main-content" oncontextmenu="return false;"> 
+    <div class="split-container">
         
-        <div class="description-side">
-            <div class="difficulty-tag">Challenge 2026</div>
-            <h2>{{ question.title }}</h2>
-            <hr style="border: 0; border-top: 1px solid #f1f5f9; margin-bottom: 25px;">
-            <div class="content-body">{{ question.content }}</div>
+        <div class="left-column">
+            <div class="description-side">
+                <div style="background:#fff7ed; color:var(--lc-orange); padding:4px 10px; border-radius:4px; font-size:0.75rem; font-weight:700; margin-bottom:15px; display:inline-block;">CHALLENGE 2026</div>
+                <h2 style="margin:0 0 10px 0;">{{ question.title }}</h2>
+                <hr style="border: 0; border-top: 1px solid #f1f5f9; margin-bottom: 20px;">
+                <div class="content-body" style="white-space: pre-wrap; line-height:1.7; color:#374151;">{{ question.content }}</div>
 
-            <div class="setup-instructions">
-                <h4>🚀 How Your Code Is Executed:</h4>
-                <div id="lang-instructions"></div>
+                <div class="setup-instructions">
+                    <h4>🚀 How Your Code Is Executed:</h4>
+                    <div id="lang-instructions"></div>
+                </div>
             </div>
 
-            <div class="test-case-info">
-                <h4 style="color:#334155; margin-bottom:10px;">📊 Test Case Policy</h4>
-                <ul style="padding-left: 20px; font-size: 0.9rem; color: #475569;">
-                    <li>Inputs are hidden and stored in the database.</li>
-                    <li>Program will run against multiple test cases via STDIN.</li>
-                    <li>Output must match expected output exactly.</li>
-                </ul>
+            <div class="terminal">
+                <div class="terminal-header">● Execution Console Result</div>
+                <div class="output-text" id="terminal-output">
+                    <div id="results-container">
+                        {% if test_results %}
+                            {% for res in test_results %}
+                                <details style="margin-bottom: 8px; border: 1px solid {{ '#d1fae5' if res.passed else '#fee2e2' }}; border-radius: 6px;" {{ 'open' if not res.passed else '' }}>
+                                    <summary style="padding: 10px; background: {{ '#f0fdf4' if res.passed else '#fef2f2' }}; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style:none;">
+                                        <span style="font-weight: bold; color: {{ '#16a34a' if res.passed else '#dc2626' }};">{{ '✅' if res.passed else '❌' }} Case {{ loop.index }}</span>
+                                        <span style="font-size: 0.75rem; color: #64748b;">Details ▾</span>
+                                    </summary>
+                                    <div style="padding: 12px; background: #fff; font-family: 'Fira Code', monospace; font-size: 0.8rem; border-top: 1px solid #eee; line-height: 1.5;">
+                                        <div><strong>Input:</strong> {{ res.input }}</div>
+                                        <div><strong>Expected:</strong> <span style="color: #16a34a;">{{ res.expected }}</span></div>
+                                        <div><strong>Actual:</strong> <span style="color: {{ '#16a34a' if res.passed else '#dc2626' }};">{{ res.actual }}</span></div>
+                                    </div>
+                                </details>
+                            {% endfor %}
+                        {% else %}
+                            <span style="color: #94a3b8; font-style: italic; font-size:0.9rem;">Submit code to see test results...</span>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -258,33 +219,15 @@
                     <select name="lang_choice" id="lang_choice" style="background:#444; color:#fff; border:none; padding:6px 12px; border-radius:6px; font-weight:700;">
                         <option value="python">Python 3.11</option>
                         <option value="cpp">C++ 20</option>
-                        <option value="c">C (GCC 13)</option>
                         <option value="java">Java 21</option>
-                        <option value="javascript">JavaScript (Node.js)</option> </select>
+                        <option value="javascript">JavaScript</option> 
+                    </select>
                     <button type="submit" class="run-btn">Run & Submit</button>
                 </div>
                 <textarea name="user_code" id="editor" spellcheck="false" autocomplete="off" onpaste="return false">{{ user_code if user_code else "" }}</textarea>
             </form>
-
-            <div class="terminal">
-                <div class="terminal-header">
-                    <span style="color:var(--lc-green)">●</span> Execution Console Result
-                </div>
-                <div class="output-text" id="terminal-output">
-                    {% if output %}
-                        <div class="{% if 'FAILED' in output %}status-failed{% else %}status-success{% endif %}">
-                            {% if 'FAILED' in output %}❌ FAILED{% else %}✅ SUCCESS{% endif %}
-                        </div>
-                        <div style="margin-top: 8px;">{{ output }}</div>
-                    {% else %}
-                        <span style="color: #94a3b8; font-style: italic;">Awaiting student code results...</span>
-                    {% endif %}
-                </div>
-            </div>
         </div>
-    </div>
-    <div class="footer-guard">
-        © 2026 Kamaraj College - Computer Science Department
+
     </div>
 </div>
 
@@ -293,91 +236,100 @@
         const editor = document.getElementById('editor');
         const langSelect = document.getElementById('lang_choice');
         const instContainer = document.getElementById('lang-instructions');
-        const cheatingOverlay = document.getElementById('cheating-overlay');
+        const mainContent = document.getElementById('main-content');
+        const overlay = document.getElementById('cheating-overlay');
 
-        /* --- ANTI-CHEATING: TAB SWITCHING --- */
-        let tabSwitchCount = 0;
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                tabSwitchCount++;
-                console.warn(`Tab switched ${tabSwitchCount} times`);
-                cheatingOverlay.style.display = 'flex';
-            }
-        });
-
-        /* --- ANTI-CHEATING: PREVENT KEYBOARD COPY/PASTE --- */
-        editor.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'v' || e.key === 'V')) {
-                e.preventDefault();
-                alert("Pasting code is not allowed!");
-            }
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C')) {
-                e.preventDefault();
-                alert("Copying code is not allowed!");
-            }
-        });
+        window.lastLen = editor.value.length;
 
         const configs = {
-            python: {
-                inst: `<li>• Read input using <code>input()</code></li><li>• Print output using <code>print()</code></li>`,
-                code: "import sys\n\ndef main():\n    # s = input()\n    # print(s)\n    pass\n\nif __name__ == '__main__':\n    main()"
+            python: { 
+                inst: `<ul style="list-style:disc; padding-left:20px;"><li>Use <code>input()</code> and <code>print()</code></li></ul>`, 
+                code: "def solve():\n    # code here\n    pass\n\nif __name__ == '__main__':\n    solve()" 
             },
-            java: {
-                inst: `<li>• Class name must be <strong>Solution</strong></li><li>• Use <code>Scanner(System.in)</code></li><li>• Entry: <code>public static void main(String[] args)</code></li>`,
-                code: "import java.util.*;\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your logic here\n    }\n}"
+            java: { 
+                inst: `<ul style="list-style:disc; padding-left:20px;"><li>Class MUST be named <strong>Solution</strong></li><li>Print: <code>System.out.println()</code></li></ul>`, 
+                code: "import java.util.*;\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n    }\n}" 
             },
-            cpp: {
-                inst: `<li>• Entry point: <code>int main()</code></li><li>• Use <code>cin</code> and <code>cout</code></li>`,
-                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Write your logic here\n    return 0;\n}"
+            cpp: { 
+                inst: `<ul style="list-style:disc; padding-left:20px;"><li>Use <code>cin</code> / <code>cout</code></li></ul>`, 
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    return 0;\n}" 
             },
-            c: {
-                inst: `<li>• Entry point: <code>int main()</code></li><li>• Use <code>scanf</code> and <code>printf</code></li>`,
-                code: "#include <stdio.h>\n\nint main() {\n    // Write your logic here\n    return 0;\n}"
-            },
-            javascript: {
-                inst: `<li>• Read input using <code>fs.readFileSync(0, "utf8")</code></li><li>• Output using <code>console.log</code></li>`,
-                code: "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf8');\n\nfunction solve(input) {\n    // Write your logic here\n}\n\nsolve(input);"
+            javascript: { 
+                inst: `<ul style="list-style:disc; padding-left:20px;"><li>Read: <code>fs.readFileSync(0)</code></li></ul>`, 
+                code: "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf8');" 
             }
         };
 
-        // Update Editor and Instructions
         function updateEnv(lang) {
             instContainer.innerHTML = configs[lang].inst;
-            editor.value = configs[lang].code;
+            const currentVal = editor.value.trim();
+            const isSample = Object.values(configs).some(c => c.code.trim() === currentVal);
+            
+            if(!currentVal || isSample) {
+                editor.value = configs[lang].code;
+                window.lastLen = editor.value.length;
+            }
         }
 
         langSelect.addEventListener('change', (e) => updateEnv(e.target.value));
+        updateEnv(langSelect.value);
 
-        /* --- EDITOR FUNCTIONALITY: INDENTATION --- */
+        /* --- 2. INDENTATION ENGINE --- */
         editor.addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
                 e.preventDefault();
                 const start = this.selectionStart;
-                const end = this.selectionEnd;
-                this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+                this.value = this.value.substring(0, start) + "    " + this.value.substring(this.selectionEnd);
                 this.selectionStart = this.selectionEnd = start + 4;
+                window.lastLen = this.value.length;
             }
 
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const start = this.selectionStart;
-                const textBefore = this.value.substring(0, start);
-                const currentLine = textBefore.split('\n').pop();
-                const whitespace = currentLine.match(/^(\s*)/)[0];
-                
-                let extra = (currentLine.trim().endsWith(':') || currentLine.trim().endsWith('{')) ? "    " : "";
-                const insertText = "\n" + whitespace + extra;
-                
-                this.value = this.value.substring(0, start) + insertText + this.value.substring(start);
-                this.selectionStart = this.selectionEnd = start + insertText.length;
+                const lines = this.value.substring(0, start).split('\n');
+                const lastLine = lines[lines.length - 1];
+                const indent = lastLine.match(/^(\s*)/)[0];
+                const extra = (lastLine.trim().endsWith(':') || lastLine.trim().endsWith('{')) ? "    " : "";
+                const newLine = "\n" + indent + extra;
+                this.value = this.value.substring(0, start) + newLine + this.value.substring(this.selectionEnd);
+                this.selectionStart = this.selectionEnd = start + newLine.length;
+                window.lastLen = this.value.length;
             }
         });
 
-        if(!editor.value.trim()) updateEnv(langSelect.value);
-        else instContainer.innerHTML = configs[langSelect.value].inst;
+        /* --- 3. REFINED ANTI-CHEATING (Length Jump) --- */
+        editor.addEventListener('input', () => {
+            const currentLen = editor.value.length;
+            if (currentLen - window.lastLen > 35) {
+                editor.value = editor.value.substring(0, window.lastLen);
+                alert("Large text jump detected! Pasting code is not allowed.");
+            }
+            window.lastLen = editor.value.length;
+        });
 
-        const term = document.getElementById('terminal-output');
-        if (term) term.scrollTop = term.scrollHeight;
+        /* --- 4. TAB SWITCH PROTECTION (WIPE & BLUR) --- */
+        function triggerViolation() {
+            // 1. Wipe the code
+            editor.value = "";
+            window.lastLen = 0;
+            
+            // 2. Blur and Overlay
+            mainContent.classList.add('blur-guard');
+            overlay.style.display = 'flex';
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                triggerViolation();
+            }
+        });
+
+        window.addEventListener('blur', triggerViolation);
+        
+        window.addEventListener('focus', () => {
+            // Keep the overlay up until they click "I Understand"
+        });
     });
 </script>
 {% endblock %}

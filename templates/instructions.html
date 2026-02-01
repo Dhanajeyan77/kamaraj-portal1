@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .instruction-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        min-height: 80vh;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .quadrant {
+        padding: 30px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .quadrant h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .python-q { border-left: 8px solid #3776ab; }
+    .cpp-q { border-left: 8px solid #00599c; }
+    .java-q { border-left: 8px solid #b07219; }
+    .js-q { border-left: 8px solid #f7df1e; }
+
+    pre {
+        background: #f8fafc;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: 'Fira Code', monospace;
+        font-size: 0.9rem;
+        border: 1px solid #cbd5e1;
+        color: #1e293b;
+    }
+
+    .badge-hint {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+        border-radius: 4px;
+        background: #e2e8f0;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+</style>
+
+<div class="container mt-4 mb-5">
+    <div class="text-center mb-4">
+        <h1 style="font-weight: 800;">🚀 MASTER INPUT GUIDE</h1>
+        <p class="text-muted">Pick your language and use the templates below to read system data correctly.</p>
+    </div>
+
+    <div class="instruction-grid">
+        
+        <div class="quadrant python-q">
+            <h2>🐍 Python 3.11</h2>
+            <span class="badge-hint">USE FOR: Lists, Math, Strings</span>
+            <pre><code># 1. Single Number
+n = int(input())
+
+# 2. List/Array (e.g., [1,2,3])
+arr = list(map(int, input().split()))
+
+# 3. Two Numbers (e.g., "7 3")
+a, b = map(int, input().split())
+
+# 4. Matrix (Spiral/2D)
+# System sends flat list "1 2 3 4"
+flat = list(map(int, input().split()))
+row1 = flat[0:2] # Example for 2x2</code></pre>
+        </div>
+
+        <div class="quadrant cpp-q">
+            <h2>🔵 C++ 20</h2>
+            <span class="badge-hint">USE FOR: High Performance</span>
+            <pre><code>// 1. Single or Multi Values
+int n, a, b;
+cin >> n;
+cin >> a >> b;
+
+// 2. Dynamic Array (Vector)
+int val;
+vector&lt;int&gt; v;
+while(cin >> val) {
+    v.push_back(val);
+}
+
+// 3. Matrix
+// cin automatically skips 
+// spaces and newlines!</code></pre>
+        </div>
+
+        <div class="quadrant java-q">
+            <h2>☕ Java 21</h2>
+            <span class="badge-hint">IMPORTANT: Class name must be 'Solution'</span>
+            <pre><code>import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // 1. Single Value
+        int n = sc.nextInt();
+        
+        // 2. List/Array
+        List&lt;Integer&gt; arr = new ArrayList&lt;&gt;();
+        while(sc.hasNextInt()) {
+            arr.add(sc.nextInt());
+        }
+    }
+}</code></pre>
+        </div>
+
+        <div class="quadrant js-q">
+            <h2>🟨 JavaScript</h2>
+            <span class="badge-hint">NODE.JS RUNTIME</span>
+            <pre><code>const fs = require('fs');
+
+// 1. Read Everything
+const raw = fs.readFileSync(0, 'utf8');
+
+// 2. Parse to Array of Numbers
+const arr = raw.trim().split(/\s+/).map(Number);
+
+// 3. Single Number
+const n = Number(arr[0]);
+
+// 4. Multiple Variables
+const [a, b] = arr;</code></pre>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

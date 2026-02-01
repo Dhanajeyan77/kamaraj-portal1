@@ -152,6 +152,22 @@
     .deep-dive-btn:hover {
         background: #0056b3;
     }
+
+    /* New Styling for Submission Info */
+    .sub-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    .sub-date {
+        font-weight: 700;
+        color: #475569;
+        font-size: 0.85rem;
+    }
+    .sub-time {
+        font-size: 0.75rem;
+        color: #94a3b8;
+    }
 </style>
 
 <div class="admin-container">
@@ -187,7 +203,7 @@
                     <th>Roll No</th>
                     <th>Name</th>
                     <th>Status</th>
-                    <th>Submission Time (IST)</th>
+                    <th>Submission (Date & Time)</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -201,9 +217,20 @@
                             {{ '✅ Completed' if row.status == 'Completed' else '⏳ Pending' }}
                         </span>
                     </td>
-                    <td style="color: #6c757d;">{{ row.timestamp.strftime('%I:%M %p') if row.timestamp else '---' }}</td>
+                    
                     <td>
-                        <a href="{{ url_for('admin_track', user=row.roll_no) }}" class="deep-dive-btn">
+                        {% if row.timestamp %}
+                        <div class="sub-info">
+                            <span class="sub-date">{{ row.timestamp.strftime('%d-%m-%Y') }}</span>
+                            <span class="sub-time">at {{ row.timestamp.strftime('%I:%M %p') }}</span>
+                        </div>
+                        {% else %}
+                        <span style="color: #cbd5e1; font-style: italic;">---</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="admin/track/{{ row.roll_no }}" class="deep-dive-btn">
                             📊 Deep Dive
                         </a>
                     </td>
@@ -217,7 +244,9 @@
 <script>
     function jumpDate() {
         const d = document.getElementById('cal-jump').value;
-        if(d) window.location.href = `/admin?date=${d}`;
+        if(d) {
+            window.location.href = `admin?date=${d}`;
+        }
     }
 </script>
 {% endblock %}

@@ -1,16 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Profile Status: {{ user }}</h2>
-<table style="width:100%; text-align:left; border-collapse:collapse;">
-    <tr style="background:#eee;">
-        <th style="padding:10px;">Date</th>
-        <th>Status</th>
-    </tr>
-    {% for date, status in attempts %}
-    <tr>
-        <td style="padding:10px; border-bottom:1px solid #eee;">{{ date }}</td>
-        <td style="border-bottom:1px solid #eee; color:green;">{{ status if status else 'Not Started' }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="container" style="max-width: 800px; margin: auto; padding: 20px;">
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+        Profile Status: <span style="color: #3498db;">{{ user }}</span>
+    </h2>
+    
+    <div style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; margin-top: 20px;">
+        <table style="width:100%; text-align:left; border-collapse:collapse;">
+            <thead>
+                <tr style="background:#f8f9fa; border-bottom: 2px solid #dee2e6;">
+                    <th style="padding:15px; font-weight: 600;">Challenge Date</th>
+                    <th style="padding:15px; font-weight: 600;">Submission Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for date, status in attempts %}
+                <tr>
+                    <td style="padding:15px; border-bottom:1px solid #eee; font-family: monospace;">{{ date }}</td>
+                    <td style="padding:15px; border-bottom:1px solid #eee;">
+                        {% if status == 'Success' %}
+                            <span style="color: #28a745; font-weight: bold;">✅ Completed</span>
+                        {% elif status %}
+                            <span style="color: #e74c3c; font-weight: bold;">❌ {{ status }}</span>
+                        {% else %}
+                            <span style="color: #95a5a6; font-style: italic;">Not Started</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 25px; text-align: center;">
+        <a href="/proxy/10000/questions" style="color: #3498db; text-decoration: none; font-weight: bold;">
+            &larr; Return to Challenges
+        </a>
+    </div>
+</div>
 {% endblock %}

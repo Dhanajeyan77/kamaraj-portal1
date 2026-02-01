@@ -44,12 +44,13 @@
 </style>
 
 <div class="deep-dive-container">
-    <a href="javascript:history.back()" class="btn-back">← Back to Report</a>
+    <a href="{{ url_for('admin') }}" class="btn-back">← Back to Admin Report</a>
     
     <h2>Deep Dive: {{ user }}</h2>
     <p>Academic Year 2025-2026 | Total Completed: <strong>{{ solved|length }} / 90</strong></p>
 
     <h3>Activity Tracker</h3>
+    
     <div class="heatmap-grid">
         
         <div class="month-card">
