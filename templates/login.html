@@ -75,27 +75,15 @@
         <form method="POST">
             <input type="text" name="username" placeholder="ROLL NUMBER" required>
             <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="run-btn">Enter Portal</button>
+            <button type="submit" class="run-btn">Sign-in Portal</button>
         </form>
     </div>
 
     <script>
-        // 1. Log login attempts (local console only)
+        // Log login attempts (local console only)
         document.querySelector('form').addEventListener('submit', function() {
             console.log("Login attempt: " + document.querySelector('input[name="username"]').value);
         });
-
-        // 2. Health Check: Checks every 30 seconds if the laptop/server is still online
-        setInterval(function() {
-            fetch('/health-check')
-            .then(response => {
-                if (!response.ok) throw new Error('Offline');
-            })
-            .catch(error => {
-                // This alert only triggers if the fetch fails (laptop sleeps/ngrok closes)
-                alert("The Lab Server is currently offline. Please wait or contact the admin.");
-            });
-        }, 30000); // 30,000 milliseconds = 30 seconds
     </script>
 </body>
 </html>

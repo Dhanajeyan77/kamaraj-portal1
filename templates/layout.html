@@ -79,7 +79,7 @@
                 <a href="{{ url_for('leaderboard') }}">🏆 Leaderboard</a>
                 <a href="{{ url_for('solutions') }}">My Solutions</a>
 
-                {% if session.get('user') in ['24UCS027', '24CP001'] %}
+                {% if session.get('user') in ['24UCS027', '24CP001','24CP002','24CP003','HODCSE01'] %}
                   <a href="{{ url_for('admin') }}" class="admin-link">📊 Admin Panel</a>
                 {% endif %}
 

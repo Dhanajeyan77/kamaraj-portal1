@@ -219,23 +219,28 @@ def instructions():
     
     # This renders the quadrant HTML we designed
     return render_template("instructions.html")
-
 @app.route("/leaderboard")
 def leaderboard():
     if "user" not in session:
         return redirect(url_for("login"))
     conn = get_db_connection()
     try:
-        cur = conn.cursor()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        # Added join to users table to get Section and Name
         cur.execute("""
-            SELECT username, COUNT(DISTINCT problem_id) total
-            FROM submissions WHERE status='Success'
-            GROUP BY username ORDER BY total DESC
+            SELECT u.roll_no, u.name, u.section, COUNT(DISTINCT s.problem_id) total
+            FROM users u
+            LEFT JOIN submissions s ON u.roll_no = s.username AND s.status='Success'
+            WHERE u.flag = 0
+            GROUP BY u.roll_no, u.name, u.section 
+            ORDER BY total DESC, u.roll_no ASC
+            LIMIT 5
         """)
         rankings = cur.fetchall()
     finally:
         release_db_connection(conn)
     return render_template("leaderboard.html", rankings=rankings)
+
 
 @app.route("/solutions")
 def solutions():
@@ -265,6 +270,7 @@ def admin():
     if not session.get("is_admin"): 
         return redirect(url_for("home"))
     
+    admin_id = session.get("user")
     from datetime import datetime
     # IST is your defined timezone object
     today_str = datetime.now(IST).strftime('%Y-%m-%d')
@@ -278,12 +284,29 @@ def admin():
         cur.execute("SELECT id, title, date FROM questions WHERE date = %s LIMIT 1", (selected_date,))
         q_info = cur.fetchone()
         
+        # --- DYNAMIC SECTION & FILTER LOGIC ---
+        if admin_id == '24UCS027' or admin_id =='HODCSE01':
+            filter_condition = "u.flag = 0"
+            params = (q_info['id'] if q_info else 0,)
+            display_name = "All Sections"
+        else:
+            # Chairperson view: Map ID to flag1
+            # C=0, B=2, A=3
+            view_map = {'24CP001': 0, '24CP002': 2, '24CP003': 3}
+            section_names = {0: 'CSE-C', 2: 'CSE-B', 3: 'CSE-A'}
+            
+            target_flag1 = view_map.get(admin_id, 0)
+            filter_condition = "u.flag = 0 AND u.flag1 = %s"
+            params = (q_info['id'] if q_info else 0, target_flag1)
+            display_name = section_names.get(target_flag1, "Unknown Section")
+
         # 3. Attendance Query
         # We look for a 'Success' status for the specific problem_id linked to that date
-        query = """
+        query = f"""
             SELECT 
                 u.roll_no, 
                 u.name,
+                u.section,
                 CASE 
                     WHEN s.status = 'Success' THEN 'Completed'
                     ELSE 'Pending'
@@ -296,18 +319,23 @@ def admin():
                 WHERE problem_id = %s AND status = 'Success'
                 ORDER BY username, created_at ASC
             ) s ON u.roll_no = s.username
-            WHERE u.flag = 0 
+            WHERE {filter_condition}
             ORDER BY u.roll_no ASC
         """
-        # If no question exists for that date, problem_id is set to 0
-        cur.execute(query, (q_info['id'] if q_info else 0,))
+        
+        cur.execute(query, params)
         report = cur.fetchall()
+        student_count = len(report)
         
     finally: 
         release_db_connection(conn)
 
-    return render_template("admin.html", report=report, q_info=q_info, selected_date=selected_date)
-
+    return render_template("admin.html", 
+                           report=report, 
+                           q_info=q_info, 
+                           selected_date=selected_date, 
+                           count=student_count, 
+                           section_name=display_name)
 
 
 @app.route("/admin/track/<roll_no>")
@@ -316,14 +344,26 @@ def admin_track(roll_no):
         return redirect(url_for("home"))
     
     conn = get_db_connection()
+    solved_data = [] 
+    heatmap = {}
+    
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         
-        # 1. Count DISTINCT solved problems for the Leaderboard/Total
-        cur.execute("SELECT DISTINCT problem_id FROM submissions WHERE username=%s AND status='Success'", (roll_no,))
-        solved_ids = [r['problem_id'] for r in cur.fetchall()]
+        # 1. Fetch solved problems JOINED with questions to get the title
+        cur.execute("""
+            SELECT DISTINCT ON (s.problem_id) 
+                q.title, 
+                s.language, 
+                s.created_at 
+            FROM submissions s
+            JOIN questions q ON s.problem_id = q.id
+            WHERE s.username = %s AND s.status = 'Success'
+            ORDER BY s.problem_id, s.created_at DESC
+        """, (roll_no,))
+        solved_data = cur.fetchall() 
         
-        # 2. Heatmap Data: Count how many unique problems solved per day
+        # 2. Heatmap Data (Keep this as is)
         heatmap_query = """
             SELECT TO_CHAR(created_at, 'YYYY-MM-DD') as sub_date, 
                    COUNT(DISTINCT problem_id) as daily_count
@@ -332,13 +372,12 @@ def admin_track(roll_no):
             GROUP BY sub_date
         """
         cur.execute(heatmap_query, (roll_no,))
-        # Convert to dictionary for the frontend: {'2026-02-01': 5, '2026-02-02': 2}
         heatmap = {r['sub_date']: r['daily_count'] for r in cur.fetchall()}
         
     finally:
         release_db_connection(conn)
         
-    return render_template("admin_use_detail.html", user=roll_no, solved=solved_ids, heatmap=heatmap)
+    return render_template("admin_use_detail.html", user=roll_no, solved=solved_data, heatmap=heatmap)
 
 @app.route("/logout")
 def logout():

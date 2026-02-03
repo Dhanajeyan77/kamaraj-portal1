@@ -1,0 +1,68 @@
+[2026-02-03 15:26:15 +0000] [314543] [INFO] Starting gunicorn 21.2.0
+[2026-02-03 15:26:15 +0000] [314543] [INFO] Listening at: http://0.0.0.0:8000 (314543)
+[2026-02-03 15:26:15 +0000] [314543] [INFO] Using worker: sync
+[2026-02-03 15:26:15 +0000] [314545] [INFO] Booting worker with pid: 314545
+[2026-02-03 15:26:16 +0000] [314546] [INFO] Booting worker with pid: 314546
+[2026-02-03 15:26:16 +0000] [314553] [INFO] Booting worker with pid: 314553
+[2026-02-03 15:26:16 +0000] [314560] [INFO] Booting worker with pid: 314560
+[2026-02-03 15:26:16 +0000] [314561] [INFO] Booting worker with pid: 314561
+[2026-02-03 15:26:16 +0000] [314574] [INFO] Booting worker with pid: 314574
+[2026-02-03 15:26:16 +0000] [314581] [INFO] Booting worker with pid: 314581
+[2026-02-03 15:26:16 +0000] [314588] [INFO] Booting worker with pid: 314588
+[2026-02-03 15:26:52 +0000] [314812] [INFO] Starting gunicorn 21.2.0
+[2026-02-03 15:26:52 +0000] [314812] [INFO] Listening at: http://0.0.0.0:10000 (314812)
+[2026-02-03 15:26:52 +0000] [314812] [INFO] Using worker: sync
+[2026-02-03 15:26:52 +0000] [314814] [INFO] Booting worker with pid: 314814
+[2026-02-03 15:26:52 +0000] [314815] [INFO] Booting worker with pid: 314815
+[2026-02-03 15:26:52 +0000] [314816] [INFO] Booting worker with pid: 314816
+[2026-02-03 15:26:52 +0000] [314817] [INFO] Booting worker with pid: 314817
+[2026-02-03 15:26:52 +0000] [314830] [INFO] Booting worker with pid: 314830
+[2026-02-03 15:26:53 +0000] [314843] [INFO] Booting worker with pid: 314843
+[2026-02-03 15:26:53 +0000] [314850] [INFO] Booting worker with pid: 314850
+[2026-02-03 15:26:53 +0000] [314851] [INFO] Booting worker with pid: 314851
+[2026-02-03 15:30:21 +0000] [314546] [INFO] Worker exiting (pid: 314546)
+[2026-02-03 15:30:21 +0000] [314851] [INFO] Worker exiting (pid: 314851)
+[2026-02-03 15:30:21 +0000] [314561] [INFO] Worker exiting (pid: 314561)
+[2026-02-03 15:30:21 +0000] [314815] [INFO] Worker exiting (pid: 314815)
+[2026-02-03 15:30:21 +0000] [314545] [INFO] Worker exiting (pid: 314545)
+[2026-02-03 15:30:21 +0000] [314814] [INFO] Worker exiting (pid: 314814)
+[2026-02-03 15:30:21 +0000] [314581] [INFO] Worker exiting (pid: 314581)
+[2026-02-03 15:30:21 +0000] [314817] [INFO] Worker exiting (pid: 314817)
+[2026-02-03 15:30:21 +0000] [314553] [INFO] Worker exiting (pid: 314553)
+[2026-02-03 15:30:21 +0000] [314843] [INFO] Worker exiting (pid: 314843)
+[2026-02-03 15:30:21 +0000] [314816] [INFO] Worker exiting (pid: 314816)
+[2026-02-03 15:30:21 +0000] [314560] [INFO] Worker exiting (pid: 314560)
+[2026-02-03 15:30:21 +0000] [314830] [INFO] Worker exiting (pid: 314830)
+[2026-02-03 15:30:21 +0000] [314812] [INFO] Handling signal: term
+[2026-02-03 15:30:21 +0000] [314574] [INFO] Worker exiting (pid: 314574)
+[2026-02-03 15:30:21 +0000] [314850] [INFO] Worker exiting (pid: 314850)
+[2026-02-03 15:30:21 +0000] [314588] [INFO] Worker exiting (pid: 314588)
+[2026-02-03 15:30:21 +0000] [314543] [INFO] Handling signal: term
+[2026-02-03 15:30:21 +0000] [314812] [ERROR] Worker (pid:314817) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314546) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314812] [ERROR] Worker (pid:314814) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314812] [ERROR] Worker (pid:314816) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314812] [ERROR] Worker (pid:314843) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314812] [ERROR] Worker (pid:314830) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314581) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314812] [ERROR] Worker (pid:314815) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314574) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314588) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314553) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314560) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314812] [ERROR] Worker (pid:314851) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314545) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314543] [ERROR] Worker (pid:314561) was sent SIGTERM!
+[2026-02-03 15:30:21 +0000] [314812] [INFO] Shutting down: Master
+[2026-02-03 15:30:21 +0000] [314543] [INFO] Shutting down: Master
+[2026-02-03 15:30:31 +0000] [315979] [INFO] Starting gunicorn 21.2.0
+[2026-02-03 15:30:31 +0000] [315979] [INFO] Listening at: http://0.0.0.0:10000 (315979)
+[2026-02-03 15:30:31 +0000] [315979] [INFO] Using worker: sync
+[2026-02-03 15:30:31 +0000] [315981] [INFO] Booting worker with pid: 315981
+[2026-02-03 15:30:31 +0000] [315982] [INFO] Booting worker with pid: 315982
+[2026-02-03 15:30:31 +0000] [315983] [INFO] Booting worker with pid: 315983
+[2026-02-03 15:30:31 +0000] [315984] [INFO] Booting worker with pid: 315984
+[2026-02-03 15:30:31 +0000] [315985] [INFO] Booting worker with pid: 315985
+[2026-02-03 15:30:31 +0000] [316006] [INFO] Booting worker with pid: 316006
+[2026-02-03 15:30:31 +0000] [316017] [INFO] Booting worker with pid: 316017
+[2026-02-03 15:30:31 +0000] [316028] [INFO] Booting worker with pid: 316028

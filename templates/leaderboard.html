@@ -5,7 +5,7 @@
     /* Styling to match your professional theme */
     .leaderboard-container { 
         padding: 20px; 
-        max-width: 900px; 
+        max-width: 1000px; 
         margin: auto; 
     }
     
@@ -28,6 +28,20 @@
     .rank-2 { background-color: #f1f1f1; }
     .rank-3 { background-color: #fff5e6; }
 
+    /* Section Badges for the Fight */
+    .badge-section {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+        display: inline-block;
+    }
+    .section-A { background-color: #e74c3c; } /* Red */
+    .section-B { background-color: #3498db; } /* Blue */
+    .section-C { background-color: #2ecc71; } /* Green */
+
     .btn-back { 
         display: inline-block; 
         margin-bottom: 20px; 
@@ -37,6 +51,11 @@
         transition: 0.2s;
     }
     .btn-back:hover { color: #2980b9; }
+
+    .solved-count {
+        font-size: 1.1rem;
+        color: #2c3e50;
+    }
 </style>
 
 <div class="leaderboard-container">
@@ -51,7 +70,9 @@
             <thead>
                 <tr>
                     <th>Rank</th>
+                    <th>Name</th>
                     <th>Roll Number</th>
+                    <th>Section</th>
                     <th>Problems Solved</th>
                 </tr>
             </thead>
@@ -61,14 +82,21 @@
                     <td>
                         {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}{{ loop.index }}{% endif %}
                     </td>
-                    <td style="font-family: monospace; font-weight: 600;">{{ row[0] }}</td>
+                    <td style="font-weight: 600; color: #34495e;">{{ row['name'] }}</td>
+                    <td style="font-family: monospace; font-weight: 600; color: #7f8c8d;">{{ row['roll_no'] }}</td>
                     <td>
-                        <strong>{{ row[1] }}</strong> <span style="color: #7f8c8d; font-size: 0.8rem;">/ 90</span>
+                        <span class="badge-section section-{{ row['section'] }}">
+                            {{ row['section'] }}
+                        </span>
+                    </td>
+                    <td>
+                        <strong class="solved-count">{{ row['total'] }}</strong> 
+                        <span style="color: #bdc3c7; font-size: 0.8rem;">/ 90</span>
                     </td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 30px; color: #95a5a6;">
+                    <td colspan="5" style="text-align: center; padding: 30px; color: #95a5a6;">
                         No submissions found yet. Be the first!
                     </td>
                 </tr>

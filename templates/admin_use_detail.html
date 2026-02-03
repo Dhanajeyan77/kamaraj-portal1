@@ -96,14 +96,21 @@
             </div>
         {% endfor %}
     </div>
-
+    
     <h3>List of Completed Problems</h3>
-    <div class="problem-list">
-        {% for pid in solved %}
-            <div class="p-box">✅ Problem #{{ pid }}</div>
-        {% else %}
-            <p>No problems solved yet.</p>
-        {% endfor %}
+    <div class="solved-list">
+    {% for item in solved %}
+        <div class="problem-card">
+        ✅ <strong>{{ item.title }}</strong> 
+        <span class="badge" style="background: #eee; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-left: 10px;">
+            {{ item.language | upper }}
+        </span>
+        </div>
+    {% else %}
+        <p>No problems solved yet.</p>
+    {% endfor %}
     </div>
+    
+
 </div>
 {% endblock %}

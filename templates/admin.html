@@ -137,6 +137,19 @@
         color: #856404;
     }
 
+    /* Section Badge Styling for Multi-Class View */
+    .badge-section {
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: white;
+        text-transform: uppercase;
+    }
+    .section-A { background-color: #e74c3c; }
+    .section-B { background-color: #3498db; }
+    .section-C { background-color: #2ecc71 ; }
+
     /* Analytics Button */
     .deep-dive-btn {
         background: #007bff;
@@ -173,8 +186,8 @@
 <div class="admin-container">
     <div class="admin-header">
         <div class="header-main">
-            <h2>Class Progress Report</h2>
-            <p>Viewing Task for: <strong>{{ q_info.date if q_info else selected_date }}</strong></p>
+            <h2>Class Progress Report: <span style="color: #007bff;">{{ section_name if section_name else "Overall" }}</span></h2>
+            <p>Viewing Task for: <strong>{{ q_info.title if q_info else "No Task Assigned" }}</strong> ({{ selected_date }})</p>
         </div>
         
         <div class="admin-nav">
@@ -188,11 +201,11 @@
     <div class="stats-cards">
         <div class="card">
             <h3>Total Students</h3>
-            <p>{{ report|length }}</p>
+            <p>{{ count if count else report|length }}</p>
         </div>
         <div class="card success-card">
             <h3>Completed Tasks</h3>
-            <p>{{ report|selectattr('status', 'equalto', 'Completed')|list|length }} / {{ report|length }}</p>
+            <p>{{ report|selectattr('status', 'equalto', 'Completed')|list|length }} / {{ count if count else report|length }}</p>
         </div>
     </div>
 
@@ -202,6 +215,7 @@
                 <tr>
                     <th>Roll No</th>
                     <th>Name</th>
+                    <th>Section</th>
                     <th>Status</th>
                     <th>Submission (Date & Time)</th>
                     <th>Actions</th>
@@ -212,6 +226,11 @@
                 <tr>
                     <td style="font-weight: 600; color: #007bff;">{{ row.roll_no }}</td>
                     <td>{{ row.name }}</td>
+                    <td>
+                        <span class="badge-section section-{{ row.section }}">
+                            {{ row.section }}
+                        </span>
+                    </td>
                     <td>
                         <span class="status-badge {{ 'success' if row.status == 'Completed' else 'pending' }}">
                             {{ '✅ Completed' if row.status == 'Completed' else '⏳ Pending' }}
