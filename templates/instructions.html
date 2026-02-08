@@ -99,20 +99,22 @@ while(cin >> val) {
 
         <div class="quadrant java-q">
             <h2>☕ Java 21</h2>
-            <span class="badge-hint">IMPORTANT: Class name must be 'Solution'</span>
-            <pre><code>import java.util.*;
-
-public class Solution {
+            <span class="badge-hint">NEW RULE: DO NOT USE SCANNER</span>
+            <pre><code>public class Solution {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        // System sends data via Command Line Arguments
         
         // 1. Single Value
-        int n = sc.nextInt();
+        int n = Integer.parseInt(args[0]);
         
-        // 2. List/Array
-        List&lt;Integer&gt; arr = new ArrayList&lt;&gt;();
-        while(sc.hasNextInt()) {
-            arr.add(sc.nextInt());
+        // 2. Multiple Values (e.g., "7 3")
+        int a = Integer.parseInt(args[0]);
+        int b = Integer.parseInt(args[1]);
+        
+        // 3. List/Array
+        // args contains all numbers directly
+        for(String s : args) {
+            int val = Integer.parseInt(s);
         }
     }
 }</code></pre>

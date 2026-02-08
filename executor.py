@@ -49,18 +49,18 @@ def run_code(language, code, test_cases):
                 f"/tmp/solution.out"
             ]
         elif language == "java":
-            with open(os.path.join(tmp_run_dir, "Solution.java"), "w") as f:
+            source_file_path = os.path.join(tmp_run_dir, "Solution.java")
+            with open(source_file_path, "w") as f:
                 f.write(code)
             
-            java_bin = "/usr/lib/jvm/java-21-openjdk-amd64/bin"
-            java_lib = "/usr/lib/jvm/java-21-openjdk-amd64/lib"
-            
-            run_cmd = [
-                "/bin/sh", "-c", 
-                f"export LD_LIBRARY_PATH={java_lib}/server:{java_lib} && "
-                f"{java_bin}/javac Solution.java -d /tmp && "
-                f"{java_bin}/java -Xmx256m -cp /tmp Solution"
-            ]
+            java_home = "/usr/lib/jvm/java-21-openjdk-amd64"
+            # 🔥 Command template for args[] injection
+            java_run_template = (
+                f"export LD_LIBRARY_PATH={java_home}/lib/jli:{java_home}/lib:{java_home}/lib/server && "
+                f"{java_home}/bin/javac Solution.java && "
+                f"{java_home}/bin/java -Xmx512m -cp . Solution "
+            )
+            run_cmd = []
 
         elif language == "python":
             with open(os.path.join(tmp_run_dir, "s.py"), "w") as f:
@@ -72,35 +72,42 @@ def run_code(language, code, test_cases):
                 f.write(code)
             run_cmd = ["/usr/bin/node", "/app/solution.js"]
 
-        # Determine config file
         config_name = "javascript" if language == "javascript" else language
         config_path = os.path.join(BASE_DIR, "configs", f"{config_name}.cfg")
         
         jail_cmd_base = [
             NSJAIL_BIN, 
             "--config", config_path,
-            "--bindmount_ro", f"{tmp_run_dir}:/app",
+            "--bindmount", f"{tmp_run_dir}:/app",
             "--cwd", "/app",
             "--"
-        ] + run_cmd
+        ]
 
-        # --- PHASE 3: EXECUTION LOOP (CLEANED) ---
+        # --- PHASE 3: EXECUTION LOOP ---
         for test in test_cases:
             try:
                 raw_input = test['input_data']
                 formatted_input = str(raw_input).replace('[', '').replace(']', '').replace(',', ' ')
                 formatted_input = " ".join(formatted_input.split())
 
+                if language == "java":
+                    full_java_command = java_run_template + formatted_input
+                    current_jail_cmd = jail_cmd_base + ["/bin/sh", "-c", full_java_command]
+                    input_to_pass = None 
+                else:
+                    current_jail_cmd = jail_cmd_base + run_cmd
+                    input_to_pass = formatted_input + "\n"
+
                 process = subprocess.run(
-                    jail_cmd_base, 
-                    input=formatted_input, 
+                    current_jail_cmd, 
+                    input=input_to_pass,
                     capture_output=True, 
                     text=True, 
                     timeout=22 
                 )
 
                 if process.returncode == 137:
-                    actual_raw = "ERROR: Time/Memory Limit Exceeded (Killed)"
+                    actual_raw = "ERROR: Time/Memory Limit Exceeded"
                     is_passed = False
                 else:
                     actual_raw = process.stdout if process.stdout else ""
@@ -124,14 +131,11 @@ def run_code(language, code, test_cases):
                     "input": test['input_data'],
                     "expected": test['expected_output'].strip(),
                     "actual": actual_raw.strip(),
-                    "error": process.stderr,
+                    "error": "", # Removed raw stderr for security
                     "exit_code": process.returncode 
                 })
                 
             except subprocess.TimeoutExpired:
-                # 🔥 We keep only critical system warnings
-                print(f"CRITICAL: Timeout triggered for {language}", file=sys.stderr)
-                sys.stderr.flush()
                 results.append({
                     "passed": False,
                     "input": test['input_data'],
@@ -150,6 +154,6 @@ def run_code(language, code, test_cases):
         }
 
     except Exception:
-        return {"all_passed": False, "stderr": f"System Error:\n{traceback.format_exc()}", "details": []}
+        return {"all_passed": False, "stderr": "An internal system error occurred.", "details": []}
     finally:
         shutil.rmtree(tmp_run_dir, ignore_errors=True)

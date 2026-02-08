@@ -4,7 +4,7 @@ import json
 import psycopg2
 import psycopg2.extras
 import pytz
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,jsonify
 from dotenv import load_dotenv
 from psycopg2 import pool
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -124,12 +124,13 @@ def questions():
 
 @app.route("/question/<int:qid>", methods=["GET", "POST"])
 def question_detail(qid):
+    # SECURITY: Ensure user is logged in
     if "user" not in session:
         return redirect(url_for("login"))
 
     conn = get_db_connection()
     
-    # 🔥 1. INITIALIZE DEFAULTS
+    # INITIALIZE DEFAULTS (Preserving your structure)
     output = ""
     user_code = ""
     question = None
@@ -137,37 +138,40 @@ def question_detail(qid):
     all_passed = False
 
     try:
+        # Fetch question details
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute("SELECT * FROM questions WHERE id=%s", (qid,))
         question = cur.fetchone()
         test_cases = TEST_CASES_DICT.get(qid, [])
 
         if request.method == "POST":
-            user_code = request.form["user_code"]
-            language = request.form.get("lang_choice", "python")
+            # SECURITY & COMPATIBILITY: Handle both JSON (Monaco) and Form data
+            if request.is_json:
+                data = request.get_json()
+                user_code = data.get("user_code", "")
+                language = data.get("lang_choice", "python")
+            else:
+                user_code = request.form.get("user_code", "")
+                language = request.form.get("lang_choice", "python")
 
-            # 🔥 2. PROCESS SUBMISSION VIA QUEUE
+            # PROCESS SUBMISSION VIA QUEUE (Your original logic)
             job_id = submit_job(user=session["user"], code=user_code, language=language, test_cases=test_cases)
             result = get_result(job_id)
 
             # Extract data from the result object
             test_results = result.get("test_results") or []
             all_passed = result.get("all_passed", False)
-            total_cases = len(test_results)
             passed_cases = sum(1 for r in test_results if r.get("passed"))
+            total_cases = len(test_results)
 
-            # Build the summary message for the terminal
+            # Build summary message for terminal/modals
             if all_passed:
                 output = f"✅ SUCCESS: {passed_cases}/{total_cases} Test Cases Passed!"
             else:
                 failed_test = next((r for r in test_results if not r.get("passed")), None)
-                if failed_test:
-                    output = f"❌ FAILED: {passed_cases}/{total_cases} Passed"
-                else:
-                    output = "❌ ERROR: Execution was terminated (Time/Memory Limit Exceeded)."
+                output = f"❌ FAILED: {passed_cases}/{total_cases} Passed" if failed_test else "❌ ERROR: Execution Terminated."
 
-            # 🔥 3. SAVE TO DATABASE (Only on POST)
-            # This ensures Leaderboard and Admin Panel get updated immediately
+            # DATABASE SAVE (Critical for Leaderboard & Security)
             try:
                 final_status = 'Success' if all_passed else 'Failed'
                 
@@ -177,8 +181,7 @@ def question_detail(qid):
                     VALUES (%s, %s, %s, %s)
                 """, (session["user"], qid, final_status, language))
                 
-                # Record in attempts table (for Solutions & Deep Dive)
-                # Using ON CONFLICT so one user doesn't create 1000 rows for the same problem
+                # Record in attempts table (for Solutions)
                 cur.execute("""
                     INSERT INTO attempts (user_roll, question_id, status, code, language)
                     VALUES (%s, %s, %s, %s, %s)
@@ -190,20 +193,30 @@ def question_detail(qid):
             except Exception as e:
                 print(f"DATABASE SAVE ERROR: {e}")
                 conn.rollback()
+
+            # AJAX RESPONSE: Send JSON to trigger the Monaco Popups
+            if request.is_json:
+                return jsonify({
+                    "status": "success" if all_passed else "error",
+                    "passed_all": all_passed,
+                    "error_type": result.get("error_type", "Execution Error"),
+                    "message": result.get("message", "Check test cases"),
+                    "line": result.get("line"), # Line number for Monaco highlight
+                    "test_results": test_results,
+                    "terminal_output": output
+                })
                     
     finally:
-        # Crucial for handling 250 users: release connection back to pool
+        # Crucial for 250 users: release connection back to pool
         release_db_connection(conn)
 
-    # 🔥 4. RENDER TEMPLATE
+    # RENDER TEMPLATE (For initial GET request)
     return render_template("question_detail.html", 
-                           question=question, 
-                           test_results=test_results, 
-                           all_passed=all_passed,
-                           user_code=user_code,
-                           output=output)
-
-
+                            question=question, 
+                            test_results=test_results, 
+                            all_passed=all_passed,
+                            user_code=user_code,
+                            output=output)
 # ==========================================
 # 4. INSTRUCTIONS & RULES
 # ==========================================
@@ -292,7 +305,7 @@ def admin():
         else:
             # Chairperson view: Map ID to flag1
             # C=0, B=2, A=3
-            view_map = {'24CP001': 0, '24CP002': 2, '24CP003': 3}
+            view_map = {'24CP001': 0, '24CP002': 2, '24CP003': 3,'24JTA01':3,'24JTB01':2,'24JTC01':0}
             section_names = {0: 'CSE-C', 2: 'CSE-B', 3: 'CSE-A'}
             
             target_flag1 = view_map.get(admin_id, 0)

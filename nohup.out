@@ -66,3 +66,499 @@
 [2026-02-03 15:30:31 +0000] [316006] [INFO] Booting worker with pid: 316006
 [2026-02-03 15:30:31 +0000] [316017] [INFO] Booting worker with pid: 316017
 [2026-02-03 15:30:31 +0000] [316028] [INFO] Booting worker with pid: 316028
+[2026-02-04 16:09:41 +0000] [316006] [INFO] Worker exiting (pid: 316006)
+[2026-02-04 16:09:41 +0000] [315983] [INFO] Worker exiting (pid: 315983)
+[2026-02-04 16:09:41 +0000] [315985] [INFO] Worker exiting (pid: 315985)
+[2026-02-04 16:09:41 +0000] [316028] [INFO] Worker exiting (pid: 316028)
+[2026-02-04 16:09:41 +0000] [316017] [INFO] Worker exiting (pid: 316017)
+[2026-02-04 16:09:41 +0000] [315984] [INFO] Worker exiting (pid: 315984)
+[2026-02-04 16:09:41 +0000] [315981] [INFO] Worker exiting (pid: 315981)
+[2026-02-04 16:09:41 +0000] [315982] [INFO] Worker exiting (pid: 315982)
+[2026-02-04 16:09:41 +0000] [315979] [INFO] Handling signal: term
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:315981) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:315983) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:315984) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:315985) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:316006) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:316017) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:316028) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [ERROR] Worker (pid:315982) was sent SIGTERM!
+[2026-02-04 16:09:41 +0000] [315979] [INFO] Shutting down: Master
+[2026-02-04 16:11:37 +0000] [335434] [INFO] Starting gunicorn 21.2.0
+[2026-02-04 16:11:37 +0000] [335434] [INFO] Listening at: http://0.0.0.0:8000 (335434)
+[2026-02-04 16:11:37 +0000] [335434] [INFO] Using worker: sync
+[2026-02-04 16:11:37 +0000] [335438] [INFO] Booting worker with pid: 335438
+[2026-02-04 16:11:37 +0000] [335439] [INFO] Booting worker with pid: 335439
+[2026-02-04 16:11:37 +0000] [335440] [INFO] Booting worker with pid: 335440
+[2026-02-04 16:11:37 +0000] [335441] [INFO] Booting worker with pid: 335441
+[2026-02-04 16:11:37 +0000] [335460] [INFO] Booting worker with pid: 335460
+[2026-02-04 16:11:37 +0000] [335461] [INFO] Booting worker with pid: 335461
+[2026-02-04 16:11:37 +0000] [335468] [INFO] Booting worker with pid: 335468
+[2026-02-04 16:11:37 +0000] [335469] [INFO] Booting worker with pid: 335469
+[2026-02-04 16:12:14 +0000] [335434] [INFO] Handling signal: int
+[2026-02-04 16:12:14 +0000] [335441] [INFO] Worker exiting (pid: 335441)
+[2026-02-04 16:12:14 +0000] [335438] [INFO] Worker exiting (pid: 335438)
+[2026-02-04 16:12:14 +0000] [335440] [INFO] Worker exiting (pid: 335440)
+[2026-02-04 16:12:14 +0000] [335439] [INFO] Worker exiting (pid: 335439)
+[2026-02-04 16:12:14 +0000] [335468] [INFO] Worker exiting (pid: 335468)
+[2026-02-04 16:12:14 +0000] [335460] [INFO] Worker exiting (pid: 335460)
+[2026-02-04 16:12:14 +0000] [335469] [INFO] Worker exiting (pid: 335469)
+[2026-02-04 16:12:14 +0000] [335461] [INFO] Worker exiting (pid: 335461)
+[2026-02-04 16:12:15 +0000] [335434] [INFO] Shutting down: Master
+[2026-02-04 17:16:30 +0000] [358226] [INFO] Starting gunicorn 21.2.0
+[2026-02-04 17:16:30 +0000] [358226] [INFO] Listening at: http://0.0.0.0:8000 (358226)
+[2026-02-04 17:16:30 +0000] [358226] [INFO] Using worker: sync
+[2026-02-04 17:16:30 +0000] [358227] [INFO] Booting worker with pid: 358227
+[2026-02-04 17:16:30 +0000] [358228] [INFO] Booting worker with pid: 358228
+[2026-02-04 17:16:30 +0000] [358229] [INFO] Booting worker with pid: 358229
+[2026-02-04 17:16:30 +0000] [358230] [INFO] Booting worker with pid: 358230
+[2026-02-04 17:16:30 +0000] [358243] [INFO] Booting worker with pid: 358243
+[2026-02-04 17:16:30 +0000] [358244] [INFO] Booting worker with pid: 358244
+[2026-02-04 17:16:30 +0000] [358251] [INFO] Booting worker with pid: 358251
+[2026-02-04 17:16:30 +0000] [358252] [INFO] Booting worker with pid: 358252
+[2026-02-04 17:16:34 +0000] [358226] [INFO] Handling signal: int
+[2026-02-04 17:16:34 +0000] [358228] [INFO] Worker exiting (pid: 358228)
+[2026-02-04 17:16:34 +0000] [358230] [INFO] Worker exiting (pid: 358230)
+[2026-02-04 17:16:34 +0000] [358227] [INFO] Worker exiting (pid: 358227)
+[2026-02-04 17:16:34 +0000] [358244] [INFO] Worker exiting (pid: 358244)
+[2026-02-04 17:16:34 +0000] [358252] [INFO] Worker exiting (pid: 358252)
+[2026-02-04 17:16:34 +0000] [358251] [INFO] Worker exiting (pid: 358251)
+[2026-02-04 17:16:34 +0000] [358243] [INFO] Worker exiting (pid: 358243)
+[2026-02-04 17:16:34 +0000] [358229] [INFO] Worker exiting (pid: 358229)
+[2026-02-04 17:16:34 +0000] [358226] [INFO] Shutting down: Master
+[2026-02-04 17:16:43 +0000] [358396] [INFO] Starting gunicorn 21.2.0
+[2026-02-04 17:16:43 +0000] [358396] [INFO] Listening at: http://0.0.0.0:10000 (358396)
+[2026-02-04 17:16:43 +0000] [358396] [INFO] Using worker: sync
+[2026-02-04 17:16:43 +0000] [358398] [INFO] Booting worker with pid: 358398
+[2026-02-04 17:16:43 +0000] [358399] [INFO] Booting worker with pid: 358399
+[2026-02-04 17:16:43 +0000] [358406] [INFO] Booting worker with pid: 358406
+[2026-02-04 17:16:43 +0000] [358419] [INFO] Booting worker with pid: 358419
+[2026-02-04 17:16:43 +0000] [358420] [INFO] Booting worker with pid: 358420
+[2026-02-04 17:16:43 +0000] [358427] [INFO] Booting worker with pid: 358427
+[2026-02-04 17:16:43 +0000] [358428] [INFO] Booting worker with pid: 358428
+[2026-02-04 17:16:43 +0000] [358447] [INFO] Booting worker with pid: 358447
+[2026-02-04 17:18:29 +0000] [358428] [INFO] Worker exiting (pid: 358428)
+[2026-02-04 17:18:29 +0000] [358399] [INFO] Worker exiting (pid: 358399)
+[2026-02-04 17:18:29 +0000] [358447] [INFO] Worker exiting (pid: 358447)
+[2026-02-04 17:18:29 +0000] [358398] [INFO] Worker exiting (pid: 358398)
+[2026-02-04 17:18:29 +0000] [358419] [INFO] Worker exiting (pid: 358419)
+[2026-02-04 17:18:29 +0000] [358420] [INFO] Worker exiting (pid: 358420)
+[2026-02-04 17:18:29 +0000] [358427] [INFO] Worker exiting (pid: 358427)
+[2026-02-04 17:18:29 +0000] [358406] [INFO] Worker exiting (pid: 358406)
+[2026-02-04 17:18:29 +0000] [358396] [INFO] Handling signal: term
+[2026-02-04 17:18:29 +0000] [358396] [INFO] Shutting down: Master
+[2026-02-04 17:22:27 +0000] [359601] [INFO] Starting gunicorn 21.2.0
+[2026-02-04 17:22:27 +0000] [359601] [INFO] Listening at: http://0.0.0.0:10000 (359601)
+[2026-02-04 17:22:27 +0000] [359601] [INFO] Using worker: sync
+[2026-02-04 17:22:27 +0000] [359606] [INFO] Booting worker with pid: 359606
+[2026-02-04 17:22:27 +0000] [359607] [INFO] Booting worker with pid: 359607
+[2026-02-04 17:22:27 +0000] [359608] [INFO] Booting worker with pid: 359608
+[2026-02-04 17:22:27 +0000] [359609] [INFO] Booting worker with pid: 359609
+[2026-02-04 17:22:27 +0000] [359610] [INFO] Booting worker with pid: 359610
+[2026-02-04 17:22:27 +0000] [359611] [INFO] Booting worker with pid: 359611
+[2026-02-04 17:22:27 +0000] [359630] [INFO] Booting worker with pid: 359630
+[2026-02-04 17:22:27 +0000] [359631] [INFO] Booting worker with pid: 359631
+[2026-02-08 15:10:53 +0000] [359610] [INFO] Worker exiting (pid: 359610)
+[2026-02-08 15:10:53 +0000] [359611] [INFO] Worker exiting (pid: 359611)
+[2026-02-08 15:10:53 +0000] [359608] [INFO] Worker exiting (pid: 359608)
+[2026-02-08 15:10:53 +0000] [359631] [INFO] Worker exiting (pid: 359631)
+[2026-02-08 15:10:53 +0000] [359630] [INFO] Worker exiting (pid: 359630)
+[2026-02-08 15:10:53 +0000] [359607] [INFO] Worker exiting (pid: 359607)
+[2026-02-08 15:10:53 +0000] [359609] [INFO] Worker exiting (pid: 359609)
+[2026-02-08 15:10:53 +0000] [359606] [INFO] Worker exiting (pid: 359606)
+[2026-02-08 15:10:53 +0000] [359601] [INFO] Handling signal: term
+[2026-02-08 15:10:53 +0000] [359601] [ERROR] Worker (pid:359608) was sent SIGTERM!
+[2026-02-08 15:10:53 +0000] [359601] [ERROR] Worker (pid:359630) was sent SIGTERM!
+[2026-02-08 15:10:53 +0000] [359601] [ERROR] Worker (pid:359610) was sent SIGTERM!
+[2026-02-08 15:10:53 +0000] [359601] [ERROR] Worker (pid:359607) was sent SIGTERM!
+[2026-02-08 15:10:53 +0000] [359601] [ERROR] Worker (pid:359611) was sent SIGTERM!
+[2026-02-08 15:10:53 +0000] [359601] [ERROR] Worker (pid:359631) was sent SIGTERM!
+[2026-02-08 15:10:53 +0000] [359601] [INFO] Shutting down: Master
+[2026-02-08 15:10:56 +0000] [405354] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 15:10:56 +0000] [405354] [INFO] Listening at: http://0.0.0.0:10000 (405354)
+[2026-02-08 15:10:56 +0000] [405354] [INFO] Using worker: sync
+[2026-02-08 15:10:56 +0000] [405356] [INFO] Booting worker with pid: 405356
+[2026-02-08 15:10:56 +0000] [405357] [INFO] Booting worker with pid: 405357
+[2026-02-08 15:10:56 +0000] [405364] [INFO] Booting worker with pid: 405364
+[2026-02-08 15:10:56 +0000] [405371] [INFO] Booting worker with pid: 405371
+[2026-02-08 15:10:56 +0000] [405378] [INFO] Booting worker with pid: 405378
+[2026-02-08 15:10:56 +0000] [405379] [INFO] Booting worker with pid: 405379
+[2026-02-08 15:10:56 +0000] [405380] [INFO] Booting worker with pid: 405380
+[2026-02-08 15:10:56 +0000] [405395] [INFO] Booting worker with pid: 405395
+[2026-02-08 15:17:56 +0000] [405379] [INFO] Worker exiting (pid: 405379)
+[2026-02-08 15:17:56 +0000] [405378] [INFO] Worker exiting (pid: 405378)
+[2026-02-08 15:17:56 +0000] [405395] [INFO] Worker exiting (pid: 405395)
+[2026-02-08 15:17:56 +0000] [405356] [INFO] Worker exiting (pid: 405356)
+[2026-02-08 15:17:56 +0000] [405371] [INFO] Worker exiting (pid: 405371)
+[2026-02-08 15:17:56 +0000] [405354] [INFO] Handling signal: term
+[2026-02-08 15:17:56 +0000] [405364] [INFO] Worker exiting (pid: 405364)
+[2026-02-08 15:17:56 +0000] [405357] [INFO] Worker exiting (pid: 405357)
+[2026-02-08 15:17:56 +0000] [405380] [INFO] Worker exiting (pid: 405380)
+[2026-02-08 15:17:56 +0000] [405354] [ERROR] Worker (pid:405378) was sent SIGTERM!
+[2026-02-08 15:17:56 +0000] [405354] [ERROR] Worker (pid:405395) was sent SIGTERM!
+[2026-02-08 15:17:56 +0000] [405354] [ERROR] Worker (pid:405379) was sent SIGTERM!
+[2026-02-08 15:17:56 +0000] [405354] [INFO] Shutting down: Master
+[2026-02-08 15:17:58 +0000] [406812] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 15:17:58 +0000] [406812] [INFO] Listening at: http://0.0.0.0:10000 (406812)
+[2026-02-08 15:17:58 +0000] [406812] [INFO] Using worker: sync
+[2026-02-08 15:17:58 +0000] [406814] [INFO] Booting worker with pid: 406814
+[2026-02-08 15:17:58 +0000] [406821] [INFO] Booting worker with pid: 406821
+[2026-02-08 15:17:58 +0000] [406822] [INFO] Booting worker with pid: 406822
+[2026-02-08 15:17:58 +0000] [406829] [INFO] Booting worker with pid: 406829
+[2026-02-08 15:17:58 +0000] [406840] [INFO] Booting worker with pid: 406840
+[2026-02-08 15:17:58 +0000] [406841] [INFO] Booting worker with pid: 406841
+[2026-02-08 15:17:58 +0000] [406854] [INFO] Booting worker with pid: 406854
+[2026-02-08 15:17:58 +0000] [406861] [INFO] Booting worker with pid: 406861
+[2026-02-08 15:22:27 +0000] [406814] [INFO] Worker exiting (pid: 406814)
+[2026-02-08 15:22:27 +0000] [406829] [INFO] Worker exiting (pid: 406829)
+[2026-02-08 15:22:27 +0000] [406861] [INFO] Worker exiting (pid: 406861)
+[2026-02-08 15:22:27 +0000] [406841] [INFO] Worker exiting (pid: 406841)
+[2026-02-08 15:22:27 +0000] [406822] [INFO] Worker exiting (pid: 406822)
+[2026-02-08 15:22:27 +0000] [406821] [INFO] Worker exiting (pid: 406821)
+[2026-02-08 15:22:27 +0000] [406840] [INFO] Worker exiting (pid: 406840)
+[2026-02-08 15:22:27 +0000] [406854] [INFO] Worker exiting (pid: 406854)
+[2026-02-08 15:22:27 +0000] [406812] [INFO] Handling signal: term
+[2026-02-08 15:22:27 +0000] [406812] [ERROR] Worker (pid:406814) was sent SIGTERM!
+[2026-02-08 15:22:27 +0000] [406812] [ERROR] Worker (pid:406854) was sent SIGTERM!
+[2026-02-08 15:22:27 +0000] [406812] [ERROR] Worker (pid:406821) was sent SIGTERM!
+[2026-02-08 15:22:28 +0000] [406812] [ERROR] Worker (pid:406822) was sent SIGTERM!
+[2026-02-08 15:22:28 +0000] [406812] [ERROR] Worker (pid:406829) was sent SIGTERM!
+[2026-02-08 15:22:28 +0000] [406812] [ERROR] Worker (pid:406840) was sent SIGTERM!
+[2026-02-08 15:22:28 +0000] [406812] [ERROR] Worker (pid:406841) was sent SIGTERM!
+[2026-02-08 15:22:28 +0000] [406812] [ERROR] Worker (pid:406861) was sent SIGTERM!
+[2026-02-08 15:22:28 +0000] [406812] [INFO] Shutting down: Master
+[2026-02-08 15:22:29 +0000] [407863] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 15:22:29 +0000] [407863] [INFO] Listening at: http://0.0.0.0:10000 (407863)
+[2026-02-08 15:22:29 +0000] [407863] [INFO] Using worker: sync
+[2026-02-08 15:22:29 +0000] [407865] [INFO] Booting worker with pid: 407865
+[2026-02-08 15:22:29 +0000] [407866] [INFO] Booting worker with pid: 407866
+[2026-02-08 15:22:29 +0000] [407873] [INFO] Booting worker with pid: 407873
+[2026-02-08 15:22:29 +0000] [407880] [INFO] Booting worker with pid: 407880
+[2026-02-08 15:22:29 +0000] [407887] [INFO] Booting worker with pid: 407887
+[2026-02-08 15:22:30 +0000] [407900] [INFO] Booting worker with pid: 407900
+[2026-02-08 15:22:30 +0000] [407905] [INFO] Booting worker with pid: 407905
+[2026-02-08 15:22:30 +0000] [407914] [INFO] Booting worker with pid: 407914
+[2026-02-08 15:26:35 +0000] [407887] [INFO] Worker exiting (pid: 407887)
+[2026-02-08 15:26:35 +0000] [407865] [INFO] Worker exiting (pid: 407865)
+[2026-02-08 15:26:35 +0000] [407873] [INFO] Worker exiting (pid: 407873)
+[2026-02-08 15:26:35 +0000] [407905] [INFO] Worker exiting (pid: 407905)
+[2026-02-08 15:26:35 +0000] [407880] [INFO] Worker exiting (pid: 407880)
+[2026-02-08 15:26:35 +0000] [407866] [INFO] Worker exiting (pid: 407866)
+[2026-02-08 15:26:35 +0000] [407900] [INFO] Worker exiting (pid: 407900)
+[2026-02-08 15:26:35 +0000] [407914] [INFO] Worker exiting (pid: 407914)
+[2026-02-08 15:26:35 +0000] [407863] [INFO] Handling signal: term
+[2026-02-08 15:26:35 +0000] [407863] [ERROR] Worker (pid:407866) was sent SIGTERM!
+[2026-02-08 15:26:35 +0000] [407863] [ERROR] Worker (pid:407865) was sent SIGTERM!
+[2026-02-08 15:26:35 +0000] [407863] [ERROR] Worker (pid:407914) was sent SIGTERM!
+[2026-02-08 15:26:35 +0000] [407863] [ERROR] Worker (pid:407873) was sent SIGTERM!
+--- Logging error ---
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 224, in run
+    handler()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 257, in handle_term
+    raise StopIteration
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/logging/__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+RuntimeError: reentrant call inside <_io.BufferedWriter name='<stderr>'>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/logging/__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 516, in reap_workers
+    wpid, status = os.waitpid(-1, os.WNOHANG)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 516, in reap_workers
+    wpid, status = os.waitpid(-1, os.WNOHANG)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 554, in reap_workers
+    self.log.error(msg)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/glogging.py", line 272, in error
+    self.error_log.error(msg, *args, **kwargs)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1506, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1624, in _log
+    self.handle(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1634, in handle
+    self.callHandlers(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1696, in callHandlers
+    hdlr.handle(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 968, in handle
+    self.emit(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1108, in emit
+    self.handleError(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1021, in handleError
+    sys.stderr.write('--- Logging error ---\n')
+RuntimeError: reentrant call inside <_io.BufferedWriter name='<stderr>'>
+Call stack:
+  File "/home/thala_thalapathy/.local/bin/gunicorn", line 8, in <module>
+    sys.exit(run())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 236, in run
+    super().run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 227, in run
+    self.halt()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 342, in halt
+    self.stop()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 396, in stop
+    time.sleep(0.1)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 559, in reap_workers
+    worker.tmp.close()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/workertmp.py", line 55, in close
+    return self._tmp.close()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 516, in reap_workers
+    wpid, status = os.waitpid(-1, os.WNOHANG)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 554, in reap_workers
+    self.log.error(msg)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/glogging.py", line 272, in error
+    self.error_log.error(msg, *args, **kwargs)
+Message: 'Worker (pid:407873) was sent SIGTERM!'
+Arguments: ()
+[2026-02-08 15:26:35 +0000] [407863] [ERROR] Worker (pid:407887) was sent SIGTERM!
+[2026-02-08 15:26:37 +0000] [409068] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 15:26:37 +0000] [409068] [INFO] Listening at: http://0.0.0.0:10000 (409068)
+[2026-02-08 15:26:37 +0000] [409068] [INFO] Using worker: sync
+[2026-02-08 15:26:37 +0000] [409070] [INFO] Booting worker with pid: 409070
+[2026-02-08 15:26:37 +0000] [409071] [INFO] Booting worker with pid: 409071
+[2026-02-08 15:26:37 +0000] [409072] [INFO] Booting worker with pid: 409072
+[2026-02-08 15:26:37 +0000] [409085] [INFO] Booting worker with pid: 409085
+[2026-02-08 15:26:37 +0000] [409105] [INFO] Booting worker with pid: 409105
+[2026-02-08 15:26:37 +0000] [409114] [INFO] Booting worker with pid: 409114
+[2026-02-08 15:26:37 +0000] [409116] [INFO] Booting worker with pid: 409116
+[2026-02-08 15:26:37 +0000] [409117] [INFO] Booting worker with pid: 409117
+[2026-02-08 15:27:05 +0000] [407863] [INFO] Shutting down: Master
+[2026-02-08 15:28:11 +0000] [409105] [INFO] Worker exiting (pid: 409105)
+[2026-02-08 15:28:11 +0000] [409072] [INFO] Worker exiting (pid: 409072)
+[2026-02-08 15:28:11 +0000] [409114] [INFO] Worker exiting (pid: 409114)
+[2026-02-08 15:28:11 +0000] [409116] [INFO] Worker exiting (pid: 409116)
+[2026-02-08 15:28:11 +0000] [409070] [INFO] Worker exiting (pid: 409070)
+[2026-02-08 15:28:11 +0000] [409117] [INFO] Worker exiting (pid: 409117)
+[2026-02-08 15:28:11 +0000] [409085] [INFO] Worker exiting (pid: 409085)
+[2026-02-08 15:28:11 +0000] [409071] [INFO] Worker exiting (pid: 409071)
+[2026-02-08 15:28:11 +0000] [409068] [INFO] Handling signal: term
+[2026-02-08 15:28:11 +0000] [409068] [ERROR] Worker (pid:409070) was sent SIGTERM!
+[2026-02-08 15:28:11 +0000] [409068] [ERROR] Worker (pid:409117) was sent SIGTERM!
+[2026-02-08 15:28:11 +0000] [409068] [ERROR] Worker (pid:409105) was sent SIGTERM!
+[2026-02-08 15:28:11 +0000] [409068] [ERROR] Worker (pid:409114) was sent SIGTERM!
+[2026-02-08 15:28:11 +0000] [409068] [ERROR] Worker (pid:409116) was sent SIGTERM!
+[2026-02-08 15:28:11 +0000] [409068] [ERROR] Worker (pid:409072) was sent SIGTERM!
+[2026-02-08 15:28:11 +0000] [409068] [INFO] Shutting down: Master
+[2026-02-08 15:28:13 +0000] [409605] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 15:28:13 +0000] [409605] [INFO] Listening at: http://0.0.0.0:10000 (409605)
+[2026-02-08 15:28:13 +0000] [409605] [INFO] Using worker: sync
+[2026-02-08 15:28:13 +0000] [409607] [INFO] Booting worker with pid: 409607
+[2026-02-08 15:28:13 +0000] [409608] [INFO] Booting worker with pid: 409608
+[2026-02-08 15:28:13 +0000] [409609] [INFO] Booting worker with pid: 409609
+[2026-02-08 15:28:13 +0000] [409622] [INFO] Booting worker with pid: 409622
+[2026-02-08 15:28:13 +0000] [409629] [INFO] Booting worker with pid: 409629
+[2026-02-08 15:28:14 +0000] [409636] [INFO] Booting worker with pid: 409636
+[2026-02-08 15:28:14 +0000] [409637] [INFO] Booting worker with pid: 409637
+[2026-02-08 15:28:14 +0000] [409638] [INFO] Booting worker with pid: 409638
+[2026-02-08 16:17:30 +0000] [409608] [INFO] Worker exiting (pid: 409608)
+[2026-02-08 16:17:30 +0000] [409638] [INFO] Worker exiting (pid: 409638)
+[2026-02-08 16:17:30 +0000] [409622] [INFO] Worker exiting (pid: 409622)
+[2026-02-08 16:17:30 +0000] [409637] [INFO] Worker exiting (pid: 409637)
+[2026-02-08 16:17:30 +0000] [409629] [INFO] Worker exiting (pid: 409629)
+[2026-02-08 16:17:30 +0000] [409609] [INFO] Worker exiting (pid: 409609)
+[2026-02-08 16:17:30 +0000] [409607] [INFO] Worker exiting (pid: 409607)
+[2026-02-08 16:17:30 +0000] [409636] [INFO] Worker exiting (pid: 409636)
+[2026-02-08 16:17:30 +0000] [409605] [INFO] Handling signal: term
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409608) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409607) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409622) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409629) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409637) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409638) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409636) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [ERROR] Worker (pid:409609) was sent SIGTERM!
+[2026-02-08 16:17:30 +0000] [409605] [INFO] Shutting down: Master
+[2026-02-08 16:21:59 +0000] [429711] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 16:21:59 +0000] [429711] [INFO] Listening at: http://0.0.0.0:10000 (429711)
+[2026-02-08 16:21:59 +0000] [429711] [INFO] Using worker: sync
+[2026-02-08 16:21:59 +0000] [429713] [INFO] Booting worker with pid: 429713
+[2026-02-08 16:21:59 +0000] [429714] [INFO] Booting worker with pid: 429714
+[2026-02-08 16:21:59 +0000] [429715] [INFO] Booting worker with pid: 429715
+[2026-02-08 16:21:59 +0000] [429719] [INFO] Booting worker with pid: 429719
+[2026-02-08 16:21:59 +0000] [429729] [INFO] Booting worker with pid: 429729
+[2026-02-08 16:22:00 +0000] [429748] [INFO] Booting worker with pid: 429748
+[2026-02-08 16:22:00 +0000] [429755] [INFO] Booting worker with pid: 429755
+[2026-02-08 16:22:00 +0000] [429756] [INFO] Booting worker with pid: 429756
+[2026-02-08 16:26:23 +0000] [429748] [INFO] Worker exiting (pid: 429748)
+[2026-02-08 16:26:23 +0000] [429715] [INFO] Worker exiting (pid: 429715)
+[2026-02-08 16:26:23 +0000] [429729] [INFO] Worker exiting (pid: 429729)
+[2026-02-08 16:26:23 +0000] [429755] [INFO] Worker exiting (pid: 429755)
+[2026-02-08 16:26:23 +0000] [429713] [INFO] Worker exiting (pid: 429713)
+[2026-02-08 16:26:23 +0000] [429719] [INFO] Worker exiting (pid: 429719)
+[2026-02-08 16:26:23 +0000] [429714] [INFO] Worker exiting (pid: 429714)
+[2026-02-08 16:26:23 +0000] [429756] [INFO] Worker exiting (pid: 429756)
+[2026-02-08 16:26:23 +0000] [429711] [INFO] Handling signal: term
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429715) was sent SIGTERM!
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429719) was sent SIGTERM!
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429729) was sent SIGTERM!
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429756) was sent SIGTERM!
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429714) was sent SIGTERM!
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429713) was sent SIGTERM!
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429748) was sent SIGTERM!
+[2026-02-08 16:26:23 +0000] [429711] [ERROR] Worker (pid:429755) was sent SIGTERM!
+[2026-02-08 16:26:24 +0000] [429711] [INFO] Shutting down: Master
+[2026-02-08 16:28:48 +0000] [431618] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 16:28:48 +0000] [431618] [INFO] Listening at: http://0.0.0.0:10000 (431618)
+[2026-02-08 16:28:48 +0000] [431618] [INFO] Using worker: sync
+[2026-02-08 16:28:48 +0000] [431620] [INFO] Booting worker with pid: 431620
+[2026-02-08 16:28:48 +0000] [431621] [INFO] Booting worker with pid: 431621
+[2026-02-08 16:28:48 +0000] [431622] [INFO] Booting worker with pid: 431622
+[2026-02-08 16:28:48 +0000] [431638] [INFO] Booting worker with pid: 431638
+[2026-02-08 16:28:48 +0000] [431639] [INFO] Booting worker with pid: 431639
+[2026-02-08 16:28:48 +0000] [431646] [INFO] Booting worker with pid: 431646
+[2026-02-08 16:28:48 +0000] [431647] [INFO] Booting worker with pid: 431647
+[2026-02-08 16:28:48 +0000] [431660] [INFO] Booting worker with pid: 431660
+[2026-02-08 17:00:01 +0000] [431620] [INFO] Worker exiting (pid: 431620)
+[2026-02-08 17:00:01 +0000] [431621] [INFO] Worker exiting (pid: 431621)
+[2026-02-08 17:00:01 +0000] [431638] [INFO] Worker exiting (pid: 431638)
+[2026-02-08 17:00:01 +0000] [431639] [INFO] Worker exiting (pid: 431639)
+[2026-02-08 17:00:01 +0000] [431622] [INFO] Worker exiting (pid: 431622)
+[2026-02-08 17:00:01 +0000] [431646] [INFO] Worker exiting (pid: 431646)
+[2026-02-08 17:00:01 +0000] [431660] [INFO] Worker exiting (pid: 431660)
+[2026-02-08 17:00:01 +0000] [431647] [INFO] Worker exiting (pid: 431647)
+[2026-02-08 17:00:01 +0000] [431618] [INFO] Handling signal: term
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431620) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431621) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431639) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431647) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431622) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431660) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431638) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [ERROR] Worker (pid:431646) was sent SIGTERM!
+[2026-02-08 17:00:01 +0000] [431618] [INFO] Shutting down: Master
+[2026-02-08 18:29:41 +0000] [459771] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 18:29:41 +0000] [459771] [INFO] Listening at: http://0.0.0.0:10000 (459771)
+[2026-02-08 18:29:41 +0000] [459771] [INFO] Using worker: sync
+[2026-02-08 18:29:41 +0000] [459773] [INFO] Booting worker with pid: 459773
+[2026-02-08 18:29:41 +0000] [459774] [INFO] Booting worker with pid: 459774
+[2026-02-08 18:29:41 +0000] [459775] [INFO] Booting worker with pid: 459775
+[2026-02-08 18:29:41 +0000] [459776] [INFO] Booting worker with pid: 459776
+[2026-02-08 18:29:41 +0000] [459783] [INFO] Booting worker with pid: 459783
+[2026-02-08 18:29:41 +0000] [459784] [INFO] Booting worker with pid: 459784
+[2026-02-08 18:29:41 +0000] [459803] [INFO] Booting worker with pid: 459803
+[2026-02-08 18:29:41 +0000] [459810] [INFO] Booting worker with pid: 459810
+[2026-02-08 18:34:49 +0000] [459803] [INFO] Worker exiting (pid: 459803)
+[2026-02-08 18:34:49 +0000] [459783] [INFO] Worker exiting (pid: 459783)
+[2026-02-08 18:34:49 +0000] [459773] [INFO] Worker exiting (pid: 459773)
+[2026-02-08 18:34:49 +0000] [459775] [INFO] Worker exiting (pid: 459775)
+[2026-02-08 18:34:49 +0000] [459784] [INFO] Worker exiting (pid: 459784)
+[2026-02-08 18:34:49 +0000] [459776] [INFO] Worker exiting (pid: 459776)
+[2026-02-08 18:34:49 +0000] [459810] [INFO] Worker exiting (pid: 459810)
+[2026-02-08 18:34:49 +0000] [459774] [INFO] Worker exiting (pid: 459774)
+[2026-02-08 18:34:49 +0000] [459771] [INFO] Handling signal: term
+[2026-02-08 18:34:49 +0000] [459771] [ERROR] Worker (pid:459803) was sent SIGTERM!
+--- Logging error ---
+[2026-02-08 18:34:49 +0000] [459771] [ERROR] Worker (pid:459773) was sent SIGTERM!
+[2026-02-08 18:34:49 +0000] [459771] [ERROR] Worker (pid:459783) was sent SIGTERM!
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 224, in run
+    handler()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 257, in handle_term
+    raise StopIteration
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/logging/__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+RuntimeError: reentrant call inside <_io.BufferedWriter name='<stderr>'>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/logging/__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 554, in reap_workers
+    self.log.error(msg)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/glogging.py", line 272, in error
+    self.error_log.error(msg, *args, **kwargs)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1506, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1624, in _log
+    self.handle(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1634, in handle
+    self.callHandlers(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1696, in callHandlers
+    hdlr.handle(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 968, in handle
+    self.emit(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1108, in emit
+    self.handleError(record)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1021, in handleError
+    sys.stderr.write('--- Logging error ---\n')
+RuntimeError: reentrant call inside <_io.BufferedWriter name='<stderr>'>
+Call stack:
+  File "/home/thala_thalapathy/.local/bin/gunicorn", line 8, in <module>
+    sys.exit(run())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 236, in run
+    super().run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 227, in run
+    self.halt()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 342, in halt
+    self.stop()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 396, in stop
+    time.sleep(0.1)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 528, in reap_workers
+    if exitcode == self.WORKER_BOOT_ERROR:
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 554, in reap_workers
+    self.log.error(msg)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/glogging.py", line 272, in error
+    self.error_log.error(msg, *args, **kwargs)
+  File "/usr/lib/python3.10/logging/__init__.py", line 1496, in error
+    def error(self, msg, *args, **kwargs):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 554, in reap_workers
+    self.log.error(msg)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/glogging.py", line 272, in error
+    self.error_log.error(msg, *args, **kwargs)
+Message: 'Worker (pid:459803) was sent SIGTERM!'
+Arguments: ()
+[2026-02-08 18:34:49 +0000] [459771] [ERROR] Worker (pid:459776) was sent SIGTERM!
+[2026-02-08 18:34:49 +0000] [459771] [ERROR] Worker (pid:459784) was sent SIGTERM!
+[2026-02-08 18:34:49 +0000] [459771] [ERROR] Worker (pid:459775) was sent SIGTERM!
+[2026-02-08 18:34:52 +0000] [460839] [INFO] Starting gunicorn 21.2.0
+[2026-02-08 18:34:52 +0000] [460839] [INFO] Listening at: http://0.0.0.0:10000 (460839)
+[2026-02-08 18:34:52 +0000] [460839] [INFO] Using worker: sync
+[2026-02-08 18:34:52 +0000] [460841] [INFO] Booting worker with pid: 460841
+[2026-02-08 18:34:52 +0000] [460842] [INFO] Booting worker with pid: 460842
+[2026-02-08 18:34:52 +0000] [460849] [INFO] Booting worker with pid: 460849
+[2026-02-08 18:34:52 +0000] [460856] [INFO] Booting worker with pid: 460856
+[2026-02-08 18:34:53 +0000] [460876] [INFO] Booting worker with pid: 460876
+[2026-02-08 18:34:53 +0000] [460880] [INFO] Booting worker with pid: 460880
+[2026-02-08 18:34:53 +0000] [460887] [INFO] Booting worker with pid: 460887
+[2026-02-08 18:34:53 +0000] [460888] [INFO] Booting worker with pid: 460888
