@@ -20,7 +20,8 @@ load_dotenv()
 IST = pytz.timezone('Asia/Kolkata')
 
 app = Flask(__name__)
-app.secret_key = "kamaraj_college_2025"
+app.secret_key = os.getenv("SECRET_KEY", "local_development_only_key")
+# 
 
 # 
 # UNIVERSAL PROXY FIX: 
