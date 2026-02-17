@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kamaraj Portal | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Global Reset */
         * {
@@ -13,76 +14,478 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Full Screen Background */
+        /* Full Screen Background with Deep Blue */
         body {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url("{{ url_for('static', filename='login_bg.jpg') }}") no-repeat center center fixed;
+            background: #02386e;
             background-size: cover;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Glass Container Effect */
+        /* Java Code Floating Background */
+        .code-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .code-snippet {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.944); /* Increased opacity  */
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: nowrap;
+            animation: fall linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4; /* Increased from 0.3 to 0.4 */
+            }
+            90% {
+                opacity: 0.4; /* Increased from 0.3 to 0.4 */
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px));
+                opacity: 0;
+            }
+        }
+
+        /* Subtle Pattern Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 182, 0, 0.05) 0%, transparent 50%),
+                             radial-gradient(circle at 90% 80%, rgba(255, 182, 0, 0.05) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        /* Glass Container Effect with Theme Colors */
         .container {
-            width: 95%;
-            max-width: 400px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            width: 90%;
+            max-width: 420px;
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 2px solid #ffb600;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
             text-align: center;
-            color: #fff;
+            color: #333333;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        h2 { margin-bottom: 30px; font-size: 2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Logo/Icon with Theme Colors - CHANGED TO SQUARE AND BIGGER */
+        .logo {
+            width: 120px; /* Increased from 80px to 120px */
+            height: 120px; /* Increased from 80px to 120px */
+            background: #02386e;
+            border-radius: 15px; /* Changed from 50% to 15px for square shape */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px #02386e4d;
+            border: 2px solid #02386e4d;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 170px; /* Image width */
+            height: 117px; /* image height */
+            
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 2rem;
+            color: #02386e;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            color: #333333;
+            opacity: 0.8;
+        }
+
+        /* Input Groups with Icons */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333333;
+            transition: color 0.3s;
+        }
 
         input {
             width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: none;
+            padding: 15px 15px 15px 45px;
+            margin-bottom: 5px;
+            border: 2px solid #f8f9fa;
             border-radius: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
+            background: #f8f9fa;
+            font-size: 16px;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.3s;
+            color: #333333;
         }
 
+        input:focus {
+            border-color: #ffb600;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255, 182, 0, 0.2);
+        }
+
+        input:focus + i {
+            color: #ffb600;
+        }
+
+        /* Enhanced Button with Theme Colors */
         .run-btn {
             width: 100%;
             padding: 15px;
             border: none;
             border-radius: 50px;
-            background: #8B3E2F;
-            color: #fff;
+            background: #ffb600;
+            color: #02386e;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 182, 0, 0.3);
+            margin-top: 10px;
         }
 
-        .run-btn:hover { background: #a04a38; transform: translateY(-2px); }
+        .run-btn:hover {
+            background: #e5a400;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 182, 0, 0.4);
+        }
+
+        .run-btn:active {
+            transform: translateY(0);
+        }
+
+        .run-btn .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Error Message with Theme Colors */
+        .error-message {
+            background: rgba(255, 182, 0, 0.2);
+            color: #02386e;
+            padding: 10px 15px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+            animation: shake 0.5s;
+            border: 1px solid #ffb600;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        /* Loading Spinner with Theme Colors */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(2, 56, 110, 0.2);
+            border-radius: 50%;
+            border-top-color: #02386e;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                width: 85%;
+                padding: 40px 30px;
+            }
+            
+            .logo {
+                width: 100px; /* Adjusted for mobile */
+                height: 100px; /* Adjusted for mobile */
+            }
+            
+            .logo img {
+                width: 100px; /* Adjusted for mobile */
+                height: 100px; /* Adjusted for mobile */
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            input {
+                font-size: 14px;
+            }
+        }
+
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .decoration::before, .decoration::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 182, 0, 0.1);
+        }
+
+        .decoration::before {
+            top: -100px;
+            right: -100px;
+        }
+
+        .decoration::after {
+            bottom: -100px;
+            left: -100px;
+        }
     </style>
 </head>
 <body>
+    <!-- Java Code Floating Background -->
+    <div class="code-rain" id="codeRain"></div>
+
+    <!-- Decorative Elements -->
+    <div class="decoration"></div>
 
     <div class="container">
+        <div class="logo">
+            <!-- CHANGED LINE: Replaced icon with image -->
+            <img src="../static/kamaraj_logo.jpeg" alt="Kamaraj Portal Logo">
+        </div>
+        
         <h2>Kamaraj Portal</h2>
-        <form method="POST">
-            <input type="text" name="username" placeholder="ROLL NUMBER" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="run-btn">Sign-in Portal</button>
+        <p class="subtitle">Access your student account</p>
+        
+        <!-- Error Message (hidden by default) -->
+        <div class="error-message" id="errorMessage">
+            Invalid credentials. Please try again.
+        </div>
+        
+        <form method="POST" id="loginForm">
+            <div class="input-group">
+                <input type="text" name="username" id="username" placeholder="ROLL NUMBER" required>
+                <i class="fas fa-user"></i>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            
+            <button type="submit" class="run-btn" id="loginBtn">
+                <span id="btnText">Sign-in Portal</span>
+                <div class="spinner" id="spinner"></div>
+            </button>
         </form>
     </div>
 
     <script>
-        // Log login attempts (local console only)
-        document.querySelector('form').addEventListener('submit', function() {
-            console.log("Login attempt: " + document.querySelector('input[name="username"]').value);
+        // Java code snippets for background animation
+        const javaSnippets = [
+            'public class Student {',
+            'private String name;',
+            'public static void main(String[] args) {',
+            'Scanner input = new Scanner(System.in);',
+            'System.out.println("Welcome");',
+            'int rollNumber = 12345;',
+            'double marks = 85.5;',
+            'String department = "Computer Science";',
+            'boolean isActive = true;',
+            'ArrayList<String> courses = new ArrayList<>();',
+            'for(int i = 0; i < 10; i++) {',
+            'while(condition) {',
+            'if(score > 60) {',
+            'try {',
+            'catch(Exception e) {',
+            'finally {',
+            'return result;',
+            'void display() {',
+            'abstract class Person {',
+            'interface Database {',
+            'import java.util.*;',
+            'HashMap<String, Integer> map = new HashMap<>();',
+            'String[] subjects = {"Math", "Physics", "Chemistry"};',
+            'Random rand = new Random();',
+            'File file = new File("data.txt");',
+            'BufferedReader reader = new BufferedReader(',
+            'Connection conn = DriverManager.getConnection(',
+            'PreparedStatement stmt = conn.prepareStatement(',
+            'ResultSet rs = stmt.executeQuery();',
+            'session.setAttribute("user", username);',
+            'request.getParameter("id")',
+            'response.sendRedirect("home.jsp")',
+            'String query = "SELECT * FROM students";',
+            'Class.forName("com.mysql.jdbc.Driver");',
+            'Properties props = new Properties();',
+            'props.load(new FileInputStream("config.properties"));'
+        ];
+
+        // Create floating Java code snippets
+        function createCodeRain() {
+            const codeRain = document.getElementById('codeRain');
+            const snippetCount = 25;
+            
+            for (let i = 0; i < snippetCount; i++) {
+                const snippet = document.createElement('div');
+                snippet.classList.add('code-snippet');
+                
+                // Random snippet from array
+                const randomSnippet = javaSnippets[Math.floor(Math.random() * javaSnippets.length)];
+                snippet.textContent = randomSnippet;
+                
+                // Random position
+                snippet.style.left = `${Math.random() * 100}%`;
+                
+                // Random animation duration
+                const duration = Math.random() * 15 + 10;
+                snippet.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                const delay = Math.random() * 20;
+                snippet.style.animationDelay = `${delay}s`;
+                
+                // Random font size for variety
+                const fontSize = Math.random() * 4 + 10;
+                snippet.style.fontSize = `${fontSize}px`;
+                
+                codeRain.appendChild(snippet);
+            }
+        }
+        
+        // Initialize code rain on page load
+        createCodeRain();
+        
+        // Form submission with loading state
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Show loading state
+            document.getElementById('btnText').style.display = 'none';
+            document.getElementById('spinner').style.display = 'block';
+            document.getElementById('loginBtn').disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Reset loading state
+                document.getElementById('btnText').style.display = 'block';
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('loginBtn').disabled = false;
+                
+                // For demo purposes, show error message
+                // In real app, you would check credentials here
+                document.getElementById('errorMessage').style.display = 'block';
+                
+                // Hide error message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 5000);
+                
+                console.log("Login attempt: " + username);
+            }, 1500);
+        });
+        
+        // Add ripple effect to button
+        document.getElementById('loginBtn').addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+        
+        // Input field animations
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.querySelector('i').style.color = '#ffb600';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.querySelector('i').style.color = '#333333';
+            });
         });
     </script>
 </body>
