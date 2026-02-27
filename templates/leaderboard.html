@@ -2,7 +2,9 @@
 
 {% block content %}
 <style>
-    /* Styling to match your professional theme */
+    /* ============================================================
+       1. CORE DESIGN & CONTAINER
+       ============================================================ */
     .leaderboard-container { 
         padding: 20px; 
         max-width: 1000px; 
@@ -16,93 +18,160 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
     }
     
-    h2 { color: #2c3e50; text-align: center; margin-bottom: 20px; font-size: 1.8rem; }
+    h2 { color: #2c3e50; text-align: center; margin-bottom: 25px; font-size: 1.8rem; font-weight: 800; }
     
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    /* ============================================================
+       2. TAB SYSTEM STYLING
+       ============================================================ */
+    .leaderboard-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 30px;
+        flex-wrap: wrap; /* Allows wrapping on mobile */
+    }
+
+    .tab-btn {
+        padding: 12px 20px;
+        border: none;
+        background: #f1f5f9;
+        color: #64748b;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+    }
+
+    .tab-btn.active {
+        background: #34495e;
+        color: white;
+        box-shadow: 0 4px 12px rgba(52, 73, 94, 0.3);
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       3. TABLE STYLING (EXACT OLD DESIGN)
+       ============================================================ */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto; /* Enables horizontal scroll on small screens */
+    }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; min-width: 600px; }
     
     th, td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
     
-    th { background-color: #34495e; color: white; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; }
+    th { background-color: #34495e; color: white; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
     
-    .rank-1 { background-color: #fff9c4; font-weight: bold; } /* Gold highlight for #1 */
+    .rank-1 { background-color: #fff9c4; font-weight: bold; } 
     .rank-2 { background-color: #f1f1f1; }
     .rank-3 { background-color: #fff5e6; }
 
-    /* Section Badges for the Fight */
     .badge-section {
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.7rem;
         font-weight: bold;
         color: white;
         text-transform: uppercase;
-        display: inline-block;
     }
-    .section-A { background-color: #e74c3c; } /* Red */
-    .section-B { background-color: #3498db; } /* Blue */
-    .section-C { background-color: #2ecc71; } /* Green */
+    .section-A { background-color: #e74c3c; } 
+    .section-B { background-color: #3498db; } 
+    .section-C { background-color: #2ecc71; }
 
-    .btn-back { 
-        display: inline-block; 
-        margin-bottom: 20px; 
-        text-decoration: none; 
-        color: #3498db; 
-        font-weight: bold; 
-        transition: 0.2s;
-    }
-    .btn-back:hover { color: #2980b9; }
+    .btn-back { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #3498db; font-weight: bold; }
+    .solved-count { font-size: 1.1rem; color: #2c3e50; }
 
-    .solved-count {
-        font-size: 1.1rem;
-        color: #2c3e50;
+    /* ============================================================
+       4. MOBILE ALIGNMENT FIXES
+       ============================================================ */
+    @media (max-width: 600px) {
+        .leaderboard-container { padding: 10px; }
+        .card { padding: 15px; border-radius: 10px; }
+        h2 { font-size: 1.4rem; }
+        .tab-btn { padding: 10px 12px; font-size: 0.75rem; flex: 1 1 40%; } /* 2 per row on small phones */
+        th, td { padding: 10px; font-size: 0.85rem; }
     }
 </style>
 
 <div class="leaderboard-container">
     <div class="card">
-        <a href="{{ url_for('home') }}" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
+        <a href="{{ url_for('home') }}" class="btn-back">← Back</a>
         
-        <h2>🏆 Top Performers</h2>
+        <h2>🏆 Leaderboard</h2>
         
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Roll Number</th>
-                    <th>Section</th>
-                    <th>Problems Solved</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in rankings %}
-                <tr class="rank-{{ loop.index }}">
-                    <td>
-                        {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}{{ loop.index }}{% endif %}
-                    </td>
-                    <td style="font-weight: 600; color: #34495e;">{{ row['name'] }}</td>
-                    <td style="font-family: monospace; font-weight: 600; color: #7f8c8d;">{{ row['roll_no'] }}</td>
-                    <td>
-                        <span class="badge-section section-{{ row['section'] }}">
-                            {{ row['section'] }}
-                        </span>
-                    </td>
-                    <td>
-                        <strong class="solved-count">{{ row['total'] }}</strong> 
-                        <span style="color: #bdc3c7; font-size: 0.8rem;">/ 90</span>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="5" style="text-align: center; padding: 30px; color: #95a5a6;">
-                        No submissions found yet. Be the first!
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="leaderboard-tabs">
+            <button class="tab-btn active" onclick="openLeaderboard(event, 'overall')">Department-wise</button>
+            <button class="tab-btn" onclick="openLeaderboard(event, 'secA')">Section A</button>
+            <button class="tab-btn" onclick="openLeaderboard(event, 'secB')">Section B</button>
+            <button class="tab-btn" onclick="openLeaderboard(event, 'secC')">Section C</button>
+        </div>
+
+        <div id="overall" class="tab-content active">
+            <div class="table-responsive">
+                {% set rankings = overall %}
+                {% include 'leaderboard_table.html' %}
+            </div>
+        </div>
+
+        <div id="secA" class="tab-content">
+            <div class="table-responsive">
+                {% set rankings = sec_a %}
+                {% include 'leaderboard_table.html' %}
+            </div>
+        </div>
+
+        <div id="secB" class="tab-content">
+            <div class="table-responsive">
+                {% set rankings = sec_b %}
+                {% include 'leaderboard_table.html' %}
+            </div>
+        </div>
+
+        <div id="secC" class="tab-content">
+            <div class="table-responsive">
+                {% set rankings = sec_c %}
+                {% include 'leaderboard_table.html' %}
+            </div>
+        </div>
     </div>
 </div>
+
+<script type="text/template" id="table-template">
+    </script>
+
+<script>
+    function openLeaderboard(evt, tabName) {
+        var i, tabcontent, tablinks;
+        // Hide all contents
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
+        }
+        // Deactivate all buttons
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        // Show current tab
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
 {% endblock %}

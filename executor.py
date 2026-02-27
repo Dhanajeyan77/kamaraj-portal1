@@ -84,6 +84,7 @@ def run_code(language, code, test_cases):
         ]
 
         # --- PHASE 3: EXECUTION LOOP ---
+        # --- PHASE 3: EXECUTION LOOP (UPDATED) ---
         for test in test_cases:
             try:
                 raw_input = test['input_data']
@@ -98,6 +99,7 @@ def run_code(language, code, test_cases):
                     current_jail_cmd = jail_cmd_base + run_cmd
                     input_to_pass = formatted_input + "\n"
 
+                # Capture both stdout and stderr for better debugging
                 process = subprocess.run(
                     current_jail_cmd, 
                     input=input_to_pass,
@@ -106,6 +108,9 @@ def run_code(language, code, test_cases):
                     timeout=22 
                 )
 
+                # Initialize error reporting
+                stderr_output = process.stderr.strip() if process.stderr else ""
+                
                 if process.returncode == 137:
                     actual_raw = "ERROR: Time/Memory Limit Exceeded"
                     is_passed = False
@@ -120,21 +125,23 @@ def run_code(language, code, test_cases):
                     expected_clean = deep_clean(expected_raw)
                     is_passed = (actual_clean == expected_clean)
 
+                    # Fallback check for numeric equality
                     if not is_passed:
                         a_nums = re.findall(r'\d+', actual_raw)
                         e_nums = re.findall(r'\d+', expected_raw)
-                        if a_nums and e_nums:
-                            is_passed = (a_nums == e_nums)
+                        if a_nums and e_nums and a_nums == e_nums:
+                            is_passed = True
 
+                # CRITICAL CHANGE: Include stderr so App.py can find syntax errors
                 results.append({
                     "passed": is_passed,
                     "input": test['input_data'],
                     "expected": test['expected_output'].strip(),
                     "actual": actual_raw.strip(),
-                    "error": "", # Removed raw stderr for security
+                    "error": stderr_output, 
                     "exit_code": process.returncode 
                 })
-                
+
             except subprocess.TimeoutExpired:
                 results.append({
                     "passed": False,

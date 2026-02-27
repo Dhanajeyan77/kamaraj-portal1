@@ -12,6 +12,9 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 # 🔥 INTERNAL MODULES
 from test_cases_data import TEST_CASES_DICT  
 from queue_worker import submit_job, get_result 
+import csv
+from io import StringIO
+from flask import Response, make_response
 
 # ==========================================
 # 1. INITIALIZATION & CONFIGURATION
@@ -21,7 +24,6 @@ IST = pytz.timezone('Asia/Kolkata')
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "local_development_only_key")
-# 
 
 # 
 # UNIVERSAL PROXY FIX: 
@@ -131,7 +133,7 @@ def question_detail(qid):
 
     conn = get_db_connection()
     
-    # INITIALIZE DEFAULTS (Preserving your structure)
+    # INITIALIZE DEFAULTS
     output = ""
     user_code = ""
     question = None
@@ -146,7 +148,7 @@ def question_detail(qid):
         test_cases = TEST_CASES_DICT.get(qid, [])
 
         if request.method == "POST":
-            # SECURITY & COMPATIBILITY: Handle both JSON (Monaco) and Form data
+            # SECURITY & COMPATIBILITY: Handle both JSON and Form data
             if request.is_json:
                 data = request.get_json()
                 user_code = data.get("user_code", "")
@@ -155,7 +157,7 @@ def question_detail(qid):
                 user_code = request.form.get("user_code", "")
                 language = request.form.get("lang_choice", "python")
 
-            # PROCESS SUBMISSION VIA QUEUE (Your original logic)
+            # PROCESS SUBMISSION VIA QUEUE
             job_id = submit_job(user=session["user"], code=user_code, language=language, test_cases=test_cases)
             result = get_result(job_id)
 
@@ -164,32 +166,69 @@ def question_detail(qid):
             all_passed = result.get("all_passed", False)
             passed_cases = sum(1 for r in test_results if r.get("passed"))
             total_cases = len(test_results)
+            
+            # 🔎 1. SYNTAX ERROR DETECTION LOGIC 🔍
+            # We check the first failed test case to see if it crashed during compilation/startup
+            first_fail = next((r for r in test_results if not r.get("passed")), None)
+            is_syntax_error = False
+            error_msg = ""
+            line_no = None
+
+            if first_fail and first_fail.get("exit_code") != 0:
+                raw_error = first_fail.get("error", "")
+                if raw_error:
+                    # 🛡️ CLEANING LOGIC: Remove NsJail internal logs and messy paths
+                    lines = raw_error.split('\n')
+                    # Filter out lines starting with [I] (NsJail info) or [W] (Warnings)
+                    filtered_lines = [line for line in lines if not line.startswith(('[I]', '[W]', '[E]'))]
+                    
+                    # Reconstruct the message
+                    clean_msg = "\n".join(filtered_lines).strip()
+                    
+                    # Optional: Remove the long server path to make it look cleaner
+                    # This replaces '/home/thala_thalapathy/.../s.py' with just 'script.py'
+                    clean_msg = re.sub(r'/home/[\w\-/._]+/', '', clean_msg)
+                    
+                    is_syntax_error = True
+                    error_msg = clean_msg
+
+                    # 🔍 REGEX: Find line number for Monaco highlight
+                    line_match = re.search(r'(?:line\s+|:)(\d+)', error_msg, re.IGNORECASE)
+                    if line_match:
+                        line_no = int(line_match.group(1))
+
+
 
             # Build summary message for terminal/modals
             if all_passed:
                 output = f"✅ SUCCESS: {passed_cases}/{total_cases} Test Cases Passed!"
+            elif is_syntax_error:
+                output = "❌ ERROR: Compilation/Syntax Failure"
             else:
-                failed_test = next((r for r in test_results if not r.get("passed")), None)
-                output = f"❌ FAILED: {passed_cases}/{total_cases} Passed" if failed_test else "❌ ERROR: Execution Terminated."
+                output = f"❌ FAILED: {passed_cases}/{total_cases} Passed"
 
-            # DATABASE SAVE (Critical for Leaderboard & Security)
+            # DATABASE SAVE
             try:
                 final_status = 'Success' if all_passed else 'Failed'
-                
-                # Record in submissions table (for Leaderboard)
+    
+            # 1. We ALWAYS log the submission history (to see their path)
                 cur.execute("""
-                    INSERT INTO submissions (username, problem_id, status, language)
-                    VALUES (%s, %s, %s, %s)
+                INSERT INTO submissions (username, problem_id, status, language)
+                VALUES (%s, %s, %s, %s)
                 """, (session["user"], qid, final_status, language))
-                
-                # Record in attempts table (for Solutions)
-                cur.execute("""
+    
+            # 2. We ONLY update the 'attempts' (Solutions) table if they actually PASSED
+            # Or, if it's their very first attempt, we save it regardless.
+                if all_passed:
+                    cur.execute("""
                     INSERT INTO attempts (user_roll, question_id, status, code, language)
                     VALUES (%s, %s, %s, %s, %s)
                     ON CONFLICT (user_roll, question_id, language) 
-                    DO UPDATE SET code = EXCLUDED.code, status = EXCLUDED.status
-                """, (session["user"], qid, final_status, user_code, language))
-                
+                    DO UPDATE SET 
+                    code = EXCLUDED.code, 
+                    status = EXCLUDED.status
+                    """, (session["user"], qid, final_status, user_code, language))
+    
                 conn.commit()
             except Exception as e:
                 print(f"DATABASE SAVE ERROR: {e}")
@@ -199,19 +238,18 @@ def question_detail(qid):
             if request.is_json:
                 return jsonify({
                     "status": "success" if all_passed else "error",
+                    "is_syntax_error": is_syntax_error, # 🟢 Tell UI to show Bright Red Popup
                     "passed_all": all_passed,
-                    "error_type": result.get("error_type", "Execution Error"),
-                    "message": result.get("message", "Check test cases"),
-                    "line": result.get("line"), # Line number for Monaco highlight
+                    "error_type": "Syntax Error" if is_syntax_error else "Logic Error",
+                    "message": error_msg if is_syntax_error else "One or more test cases failed.",
+                    "line": line_no, # 🟢 Monaco will highlight this line
                     "test_results": test_results,
                     "terminal_output": output
                 })
                     
     finally:
-        # Crucial for 250 users: release connection back to pool
         release_db_connection(conn)
 
-    # RENDER TEMPLATE (For initial GET request)
     return render_template("question_detail.html", 
                             question=question, 
                             test_results=test_results, 
@@ -237,56 +275,84 @@ def instructions():
 def leaderboard():
     if "user" not in session:
         return redirect(url_for("login"))
+    
     conn = get_db_connection()
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        # Added join to users table to get Section and Name
-        cur.execute("""
-            SELECT u.roll_no, u.name, u.section, COUNT(DISTINCT s.problem_id) total
-            FROM users u
-            LEFT JOIN submissions s ON u.roll_no = s.username AND s.status='Success'
-            WHERE u.flag = 0
-            GROUP BY u.roll_no, u.name, u.section 
-            ORDER BY total DESC, u.roll_no ASC
-            LIMIT 5
-        """)
-        rankings = cur.fetchall()
+        
+        def get_top_5(flag1_val=None):
+            # Base Query focusing on top 5 per category
+            query = """
+                SELECT u.roll_no, u.name, u.section, COUNT(DISTINCT s.problem_id) total
+                FROM users u
+                LEFT JOIN submissions s ON u.roll_no = s.username AND s.status='Success'
+                WHERE u.flag = 0
+            """
+            params = []
+            if flag1_val is not None:
+                query += " AND u.flag1 = %s"
+                params.append(flag1_val)
+                
+            query += " GROUP BY u.roll_no, u.name, u.section ORDER BY total DESC, u.roll_no ASC LIMIT 5"
+            cur.execute(query, params)
+            return cur.fetchall()
+
+        # Fetch the 4 specific lists
+        overall = get_top_5()       # Whole College Top 5
+        sec_c = get_top_5(0)        # Section C Top 5 (flag1 = 0)
+        sec_b = get_top_5(1)        # Section B Top 5 (flag1 = 1)
+        sec_a = get_top_5(3)        # Section A Top 5 (flag1 = 3)
+
     finally:
         release_db_connection(conn)
-    return render_template("leaderboard.html", rankings=rankings)
-
+        
+    return render_template("leaderboard.html", 
+                           overall=overall, 
+                           sec_a=sec_a, 
+                           sec_b=sec_b, 
+                           sec_c=sec_c)
 
 @app.route("/solutions")
 def solutions():
     if "user" not in session: 
         return redirect(url_for("login"))
+        
     conn = get_db_connection()
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        
+        # 🟢 FIX: Only get the LATEST successful code for each problem/language combo
         cur.execute("""
-            SELECT s.status, s.created_at, s.language, q.title, q.date, a.code
+            SELECT DISTINCT ON (s.problem_id, s.language)
+                s.status, 
+                s.created_at, 
+                s.language, 
+                q.title,
+                q.date, 
+                a.code
             FROM submissions s 
             JOIN questions q ON s.problem_id = q.id 
             LEFT JOIN attempts a ON s.username = a.user_roll 
                 AND s.problem_id = a.question_id 
                 AND s.language = a.language
             WHERE s.username = %s AND s.status = 'Success'
-            ORDER BY s.created_at DESC
+            ORDER BY s.problem_id, s.language, s.created_at DESC
         """, (session["user"],))
+        
         user_solutions = cur.fetchall()
     finally: 
         release_db_connection(conn)
+        
     return render_template("solutions.html", solutions=user_solutions)
-
 @app.route("/admin")
 def admin():
-    # 1. Security Check
     if not session.get("is_admin"): 
         return redirect(url_for("home"))
     
     admin_id = session.get("user")
+    # Set the minimum date to December 24, 2025
+    MIN_DATE = "2025-12-24"
     from datetime import datetime
-    # IST is your defined timezone object
     today_str = datetime.now(IST).strftime('%Y-%m-%d')
     selected_date = request.args.get('date', today_str) 
     
@@ -294,52 +360,48 @@ def admin():
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         
-        # 2. Get the specific question for the selected date
+        # Fetching the specific question including its assigned date
         cur.execute("SELECT id, title, date FROM questions WHERE date = %s LIMIT 1", (selected_date,))
         q_info = cur.fetchone()
         
-        # --- DYNAMIC SECTION & FILTER LOGIC ---
-        if admin_id == '24UCS027' or admin_id =='HODCSE01':
+        # Mapping for Section Filters based on staff ID
+        view_map = {'24CP001': 0, '24CP002': 2, '24CP003': 3, '24JTA01': 3, '24JTB01': 2, '24JTC01': 0}
+        
+        if admin_id in ['24UCS027', 'HODCSE01']:
             filter_condition = "u.flag = 0"
             params = (q_info['id'] if q_info else 0,)
             display_name = "All Sections"
         else:
-            # Chairperson view: Map ID to flag1
-            # C=0, B=2, A=3
-            view_map = {'24CP001': 0, '24CP002': 2, '24CP003': 3,'24JTA01':3,'24JTB01':2,'24JTC01':0}
-            section_names = {0: 'CSE-C', 2: 'CSE-B', 3: 'CSE-A'}
-            
             target_flag1 = view_map.get(admin_id, 0)
             filter_condition = "u.flag = 0 AND u.flag1 = %s"
             params = (q_info['id'] if q_info else 0, target_flag1)
-            display_name = section_names.get(target_flag1, "Unknown Section")
+            display_name = {0: 'CSE-C', 2: 'CSE-B', 3: 'CSE-A'}.get(target_flag1, "Unknown")
 
-        # 3. Attendance Query
-        # We look for a 'Success' status for the specific problem_id linked to that date
+        # Query updated to prioritize Java Count and display the latest daily status
         query = f"""
             SELECT 
-                u.roll_no, 
-                u.name,
-                u.section,
-                CASE 
-                    WHEN s.status = 'Success' THEN 'Completed'
-                    ELSE 'Pending'
-                END as status,
-                s.created_at as timestamp
+                u.roll_no, u.name, u.section,
+                CASE WHEN s_today.status = 'Success' THEN 'Completed' ELSE 'Pending' END as status,
+                s_today.created_at as timestamp,
+                COALESCE(stats.java_solved, 0) as java_count
             FROM users u
             LEFT JOIN (
                 SELECT DISTINCT ON (username) username, status, created_at
                 FROM submissions
                 WHERE problem_id = %s AND status = 'Success'
                 ORDER BY username, created_at ASC
-            ) s ON u.roll_no = s.username
+            ) s_today ON u.roll_no = s_today.username
+            LEFT JOIN (
+                SELECT username,
+                    COUNT(DISTINCT CASE WHEN language = 'java' THEN problem_id END) as java_solved
+                FROM submissions WHERE status = 'Success'
+                GROUP BY username
+            ) stats ON u.roll_no = stats.username
             WHERE {filter_condition}
             ORDER BY u.roll_no ASC
         """
-        
         cur.execute(query, params)
         report = cur.fetchall()
-        student_count = len(report)
         
     finally: 
         release_db_connection(conn)
@@ -348,8 +410,68 @@ def admin():
                            report=report, 
                            q_info=q_info, 
                            selected_date=selected_date, 
-                           count=student_count, 
+                           min_date=MIN_DATE,
+                           count=len(report),
                            section_name=display_name)
+
+
+@app.route("/admin/export")
+def export_report():
+    if not session.get("is_admin"):
+        return redirect(url_for("home"))
+
+    admin_id = session.get("user")
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        
+        # Determine filter (Same logic as your admin route)
+        if admin_id in ['24UCS027', 'HODCSE01']:
+            filter_condition = "u.flag = 0"
+            params = []
+        else:
+            view_map = {'24CP001': 0, '24CP002': 2, '24CP003': 3, '24JTA01': 3, '24JTB01': 2, '24JTC01': 0}
+            target_flag1 = view_map.get(admin_id, 0)
+            filter_condition = "u.flag = 0 AND u.flag1 = %s"
+            params = [target_flag1]
+
+        # Fetch Data
+        query = f"""
+            SELECT 
+                u.roll_no, u.name, u.section,
+                COALESCE(stats.total_solved, 0) as total,
+                COALESCE(stats.java_solved, 0) as java,
+                COALESCE(stats.py_solved, 0) as python,
+                COALESCE(stats.cpp_solved, 0) as cpp
+            FROM users u
+            LEFT JOIN (
+                SELECT username,
+                    COUNT(DISTINCT problem_id) as total_solved,
+                    COUNT(DISTINCT CASE WHEN language = 'java' THEN problem_id END) as java_solved,
+                    COUNT(DISTINCT CASE WHEN language = 'python' THEN problem_id END) as py_solved,
+                    COUNT(DISTINCT CASE WHEN language = 'cpp' THEN problem_id END) as cpp_solved
+                FROM submissions WHERE status = 'Success'
+                GROUP BY username
+            ) stats ON u.roll_no = stats.username
+            WHERE {filter_condition} ORDER BY u.roll_no ASC
+        """
+        cur.execute(query, params)
+        rows = cur.fetchall()
+
+        # Generate CSV
+        si = StringIO()
+        cw = csv.writer(si)
+        cw.writerow(['Roll No', 'Name', 'Section', 'Total Solved', 'Java', 'Python', 'C++'])
+        for r in rows:
+            cw.writerow([r['roll_no'], r['name'], r['section'], r['total'], r['java'], r['python'], r['cpp']])
+        
+        output = make_response(si.getvalue())
+        output.headers["Content-Disposition"] = f"attachment; filename=Progress_Report_{admin_id}.csv"
+        output.headers["Content-type"] = "text/csv"
+        return output
+    finally:
+        release_db_connection(conn)
+
 
 
 @app.route("/admin/track/<roll_no>")
@@ -360,24 +482,30 @@ def admin_track(roll_no):
     conn = get_db_connection()
     solved_data = [] 
     heatmap = {}
+    lang_counts = {'python': 0, 'cpp': 0, 'java': 0, 'javascript': 0}
     
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         
-        # 1. Fetch solved problems JOINED with questions to get the title
+        # 🟢 1. FETCH UNIQUE PROBLEM+LANGUAGE PAIRS
+        # This prevents duplicate counts if they submit "Palindrome" in Java twice.
         cur.execute("""
-            SELECT DISTINCT ON (s.problem_id) 
-                q.title, 
-                s.language, 
-                s.created_at 
+            SELECT DISTINCT ON (s.problem_id, s.language) 
+                q.title, s.language, s.created_at, s.problem_id
             FROM submissions s
             JOIN questions q ON s.problem_id = q.id
             WHERE s.username = %s AND s.status = 'Success'
-            ORDER BY s.problem_id, s.created_at DESC
+            ORDER BY s.problem_id, s.language, s.created_at DESC
         """, (roll_no,))
         solved_data = cur.fetchall() 
-        
-        # 2. Heatmap Data (Keep this as is)
+
+        # 🟢 2. CALCULATE ACCURATE LANGUAGE COUNTS
+        for item in solved_data:
+            lang = item['language'].lower()
+            if lang in lang_counts:
+                lang_counts[lang] += 1
+
+        # 🟢 3. HEATMAP STREAK (COUNT UNIQUE PROBLEMS PER DAY)
         heatmap_query = """
             SELECT TO_CHAR(created_at, 'YYYY-MM-DD') as sub_date, 
                    COUNT(DISTINCT problem_id) as daily_count
@@ -388,10 +516,23 @@ def admin_track(roll_no):
         cur.execute(heatmap_query, (roll_no,))
         heatmap = {r['sub_date']: r['daily_count'] for r in cur.fetchall()}
         
+        # 🟢 4. TOTAL UNIQUE PROBLEM COUNT (The 1/90 stat)
+        cur.execute("""
+            SELECT COUNT(DISTINCT problem_id) as total 
+            FROM submissions WHERE username = %s AND status = 'Success'
+        """, (roll_no,))
+        unique_problem_count = cur.fetchone()['total']
+        
     finally:
         release_db_connection(conn)
         
-    return render_template("admin_use_detail.html", user=roll_no, solved=solved_data, heatmap=heatmap)
+    return render_template("admin_use_detail.html", 
+                           user=roll_no, 
+                           solved=solved_data, 
+                           heatmap=heatmap, 
+                           unique_count=unique_problem_count,
+                           langs=lang_counts)
+
 
 @app.route("/logout")
 def logout():

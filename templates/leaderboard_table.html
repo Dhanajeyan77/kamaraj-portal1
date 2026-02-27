@@ -1,0 +1,24 @@
+<table>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Roll Number</th>
+            <th>Section</th>
+            <th>Solved</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rankings %}
+        <tr class="rank-{{ loop.index }}">
+            <td>{% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}{{ loop.index }}{% endif %}</td>
+            <td style="font-weight: 600;">{{ row['name'] }}</td>
+            <td style="font-family: monospace;">{{ row['roll_no'] }}</td>
+            <td><span class="badge-section section-{{ row['section'] }}">{{ row['section'] }}</span></td>
+            <td><strong class="solved-count">{{ row['total'] }}</strong> <span style="color: #bdc3c7;">/ 90</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" style="text-align: center;">No data available.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>

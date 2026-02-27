@@ -48,7 +48,24 @@
     
     <h2>Deep Dive: {{ user }}</h2>
     <p>Academic Year 2025-2026 | Total Completed: <strong>{{ solved|length }} / 90</strong></p>
-
+    <div style="display: flex; gap: 10px; margin-bottom: 30px; margin-top: 20px;">
+    <div style="flex: 1; background: #3776ab; color: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; opacity: 0.9;">PYTHON</div>
+        <div style="font-size: 1.6rem; font-weight: 900;">{{ langs.python }}</div>
+    </div>
+    <div style="flex: 1; background: #00599c; color: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; opacity: 0.9;">C++</div>
+        <div style="font-size: 1.6rem; font-weight: 900;">{{ langs.cpp }}</div>
+    </div>
+    <div style="flex: 1; background: #e76f00; color: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; opacity: 0.9;">JAVA</div>
+        <div style="font-size: 1.6rem; font-weight: 900;">{{ langs.java }}</div>
+    </div>
+    <div style="flex: 1; background: #f7df1e; color: black; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; opacity: 0.9;">JS</div>
+        <div style="font-size: 1.6rem; font-weight: 900;">{{ langs.javascript }}</div>
+    </div>
+    </div>
     <h3>Activity Tracker</h3>
     
     <div class="heatmap-grid">
