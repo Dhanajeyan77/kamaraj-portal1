@@ -1,0 +1,18 @@
+nohup: ignoring input
+[2026-02-28 07:49:31 +0000] [1476109] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 07:49:31 +0000] [1476109] [INFO] Listening at: http://0.0.0.0:10000 (1476109)
+[2026-02-28 07:49:31 +0000] [1476109] [INFO] Using worker: sync
+[2026-02-28 07:49:31 +0000] [1476114] [INFO] Booting worker with pid: 1476114
+[2026-02-28 07:49:31 +0000] [1476115] [INFO] Booting worker with pid: 1476115
+[2026-02-28 07:49:31 +0000] [1476122] [INFO] Booting worker with pid: 1476122
+[2026-02-28 07:49:31 +0000] [1476135] [INFO] Booting worker with pid: 1476135
+[2026-02-28 17:14:07 +0000] [1476115] [INFO] Worker exiting (pid: 1476115)
+[2026-02-28 17:14:07 +0000] [1476114] [INFO] Worker exiting (pid: 1476114)
+[2026-02-28 17:14:07 +0000] [1476135] [INFO] Worker exiting (pid: 1476135)
+[2026-02-28 17:14:07 +0000] [1476122] [INFO] Worker exiting (pid: 1476122)
+[2026-02-28 17:14:07 +0000] [1476109] [INFO] Handling signal: term
+[2026-02-28 17:14:07 +0000] [1476109] [ERROR] Worker (pid:1476135) was sent SIGTERM!
+[2026-02-28 17:14:07 +0000] [1476109] [ERROR] Worker (pid:1476115) was sent SIGTERM!
+[2026-02-28 17:14:07 +0000] [1476109] [ERROR] Worker (pid:1476114) was sent SIGTERM!
+[2026-02-28 17:14:07 +0000] [1476109] [ERROR] Worker (pid:1476122) was sent SIGTERM!
+[2026-02-28 17:14:07 +0000] [1476109] [INFO] Shutting down: Master

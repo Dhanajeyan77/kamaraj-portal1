@@ -101,7 +101,15 @@ def login():
             if user:
                 session["user"] = username
                 session["is_admin"] = user.get("is_admin", False)
+                
+                # 🟢 ADD THIS LINE:
+                session["flag1"] = int(user.get("flag1") or 0)
+                session.permanent = True 
+                session.modified = True
                 return redirect(url_for("home"))
+            else:
+                # Optional: Add an error message if login fails
+                return render_template("login.html", error="Invalid credentials")
         finally:
             release_db_connection(conn)
     return render_template("login.html")
@@ -300,7 +308,7 @@ def leaderboard():
         # Fetch the 4 specific lists
         overall = get_top_5()       # Whole College Top 5
         sec_c = get_top_5(0)        # Section C Top 5 (flag1 = 0)
-        sec_b = get_top_5(1)        # Section B Top 5 (flag1 = 1)
+        sec_b = get_top_5(2)        # Section B Top 5 (flag1 = 1)
         sec_a = get_top_5(3)        # Section A Top 5 (flag1 = 3)
 
     finally:
@@ -532,6 +540,71 @@ def admin_track(roll_no):
                            heatmap=heatmap, 
                            unique_count=unique_problem_count,
                            langs=lang_counts)
+@app.route("/my-stats")
+def my_stats():
+    # 1. SECURITY: Ensure user is logged in
+    if "user" not in session:
+        return redirect(url_for("login"))
+    if session.get("is_admin") == True and session.get("flag1") == 1:
+        # Staff shouldn't be here, send them to the admin dashboard
+        return redirect(url_for("admin"))
+    
+    roll_no = session["user"] # Get logged-in student's ID
+    
+    conn = get_db_connection()
+    solved_data = [] 
+    heatmap = {}
+    lang_counts = {'python': 0, 'cpp': 0, 'java': 0, 'javascript': 0}
+    
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        
+        # 🟢 1. FETCH UNIQUE PROBLEM+LANGUAGE PAIRS
+        # Ensures that if they solve "Palindrome" in Java and Python, it counts as 1 for each language.
+        cur.execute("""
+            SELECT DISTINCT ON (s.problem_id, s.language) 
+                q.title, s.language, s.created_at, s.problem_id
+            FROM submissions s
+            JOIN questions q ON s.problem_id = q.id
+            WHERE s.username = %s AND s.status = 'Success'
+            ORDER BY s.problem_id, s.language, s.created_at DESC
+        """, (roll_no,))
+        solved_data = cur.fetchall() 
+
+        # 🟢 2. CALCULATE ACCURATE LANGUAGE COUNTS
+        for item in solved_data:
+            lang = item['language'].lower()
+            if lang in lang_counts:
+                lang_counts[lang] += 1
+
+        # 🟢 3. HEATMAP STREAK (COUNT UNIQUE PROBLEMS PER DAY)
+        heatmap_query = """
+            SELECT TO_CHAR(created_at, 'YYYY-MM-DD') as sub_date, 
+                   COUNT(DISTINCT problem_id) as daily_count
+            FROM submissions 
+            WHERE username = %s AND status = 'Success'
+            GROUP BY sub_date
+        """
+        cur.execute(heatmap_query, (roll_no,))
+        heatmap = {r['sub_date']: r['daily_count'] for r in cur.fetchall()}
+        
+        # 🟢 4. TOTAL UNIQUE PROBLEM COUNT (The 1/90 stat)
+        cur.execute("""
+            SELECT COUNT(DISTINCT problem_id) as total 
+            FROM submissions WHERE username = %s AND status = 'Success'
+        """, (roll_no,))
+        unique_problem_count = cur.fetchone()['total']
+        
+    finally:
+        release_db_connection(conn)
+        
+    # Render the new student-specific template
+    return render_template("my_stats.html", 
+                            user=roll_no, 
+                            solved=solved_data, 
+                            heatmap=heatmap, 
+                            unique_count=unique_problem_count,
+                            langs=lang_counts)
 
 
 @app.route("/logout")

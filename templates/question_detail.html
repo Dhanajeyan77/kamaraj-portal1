@@ -422,10 +422,10 @@ document.getElementById('lang-instructions').innerHTML = configs[lang].inst;
 });
 document.getElementById('lang-instructions').innerHTML = configs.python.inst;
 
-// ANTI-CHEAT BUFFER LOCKDOWN
 editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyC, () => alert("SECURITY: Buffer copying restricted."));
 editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => alert("SECURITY: Buffer pasting restricted."));
 editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyV, () => { alert("PASTE BLOCKED: Please type your logic manually."); });
+
 // Disable right-click in the editor specifically
 document.getElementById('monaco-container').addEventListener('contextmenu', e => e.preventDefault());
 });
@@ -570,26 +570,48 @@ document.getElementById('main-content').classList.add('blur-guard');
 document.getElementById('cheating-overlay').style.display = 'flex';
 }
 });
-/* ============================================================
-   5. EXTENSION & GLOBAL CLIPBOARD LOCKDOWN
-   ============================================================ */
+ /*=======================================================
+5. EXTENSION & GLOBAL CLIPBOARD LOCKDOWN
+============================================================ */
+// 🟢 INSERT THE MOBILE/BULK DETECTION HERE
+let lastContentLength = 0;
+
+// This listener is inside the Monaco engine
+if (editor) {
+    editor.onDidChangeModelContent((event) => {
+        const currentContent = editor.getValue();
+        const currentLength = currentContent.length;
+        const lengthJump = currentLength - lastContentLength;
+
+        // If more than 30 characters appear at once (Mobile Paste/Extension Injection)
+        if (lengthJump > 30) {
+            editor.setValue(""); // Wipe the editor
+            showModal('error', '🚨 BULK INPUT DETECTED', 
+                      'Mobile pasting or bulk input is blocked.', 
+                      'Please type your code manually to pass evaluation.', 
+                      'SECURITY ALERT');
+            lastContentLength = 0;
+        } else {
+            lastContentLength = currentLength;
+        }
+    });
+}
+
 
 // Catch any paste event at the browser level (blocks extensions)
 document.addEventListener('paste', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Notify the user
-    showModal('error', '🚨 CLIPBOARD LOCK', 'Pasting via extensions or browser menus is strictly prohibited.', 'Please type your code manually to pass evaluation.', 'SECURITY ALERT');
-    
-    return false;
+e.preventDefault();
+e.stopPropagation();
+// Notify the user
+showModal('error', '🚨 CLIPBOARD LOCK', 'Pasting via extensions or browser menus is strictly prohibited.', 'Please type your code manually to pass evaluation.', 'SECURITY ALERT');
+return false;
 }, true); // 'true' triggers the Capturing phase to catch the event first
 
 // Specifically block the mouse middle-click paste (common in Linux)
 document.addEventListener('mousedown', function(e) {
-    if (e.button === 1) { // 1 is the middle button
-        e.preventDefault();
-    }
+if (e.button === 1) { // 1 is the middle button
+e.preventDefault();
+}
 });
 </script>
 {% endblock %}

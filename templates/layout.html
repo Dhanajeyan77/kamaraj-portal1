@@ -68,26 +68,29 @@
         <button class="menu-toggle" id="mobileMenuBtn">
             <i class="fas fa-bars"></i>
         </button>
-
         <div class="nav-links" id="navLinks">
-            {% if session.get('user') %}
-                <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
-                <a href="{{ url_for('questions') }}">Challenges</a>
-                
-                <a href="{{ url_for('instructions') }}" class="rules-link"><i class="fas fa-book"></i> Rules & I/O</a>
-                
-                <a href="{{ url_for('leaderboard') }}">🏆 Leaderboard</a>
-                <a href="{{ url_for('solutions') }}">My Solutions</a>
+    {% if session.get('user') %}
+        <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ url_for('questions') }}">Challenges</a>
+        <a href="{{ url_for('instructions') }}" class="rules-link"><i class="fas fa-book"></i> Rules & I/O</a>
+        <a href="{{ url_for('leaderboard') }}">🏆 Leaderboard</a>
 
-                {% if session.get('user') in ['24UCS027', '24CP001','24CP002','24CP003','HODCSE01','24JTA01','24JTB01','24JTC01'] %}
-                  <a href="{{ url_for('admin') }}" class="admin-link">📊 Admin Panel</a>
-                {% endif %}
+        {# We use '| int' to force numeric comparison #}
+        {% if session.get('flag1') | int != 1 %}
+            <a href="{{ url_for('solutions') }}">My Solutions</a>
+            <a href="{{ url_for('my_stats') }}"><i class="fas fa-chart-line"></i> My Progress</a>
+        {% endif %}
 
-                <a href="{{ url_for('logout') }}" class="logout-link">Logout ({{ session['user'] }})</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-            {% endif %}
-        </div>
+        {% if session.get('is_admin') %}
+            <a href="{{ url_for('admin') }}" class="admin-link">📊 Admin Panel</a>
+        {% endif %}
+
+        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+</div>
+            
     </nav>
 
     <main>

@@ -1822,3 +1822,737 @@ jinja2.exceptions.UndefinedError: 'count' is undefined
 [2026-02-27 20:02:33 +0000] [1414303] [INFO] Booting worker with pid: 1414303
 [2026-02-27 20:02:33 +0000] [1414316] [INFO] Booting worker with pid: 1414316
 [2026-02-27 20:02:33 +0000] [1414329] [INFO] Booting worker with pid: 1414329
+[2026-02-27 20:25:08 +0000] [1419867] [INFO] Starting gunicorn 21.2.0
+[2026-02-27 20:25:08 +0000] [1419867] [INFO] Listening at: http://0.0.0.0:10000 (1419867)
+[2026-02-27 20:25:08 +0000] [1419867] [INFO] Using worker: sync
+[2026-02-27 20:25:08 +0000] [1419869] [INFO] Booting worker with pid: 1419869
+[2026-02-27 20:25:08 +0000] [1419870] [INFO] Booting worker with pid: 1419870
+[2026-02-27 20:25:08 +0000] [1419883] [INFO] Booting worker with pid: 1419883
+[2026-02-27 20:25:08 +0000] [1419884] [INFO] Booting worker with pid: 1419884
+[2026-02-27 20:25:08 +0000] [1419885] [INFO] Booting worker with pid: 1419885
+[2026-02-27 20:25:08 +0000] [1419886] [INFO] Booting worker with pid: 1419886
+[2026-02-27 20:25:08 +0000] [1419893] [INFO] Booting worker with pid: 1419893
+[2026-02-27 20:25:08 +0000] [1419912] [INFO] Booting worker with pid: 1419912
+[2026-02-28 07:24:41 +0000] [1419883] [INFO] Worker exiting (pid: 1419883)
+[2026-02-28 07:24:41 +0000] [1419869] [INFO] Worker exiting (pid: 1419869)
+[2026-02-28 07:24:41 +0000] [1419912] [INFO] Worker exiting (pid: 1419912)
+[2026-02-28 07:24:41 +0000] [1419884] [INFO] Worker exiting (pid: 1419884)
+[2026-02-28 07:24:41 +0000] [1419885] [INFO] Worker exiting (pid: 1419885)
+[2026-02-28 07:24:41 +0000] [1419886] [INFO] Worker exiting (pid: 1419886)
+[2026-02-28 07:24:41 +0000] [1419870] [INFO] Worker exiting (pid: 1419870)
+[2026-02-28 07:24:41 +0000] [1419893] [INFO] Worker exiting (pid: 1419893)
+[2026-02-28 07:24:41 +0000] [1419867] [INFO] Handling signal: term
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419869) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419870) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419883) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419884) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419885) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419886) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419893) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [ERROR] Worker (pid:1419912) was sent SIGTERM!
+[2026-02-28 07:24:41 +0000] [1419867] [INFO] Shutting down: Master
+[2026-02-28 17:16:39 +0000] [1897083] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 17:16:39 +0000] [1897083] [INFO] Listening at: http://0.0.0.0:10000 (1897083)
+[2026-02-28 17:16:39 +0000] [1897083] [INFO] Using worker: sync
+[2026-02-28 17:16:39 +0000] [1897085] [INFO] Booting worker with pid: 1897085
+[2026-02-28 17:16:39 +0000] [1897086] [INFO] Booting worker with pid: 1897086
+[2026-02-28 17:16:39 +0000] [1897087] [INFO] Booting worker with pid: 1897087
+[2026-02-28 17:16:39 +0000] [1897100] [INFO] Booting worker with pid: 1897100
+[2026-02-28 18:31:51 +0000] [1897087] [INFO] Worker exiting (pid: 1897087)
+[2026-02-28 18:31:51 +0000] [1897100] [INFO] Worker exiting (pid: 1897100)
+[2026-02-28 18:31:51 +0000] [1897085] [INFO] Worker exiting (pid: 1897085)
+[2026-02-28 18:31:51 +0000] [1897086] [INFO] Worker exiting (pid: 1897086)
+[2026-02-28 18:31:51 +0000] [1897083] [INFO] Handling signal: term
+[2026-02-28 18:31:51 +0000] [1897083] [ERROR] Worker (pid:1897086) was sent SIGTERM!
+[2026-02-28 18:31:51 +0000] [1897083] [ERROR] Worker (pid:1897087) was sent SIGTERM!
+[2026-02-28 18:31:51 +0000] [1897083] [ERROR] Worker (pid:1897100) was sent SIGTERM!
+[2026-02-28 18:31:51 +0000] [1897083] [ERROR] Worker (pid:1897085) was sent SIGTERM!
+[2026-02-28 18:31:51 +0000] [1897083] [INFO] Shutting down: Master
+[2026-02-28 18:31:53 +0000] [1924246] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 18:31:53 +0000] [1924246] [INFO] Listening at: http://0.0.0.0:10000 (1924246)
+[2026-02-28 18:31:53 +0000] [1924246] [INFO] Using worker: sync
+[2026-02-28 18:31:53 +0000] [1924248] [INFO] Booting worker with pid: 1924248
+[2026-02-28 18:31:53 +0000] [1924249] [INFO] Booting worker with pid: 1924249
+[2026-02-28 18:31:53 +0000] [1924256] [INFO] Booting worker with pid: 1924256
+[2026-02-28 18:31:53 +0000] [1924263] [INFO] Booting worker with pid: 1924263
+[2026-02-28 18:34:16 +0000] [1924263] [INFO] Worker exiting (pid: 1924263)
+[2026-02-28 18:34:16 +0000] [1924256] [INFO] Worker exiting (pid: 1924256)
+[2026-02-28 18:34:16 +0000] [1924249] [INFO] Worker exiting (pid: 1924249)
+[2026-02-28 18:34:16 +0000] [1924248] [INFO] Worker exiting (pid: 1924248)
+[2026-02-28 18:34:16 +0000] [1924246] [INFO] Handling signal: term
+[2026-02-28 18:34:16 +0000] [1924246] [INFO] Shutting down: Master
+[2026-02-28 18:34:18 +0000] [1924767] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 18:34:18 +0000] [1924767] [INFO] Listening at: http://0.0.0.0:10000 (1924767)
+[2026-02-28 18:34:18 +0000] [1924767] [INFO] Using worker: sync
+[2026-02-28 18:34:18 +0000] [1924769] [INFO] Booting worker with pid: 1924769
+[2026-02-28 18:34:18 +0000] [1924770] [INFO] Booting worker with pid: 1924770
+[2026-02-28 18:34:18 +0000] [1924771] [INFO] Booting worker with pid: 1924771
+[2026-02-28 18:34:18 +0000] [1924778] [INFO] Booting worker with pid: 1924778
+[2026-02-28 18:45:24 +0000] [1924769] [INFO] Worker exiting (pid: 1924769)
+[2026-02-28 18:45:24 +0000] [1924770] [INFO] Worker exiting (pid: 1924770)
+[2026-02-28 18:45:24 +0000] [1924778] [INFO] Worker exiting (pid: 1924778)
+[2026-02-28 18:45:24 +0000] [1924771] [INFO] Worker exiting (pid: 1924771)
+[2026-02-28 18:45:24 +0000] [1924767] [INFO] Handling signal: term
+[2026-02-28 18:45:24 +0000] [1924767] [ERROR] Worker (pid:1924769) was sent SIGTERM!
+[2026-02-28 18:45:24 +0000] [1924767] [ERROR] Worker (pid:1924770) was sent SIGTERM!
+[2026-02-28 18:45:24 +0000] [1924767] [ERROR] Worker (pid:1924778) was sent SIGTERM!
+[2026-02-28 18:45:24 +0000] [1924767] [ERROR] Worker (pid:1924771) was sent SIGTERM!
+[2026-02-28 18:45:24 +0000] [1924767] [INFO] Shutting down: Master
+[2026-02-28 18:45:25 +0000] [1928099] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 18:45:25 +0000] [1928099] [INFO] Listening at: http://0.0.0.0:10000 (1928099)
+[2026-02-28 18:45:25 +0000] [1928099] [INFO] Using worker: sync
+[2026-02-28 18:45:25 +0000] [1928101] [INFO] Booting worker with pid: 1928101
+[2026-02-28 18:45:25 +0000] [1928102] [INFO] Booting worker with pid: 1928102
+[2026-02-28 18:45:25 +0000] [1928109] [INFO] Booting worker with pid: 1928109
+[2026-02-28 18:45:25 +0000] [1928116] [INFO] Booting worker with pid: 1928116
+[2026-02-28 19:14:21 +0000] [1928116] [INFO] Worker exiting (pid: 1928116)
+[2026-02-28 19:14:21 +0000] [1928102] [INFO] Worker exiting (pid: 1928102)
+[2026-02-28 19:14:21 +0000] [1928109] [INFO] Worker exiting (pid: 1928109)
+[2026-02-28 19:14:21 +0000] [1928101] [INFO] Worker exiting (pid: 1928101)
+[2026-02-28 19:14:21 +0000] [1928099] [INFO] Handling signal: term
+[2026-02-28 19:14:21 +0000] [1928099] [ERROR] Worker (pid:1928116) was sent SIGTERM!
+[2026-02-28 19:14:21 +0000] [1928099] [ERROR] Worker (pid:1928101) was sent SIGTERM!
+[2026-02-28 19:14:21 +0000] [1928099] [ERROR] Worker (pid:1928102) was sent SIGTERM!
+[2026-02-28 19:14:21 +0000] [1928099] [ERROR] Worker (pid:1928109) was sent SIGTERM!
+[2026-02-28 19:14:21 +0000] [1928099] [INFO] Shutting down: Master
+[2026-02-28 19:14:23 +0000] [1937827] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 19:14:23 +0000] [1937827] [INFO] Listening at: http://0.0.0.0:10000 (1937827)
+[2026-02-28 19:14:23 +0000] [1937827] [INFO] Using worker: sync
+[2026-02-28 19:14:23 +0000] [1937829] [INFO] Booting worker with pid: 1937829
+[2026-02-28 19:14:23 +0000] [1937830] [INFO] Booting worker with pid: 1937830
+[2026-02-28 19:14:23 +0000] [1937831] [INFO] Booting worker with pid: 1937831
+[2026-02-28 19:14:23 +0000] [1937829] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:14:23 +0000] [1937829] [INFO] Worker exiting (pid: 1937829)
+[2026-02-28 19:14:23 +0000] [1937832] [INFO] Booting worker with pid: 1937832
+[2026-02-28 19:14:23 +0000] [1937827] [ERROR] Worker (pid:1937829) exited with code 3
+[2026-02-28 19:14:23 +0000] [1937830] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:14:23 +0000] [1937830] [INFO] Worker exiting (pid: 1937830)
+[2026-02-28 19:14:23 +0000] [1937831] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:14:23 +0000] [1937831] [INFO] Worker exiting (pid: 1937831)
+[2026-02-28 19:14:23 +0000] [1937827] [ERROR] Worker (pid:1937831) exited with code 3
+[2026-02-28 19:14:23 +0000] [1937827] [ERROR] Worker (pid:1937830) exited with code 3
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 202, in run
+    self.manage_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 571, in manage_workers
+    self.spawn_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 643, in spawn_workers
+    time.sleep(0.1 * random.random())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/bin/gunicorn", line 8, in <module>
+    sys.exit(run())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 236, in run
+    super().run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 229, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 342, in halt
+    self.stop()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 396, in stop
+    time.sleep(0.1)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 55, in apport_excepthook
+    import apt_pkg
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+
+Original exception was:
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 202, in run
+    self.manage_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 571, in manage_workers
+    self.spawn_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 643, in spawn_workers
+    time.sleep(0.1 * random.random())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/bin/gunicorn", line 8, in <module>
+    sys.exit(run())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 236, in run
+    super().run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 229, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 342, in halt
+    self.stop()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 396, in stop
+    time.sleep(0.1)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+[2026-02-28 19:14:23 +0000] [1937832] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:14:23 +0000] [1937832] [INFO] Worker exiting (pid: 1937832)
+[2026-02-28 19:15:15 +0000] [1938049] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 19:15:15 +0000] [1938049] [INFO] Listening at: http://0.0.0.0:10000 (1938049)
+[2026-02-28 19:15:15 +0000] [1938049] [INFO] Using worker: sync
+[2026-02-28 19:15:15 +0000] [1938051] [INFO] Booting worker with pid: 1938051
+[2026-02-28 19:15:15 +0000] [1938052] [INFO] Booting worker with pid: 1938052
+[2026-02-28 19:15:15 +0000] [1938053] [INFO] Booting worker with pid: 1938053
+[2026-02-28 19:15:15 +0000] [1938051] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:15:15 +0000] [1938051] [INFO] Worker exiting (pid: 1938051)
+[2026-02-28 19:15:15 +0000] [1938054] [INFO] Booting worker with pid: 1938054
+[2026-02-28 19:15:15 +0000] [1938049] [ERROR] Worker (pid:1938051) exited with code 3
+[2026-02-28 19:15:15 +0000] [1938052] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:15:15 +0000] [1938052] [INFO] Worker exiting (pid: 1938052)
+[2026-02-28 19:15:15 +0000] [1938053] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:15:15 +0000] [1938053] [INFO] Worker exiting (pid: 1938053)
+[2026-02-28 19:15:15 +0000] [1938049] [ERROR] Worker (pid:1938052) exited with code 3
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 202, in run
+    self.manage_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 571, in manage_workers
+    self.spawn_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 643, in spawn_workers
+    time.sleep(0.1 * random.random())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/bin/gunicorn", line 8, in <module>
+    sys.exit(run())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 236, in run
+    super().run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 229, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 342, in halt
+    self.stop()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 396, in stop
+    time.sleep(0.1)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+[2026-02-28 19:15:15 +0000] [1938054] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", 2", "expected_output": "[4,5,1,2,3]"},
+                                                                     ^
+SyntaxError: unterminated string literal (detected at line 189)
+[2026-02-28 19:15:15 +0000] [1938054] [INFO] Worker exiting (pid: 1938054)
+[2026-02-28 19:16:06 +0000] [1938252] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 19:16:06 +0000] [1938252] [INFO] Listening at: http://0.0.0.0:10000 (1938252)
+[2026-02-28 19:16:06 +0000] [1938252] [INFO] Using worker: sync
+[2026-02-28 19:16:06 +0000] [1938254] [INFO] Booting worker with pid: 1938254
+[2026-02-28 19:16:06 +0000] [1938255] [INFO] Booting worker with pid: 1938255
+[2026-02-28 19:16:06 +0000] [1938254] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", "2", "expected_output": "[4,5,1,2,3]"},
+                                    ^
+SyntaxError: ':' expected after dictionary key
+[2026-02-28 19:16:06 +0000] [1938254] [INFO] Worker exiting (pid: 1938254)
+[2026-02-28 19:16:06 +0000] [1938252] [ERROR] Worker (pid:1938254) exited with code 3
+[2026-02-28 19:16:06 +0000] [1938255] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/thala_thalapathy/kamaraj-portal1/app.py", line 13, in <module>
+    from test_cases_data import TEST_CASES_DICT
+  File "/home/thala_thalapathy/kamaraj-portal1/test_cases_data.py", line 189
+    {"input_data": "[1,2,3,4,5]", "2", "expected_output": "[4,5,1,2,3]"},
+                                    ^
+SyntaxError: ':' expected after dictionary key
+[2026-02-28 19:16:06 +0000] [1938255] [INFO] Worker exiting (pid: 1938255)
+[2026-02-28 19:16:06 +0000] [1938252] [ERROR] Worker (pid:1938255) exited with code 3
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 202, in run
+    self.manage_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 571, in manage_workers
+    self.spawn_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 643, in spawn_workers
+    time.sleep(0.1 * random.random())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/thala_thalapathy/.local/bin/gunicorn", line 8, in <module>
+    sys.exit(run())
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 236, in run
+    super().run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 229, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 342, in halt
+    self.stop()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 396, in stop
+    time.sleep(0.1)
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/thala_thalapathy/.local/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+[2026-02-28 19:17:24 +0000] [1938556] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 19:17:24 +0000] [1938556] [INFO] Listening at: http://0.0.0.0:10000 (1938556)
+[2026-02-28 19:17:24 +0000] [1938556] [INFO] Using worker: sync
+[2026-02-28 19:17:24 +0000] [1938558] [INFO] Booting worker with pid: 1938558
+[2026-02-28 19:17:24 +0000] [1938559] [INFO] Booting worker with pid: 1938559
+[2026-02-28 19:17:24 +0000] [1938572] [INFO] Booting worker with pid: 1938572
+[2026-02-28 19:17:24 +0000] [1938573] [INFO] Booting worker with pid: 1938573
+[2026-02-28 19:30:53 +0000] [1938558] [INFO] Worker exiting (pid: 1938558)
+[2026-02-28 19:30:53 +0000] [1938573] [INFO] Worker exiting (pid: 1938573)
+[2026-02-28 19:30:53 +0000] [1938559] [INFO] Worker exiting (pid: 1938559)
+[2026-02-28 19:30:53 +0000] [1938572] [INFO] Worker exiting (pid: 1938572)
+[2026-02-28 19:30:53 +0000] [1938556] [INFO] Handling signal: term
+[2026-02-28 19:30:53 +0000] [1938556] [ERROR] Worker (pid:1938572) was sent SIGTERM!
+[2026-02-28 19:30:53 +0000] [1938556] [ERROR] Worker (pid:1938558) was sent SIGTERM!
+[2026-02-28 19:30:53 +0000] [1938556] [ERROR] Worker (pid:1938573) was sent SIGTERM!
+[2026-02-28 19:30:53 +0000] [1938556] [ERROR] Worker (pid:1938559) was sent SIGTERM!
+[2026-02-28 19:30:53 +0000] [1938556] [INFO] Shutting down: Master
+[2026-02-28 19:35:58 +0000] [1943179] [INFO] Starting gunicorn 21.2.0
+[2026-02-28 19:35:58 +0000] [1943179] [INFO] Listening at: http://0.0.0.0:10000 (1943179)
+[2026-02-28 19:35:58 +0000] [1943179] [INFO] Using worker: sync
+[2026-02-28 19:35:58 +0000] [1943181] [INFO] Booting worker with pid: 1943181
+[2026-02-28 19:35:58 +0000] [1943182] [INFO] Booting worker with pid: 1943182
+[2026-02-28 19:35:58 +0000] [1943189] [INFO] Booting worker with pid: 1943189
+[2026-02-28 19:35:58 +0000] [1943190] [INFO] Booting worker with pid: 1943190
+[2026-03-01 16:14:55 +0000] [1943181] [INFO] Worker exiting (pid: 1943181)
+[2026-03-01 16:14:55 +0000] [1943190] [INFO] Worker exiting (pid: 1943190)
+[2026-03-01 16:14:55 +0000] [1943189] [INFO] Worker exiting (pid: 1943189)
+[2026-03-01 16:14:55 +0000] [1943182] [INFO] Worker exiting (pid: 1943182)
+[2026-03-01 16:14:55 +0000] [1943179] [INFO] Handling signal: term
+[2026-03-01 16:14:55 +0000] [1943179] [ERROR] Worker (pid:1943182) was sent SIGTERM!
+[2026-03-01 16:14:55 +0000] [1943179] [ERROR] Worker (pid:1943189) was sent SIGTERM!
+[2026-03-01 16:14:55 +0000] [1943179] [ERROR] Worker (pid:1943190) was sent SIGTERM!
+[2026-03-01 16:14:55 +0000] [1943179] [ERROR] Worker (pid:1943181) was sent SIGTERM!
+[2026-03-01 16:14:55 +0000] [1943179] [INFO] Shutting down: Master
+[2026-03-01 16:15:30 +0000] [2160111] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:15:30 +0000] [2160111] [INFO] Listening at: http://0.0.0.0:10000 (2160111)
+[2026-03-01 16:15:30 +0000] [2160111] [INFO] Using worker: sync
+[2026-03-01 16:15:30 +0000] [2160113] [INFO] Booting worker with pid: 2160113
+[2026-03-01 16:15:30 +0000] [2160114] [INFO] Booting worker with pid: 2160114
+[2026-03-01 16:15:30 +0000] [2160115] [INFO] Booting worker with pid: 2160115
+[2026-03-01 16:15:30 +0000] [2160122] [INFO] Booting worker with pid: 2160122
+[2026-03-01 16:17:04 +0000] [2160122] [INFO] Worker exiting (pid: 2160122)
+[2026-03-01 16:17:04 +0000] [2160113] [INFO] Worker exiting (pid: 2160113)
+[2026-03-01 16:17:04 +0000] [2160114] [INFO] Worker exiting (pid: 2160114)
+[2026-03-01 16:17:04 +0000] [2160115] [INFO] Worker exiting (pid: 2160115)
+[2026-03-01 16:17:04 +0000] [2160111] [INFO] Handling signal: term
+[2026-03-01 16:17:04 +0000] [2160111] [ERROR] Worker (pid:2160114) was sent SIGTERM!
+[2026-03-01 16:17:04 +0000] [2160111] [ERROR] Worker (pid:2160115) was sent SIGTERM!
+[2026-03-01 16:17:04 +0000] [2160111] [ERROR] Worker (pid:2160122) was sent SIGTERM!
+[2026-03-01 16:17:04 +0000] [2160111] [ERROR] Worker (pid:2160113) was sent SIGTERM!
+[2026-03-01 16:17:04 +0000] [2160111] [INFO] Shutting down: Master
+[2026-03-01 16:17:18 +0000] [2161486] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:17:18 +0000] [2161486] [INFO] Listening at: http://0.0.0.0:10000 (2161486)
+[2026-03-01 16:17:18 +0000] [2161486] [INFO] Using worker: sync
+[2026-03-01 16:17:18 +0000] [2161488] [INFO] Booting worker with pid: 2161488
+[2026-03-01 16:17:19 +0000] [2161489] [INFO] Booting worker with pid: 2161489
+[2026-03-01 16:17:19 +0000] [2161496] [INFO] Booting worker with pid: 2161496
+[2026-03-01 16:17:19 +0000] [2161503] [INFO] Booting worker with pid: 2161503
+[2026-03-01 16:19:40 +0000] [2161488] [INFO] Worker exiting (pid: 2161488)
+[2026-03-01 16:19:40 +0000] [2161489] [INFO] Worker exiting (pid: 2161489)
+[2026-03-01 16:19:40 +0000] [2161503] [INFO] Worker exiting (pid: 2161503)
+[2026-03-01 16:19:40 +0000] [2161496] [INFO] Worker exiting (pid: 2161496)
+[2026-03-01 16:19:40 +0000] [2161486] [INFO] Handling signal: term
+[2026-03-01 16:19:40 +0000] [2161486] [ERROR] Worker (pid:2161488) was sent SIGTERM!
+[2026-03-01 16:19:40 +0000] [2161486] [ERROR] Worker (pid:2161489) was sent SIGTERM!
+[2026-03-01 16:19:40 +0000] [2161486] [ERROR] Worker (pid:2161496) was sent SIGTERM!
+[2026-03-01 16:19:40 +0000] [2161486] [ERROR] Worker (pid:2161503) was sent SIGTERM!
+[2026-03-01 16:19:41 +0000] [2161486] [INFO] Shutting down: Master
+[2026-03-01 16:20:21 +0000] [2162769] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:20:21 +0000] [2162769] [INFO] Listening at: http://0.0.0.0:10000 (2162769)
+[2026-03-01 16:20:21 +0000] [2162769] [INFO] Using worker: sync
+[2026-03-01 16:20:21 +0000] [2162771] [INFO] Booting worker with pid: 2162771
+[2026-03-01 16:20:21 +0000] [2162772] [INFO] Booting worker with pid: 2162772
+[2026-03-01 16:20:21 +0000] [2162785] [INFO] Booting worker with pid: 2162785
+[2026-03-01 16:20:21 +0000] [2162786] [INFO] Booting worker with pid: 2162786
+[2026-03-01 16:25:49 +0000] [2162786] [INFO] Worker exiting (pid: 2162786)
+[2026-03-01 16:25:49 +0000] [2162785] [INFO] Worker exiting (pid: 2162785)
+[2026-03-01 16:25:49 +0000] [2162772] [INFO] Worker exiting (pid: 2162772)
+[2026-03-01 16:25:49 +0000] [2162771] [INFO] Worker exiting (pid: 2162771)
+[2026-03-01 16:25:49 +0000] [2162769] [INFO] Handling signal: term
+[2026-03-01 16:25:49 +0000] [2162769] [ERROR] Worker (pid:2162786) was sent SIGTERM!
+[2026-03-01 16:25:49 +0000] [2162769] [INFO] Shutting down: Master
+[2026-03-01 16:25:51 +0000] [2165234] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:25:51 +0000] [2165234] [INFO] Listening at: http://0.0.0.0:10000 (2165234)
+[2026-03-01 16:25:51 +0000] [2165234] [INFO] Using worker: sync
+[2026-03-01 16:25:51 +0000] [2165236] [INFO] Booting worker with pid: 2165236
+[2026-03-01 16:25:51 +0000] [2165237] [INFO] Booting worker with pid: 2165237
+[2026-03-01 16:25:51 +0000] [2165238] [INFO] Booting worker with pid: 2165238
+[2026-03-01 16:25:51 +0000] [2165245] [INFO] Booting worker with pid: 2165245
+[2026-03-01 16:31:44 +0000] [2165236] [INFO] Worker exiting (pid: 2165236)
+[2026-03-01 16:31:44 +0000] [2165245] [INFO] Worker exiting (pid: 2165245)
+[2026-03-01 16:31:44 +0000] [2165237] [INFO] Worker exiting (pid: 2165237)
+[2026-03-01 16:31:44 +0000] [2165238] [INFO] Worker exiting (pid: 2165238)
+[2026-03-01 16:31:44 +0000] [2165234] [INFO] Handling signal: term
+[2026-03-01 16:31:44 +0000] [2165234] [ERROR] Worker (pid:2165238) was sent SIGTERM!
+[2026-03-01 16:31:44 +0000] [2165234] [ERROR] Worker (pid:2165245) was sent SIGTERM!
+[2026-03-01 16:31:44 +0000] [2165234] [ERROR] Worker (pid:2165237) was sent SIGTERM!
+[2026-03-01 16:31:44 +0000] [2165234] [ERROR] Worker (pid:2165236) was sent SIGTERM!
+[2026-03-01 16:31:44 +0000] [2165234] [INFO] Shutting down: Master
+[2026-03-01 16:31:45 +0000] [2167692] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:31:45 +0000] [2167692] [INFO] Listening at: http://0.0.0.0:10000 (2167692)
+[2026-03-01 16:31:45 +0000] [2167692] [INFO] Using worker: sync
+[2026-03-01 16:31:45 +0000] [2167694] [INFO] Booting worker with pid: 2167694
+[2026-03-01 16:31:45 +0000] [2167695] [INFO] Booting worker with pid: 2167695
+[2026-03-01 16:31:45 +0000] [2167696] [INFO] Booting worker with pid: 2167696
+[2026-03-01 16:31:45 +0000] [2167703] [INFO] Booting worker with pid: 2167703
+[2026-03-01 16:34:01 +0000] [2167696] [INFO] Worker exiting (pid: 2167696)
+[2026-03-01 16:34:01 +0000] [2167694] [INFO] Worker exiting (pid: 2167694)
+[2026-03-01 16:34:01 +0000] [2167703] [INFO] Worker exiting (pid: 2167703)
+[2026-03-01 16:34:01 +0000] [2167695] [INFO] Worker exiting (pid: 2167695)
+[2026-03-01 16:34:01 +0000] [2167692] [INFO] Handling signal: term
+[2026-03-01 16:34:01 +0000] [2167692] [ERROR] Worker (pid:2167694) was sent SIGTERM!
+[2026-03-01 16:34:01 +0000] [2167692] [ERROR] Worker (pid:2167695) was sent SIGTERM!
+[2026-03-01 16:34:01 +0000] [2167692] [ERROR] Worker (pid:2167696) was sent SIGTERM!
+[2026-03-01 16:34:01 +0000] [2167692] [ERROR] Worker (pid:2167703) was sent SIGTERM!
+[2026-03-01 16:34:02 +0000] [2167692] [INFO] Shutting down: Master
+[2026-03-01 16:34:03 +0000] [2168823] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:34:03 +0000] [2168823] [INFO] Listening at: http://0.0.0.0:10000 (2168823)
+[2026-03-01 16:34:03 +0000] [2168823] [INFO] Using worker: sync
+[2026-03-01 16:34:03 +0000] [2168825] [INFO] Booting worker with pid: 2168825
+[2026-03-01 16:34:03 +0000] [2168826] [INFO] Booting worker with pid: 2168826
+[2026-03-01 16:34:03 +0000] [2168827] [INFO] Booting worker with pid: 2168827
+[2026-03-01 16:34:03 +0000] [2168828] [INFO] Booting worker with pid: 2168828
+[2026-03-01 16:35:56 +0000] [2168828] [INFO] Worker exiting (pid: 2168828)
+[2026-03-01 16:35:56 +0000] [2168826] [INFO] Worker exiting (pid: 2168826)
+[2026-03-01 16:35:56 +0000] [2168825] [INFO] Worker exiting (pid: 2168825)
+[2026-03-01 16:35:56 +0000] [2168823] [INFO] Handling signal: term
+[2026-03-01 16:35:56 +0000] [2168823] [ERROR] Worker (pid:2168828) was sent SIGTERM!
+[2026-03-01 16:35:57 +0000] [2168827] [INFO] Worker exiting (pid: 2168827)
+[2026-03-01 16:35:57 +0000] [2168823] [INFO] Shutting down: Master
+[2026-03-01 16:35:58 +0000] [2169473] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:35:58 +0000] [2169473] [INFO] Listening at: http://0.0.0.0:10000 (2169473)
+[2026-03-01 16:35:58 +0000] [2169473] [INFO] Using worker: sync
+[2026-03-01 16:35:58 +0000] [2169475] [INFO] Booting worker with pid: 2169475
+[2026-03-01 16:35:59 +0000] [2169476] [INFO] Booting worker with pid: 2169476
+[2026-03-01 16:35:59 +0000] [2169477] [INFO] Booting worker with pid: 2169477
+[2026-03-01 16:35:59 +0000] [2169484] [INFO] Booting worker with pid: 2169484
+[2026-03-01 16:38:35 +0000] [2169477] [INFO] Worker exiting (pid: 2169477)
+[2026-03-01 16:38:35 +0000] [2169484] [INFO] Worker exiting (pid: 2169484)
+[2026-03-01 16:38:35 +0000] [2169476] [INFO] Worker exiting (pid: 2169476)
+[2026-03-01 16:38:35 +0000] [2169475] [INFO] Worker exiting (pid: 2169475)
+[2026-03-01 16:38:35 +0000] [2169473] [INFO] Handling signal: term
+[2026-03-01 16:38:35 +0000] [2169473] [ERROR] Worker (pid:2169484) was sent SIGTERM!
+[2026-03-01 16:38:35 +0000] [2169473] [ERROR] Worker (pid:2169475) was sent SIGTERM!
+[2026-03-01 16:38:35 +0000] [2169473] [ERROR] Worker (pid:2169477) was sent SIGTERM!
+[2026-03-01 16:38:35 +0000] [2169473] [ERROR] Worker (pid:2169476) was sent SIGTERM!
+[2026-03-01 16:38:35 +0000] [2169473] [INFO] Shutting down: Master
+[2026-03-01 16:38:37 +0000] [2170551] [INFO] Starting gunicorn 21.2.0
+[2026-03-01 16:38:37 +0000] [2170551] [INFO] Listening at: http://0.0.0.0:10000 (2170551)
+[2026-03-01 16:38:37 +0000] [2170551] [INFO] Using worker: sync
+[2026-03-01 16:38:37 +0000] [2170553] [INFO] Booting worker with pid: 2170553
+[2026-03-01 16:38:37 +0000] [2170554] [INFO] Booting worker with pid: 2170554
+[2026-03-01 16:38:37 +0000] [2170561] [INFO] Booting worker with pid: 2170561
+[2026-03-01 16:38:37 +0000] [2170571] [INFO] Booting worker with pid: 2170571

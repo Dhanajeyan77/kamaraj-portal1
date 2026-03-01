@@ -127,7 +127,7 @@ TEST_CASES_DICT = {
     108: [
         {"input_data": "\"Hello\"", "expected_output": "{\"vowels\": 2, \"consonants\": 3}"},
         # Extra Case: Only consonants and spaces
-        {"input_data": "\"Sky High\"", "expected_output": "{\"vowels\": 0, \"consonants\": 7}"}
+        {"input_data": "\"Sky High\"", "expected_output": "{\"vowels\": 1, \"consonants\": 6}"}
     ],
     109: [
         {"input_data": "\"leetcode\"", "expected_output": "\"l\""},
@@ -186,8 +186,8 @@ TEST_CASES_DICT = {
         {"input_data": "[0]", "expected_output": "[0]"} # Extra: Single zero
     ],
     120: [
-        {"input_data": "[1,2,3,4,5], 2", "expected_output": "[4,5,1,2,3]"},
-        {"input_data": "[1,2], 3", "expected_output": "[2,1]"} # Extra: Rotation > length
+        {"input_data": "[1,2,3,4,5], [2]", "expected_output": "[4,5,1,2,3]"},
+        {"input_data": "[1,2], [3]", "expected_output": "[2,1]"} # Extra: Rotation > length
     ],
     121: [
         {"input_data": "[3,0,1]", "expected_output": "2"},
