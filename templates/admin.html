@@ -246,7 +246,40 @@
         .report-table th:nth-child(2), .report-table td:nth-child(2) { display: none; } /* Hide names on tiny screens */
     }
 </style>
+{% if session['user'] == '24UCS027' %}
+<div style="background: #0f172a; color: #38bdf8; padding: 20px; border-radius: 15px; margin-bottom: 30px; border: 1px solid #1e293b;">
+    <h3 style="margin-top:0; font-size: 0.9rem; letter-spacing: 2px;">🚀 ENGINE LIVE MONITOR (SECURE)</h3>
+    <div style="display: flex; gap: 40px;">
+        <div>
+            <span style="color: #94a3b8; font-size: 0.8rem;">PENDING JOBS</span>
+            <div id="q-depth" style="font-size: 1.5rem; font-weight: 900;">0</div>
+        </div>
+        <div>
+            <span style="color: #94a3b8; font-size: 0.8rem;">ACTIVE WORKERS</span>
+            <div id="w-count" style="font-size: 1.5rem; font-weight: 900;">5</div>
+        </div>
+        <div>
+            <span style="color: #94a3b8; font-size: 0.8rem;">CACHED RESULTS</span>
+            <div id="r-cache" style="font-size: 1.5rem; font-weight: 900;">0</div>
+        </div>
+    </div>
+</div>
 
+<script>
+    function updateMetrics() {
+        fetch('/admin/engine-status')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('q-depth').innerText = data.pending_jobs;
+                document.getElementById('w-count').innerText = data.active_workers;
+                document.getElementById('r-cache').innerText = data.completed_results_in_memory;
+            });
+    }
+    // Refresh every 5 seconds
+    setInterval(updateMetrics, 5000);
+    updateMetrics();
+</script>
+{% endif %}
 <div class="admin-container">
     <header class="admin-header">
         <div class="header-main">

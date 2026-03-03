@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, session,js
 from dotenv import load_dotenv
 from psycopg2 import pool
 from werkzeug.middleware.proxy_fix import ProxyFix
-
+from datetime import datetime
 # 🔥 INTERNAL MODULES
 from test_cases_data import TEST_CASES_DICT  
 from queue_worker import submit_job, get_result 
@@ -606,6 +606,21 @@ def my_stats():
                             unique_count=unique_problem_count,
                             langs=lang_counts)
 
+@app.route("/admin/engine-status")
+def engine_status():
+    # 🛡️ HARD LOCK: Only your Roll No can access this
+    if "user" not in session or session["user"] != "24UCS027":
+        return "Access Denied: Specialized Admin Clearance Required", 403
+
+    from queue_worker import get_queue_status
+    
+    # Get live data from the threading engine
+    stats = get_queue_status()
+    
+    # Add a system timestamp so you know it's live
+    stats["server_time"] = datetime.now().strftime("%H:%M:%S")
+    
+    return jsonify(stats)
 
 @app.route("/logout")
 def logout():

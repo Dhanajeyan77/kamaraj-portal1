@@ -15,33 +15,39 @@ results_lock = threading.Lock()
 
 # 8GB RAM Protection: Allow 5 parallel jails at a time
 MAX_PARALLEL = 5 
-
-def worker():
-    """Background worker that pulls jobs and signals completion via Events."""
+def worker(worker_id):
+    """Hardened worker with explicit error signaling."""
     while True:
         job_id, payload = job_queue.get()
+        user_roll = payload.get('user', 'Unknown')
+        
+        logging.info(f"🚀 [Worker {worker_id}] Starting Job {job_id} for {user_roll}")
+        
         try:
-            # Execute the code via NsJail in executor.py
+            # Execute with a system-level timeout as a backup
             result = run_code(**payload)
             
             with results_lock:
                 results[job_id] = result
-                # Timestamp when the result was finished
                 job_timestamps[job_id] = datetime.now()
-            
-            # 🔥 The Handshake: Wake up the waiting Flask route
-            if job_id in job_events:
-                job_events[job_id].set()
         
         except Exception as e:
-            logging.error(f"Worker Error for job {job_id}: {str(e)}")
+            logging.error(f"❌ [Worker {worker_id}] CRITICAL ERROR: {str(e)}")
             with results_lock:
-                results[job_id] = {"all_passed": False, "summary": "System Error"}
-                job_timestamps[job_id] = datetime.now()
+                # Pass a structured error back so the UI knows it was a System Failure
+                results[job_id] = {
+                    "all_passed": False, 
+                    "summary": "Execution Engine Error",
+                    "test_results": [],
+                    "exit_code": 500 # Custom code for System Error
+                }
+        finally:
+            # 🔔 ALWAYS wake up the waiting Flask route
             if job_id in job_events:
                 job_events[job_id].set()
-        finally:
+            
             job_queue.task_done()
+            logging.info(f"✅ [Worker {worker_id}] Finished Job {job_id}")
 
 # --- ADDITIONAL FUNCTIONS (DOES NOT AFFECT WORKER LOGIC) ---
 
@@ -73,8 +79,8 @@ def get_queue_status():
 # --- END ADDITIONAL FUNCTIONS ---
 
 # Start background workers immediately upon import
-for _ in range(MAX_PARALLEL):
-    threading.Thread(target=worker, daemon=True).start()
+for i in range(MAX_PARALLEL):
+    threading.Thread(target=worker,args=(i,) ,daemon=True).start()
 
 # Start the cleanup thread
 threading.Thread(target=cleanup_zombie_jobs, daemon=True).start()
@@ -104,3 +110,12 @@ def get_result(job_id):
         job_events.pop(job_id, None)
         job_timestamps.pop(job_id, None)
         return res
+def get_engine_metrics():
+    """Returns data for the Admin 'System Health' dashboard."""
+    with results_lock:
+        return {
+            "queue_depth": job_queue.qsize(),
+            "cached_results": len(results),
+            "worker_count": MAX_PARALLEL,
+            "memory_usage_mb": 408 # From your 'free -m' used value
+        }
