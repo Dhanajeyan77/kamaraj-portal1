@@ -105,7 +105,7 @@ def run_code(language, code, test_cases):
                     input=input_to_pass,
                     capture_output=True, 
                     text=True, 
-                    timeout=22 
+                    timeout=7
                 )
 
                 # Initialize error reporting
@@ -113,6 +113,17 @@ def run_code(language, code, test_cases):
                 
                 if process.returncode == 137:
                     actual_raw = "ERROR: Time/Memory Limit Exceeded"
+                    is_passed = False
+                elif process.returncode == 152:
+                    # 🔥 This catches the Fork Bomb or Infinite Loop instantly
+                    actual_raw = "ERROR: CPU Time Limit Exceeded (Possible Infinite Loop or Fork Bomb)"
+                    is_passed = False
+                elif process.returncode == 139:
+                    actual_raw = "ERROR: Segmentation Fault (Memory Access Error)"
+                    is_passed = False
+                elif process.returncode != 0:
+                    # Catch-all for other runtime errors
+                    actual_raw = f"RUNTIME ERROR (Exit Code {process.returncode})"
                     is_passed = False
                 else:
                     actual_raw = process.stdout if process.stdout else ""
