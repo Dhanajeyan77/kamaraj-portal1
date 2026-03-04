@@ -5,7 +5,11 @@ import time
 import logging
 from datetime import datetime, timedelta
 from executor import run_code
+from collections import deque
 
+# --- NEW: Live Monitoring Storage ---
+# Stores the last 50 events. Automatically removes oldest when full.
+live_audit_log = deque(maxlen=20)
 # Thread-safe storage
 job_queue = queue.Queue()
 results = {}
@@ -19,13 +23,30 @@ def worker(worker_id):
     """Hardened worker with explicit error signaling."""
     while True:
         job_id, payload = job_queue.get()
-        user_roll = payload.get('user', 'Unknown')
+        user_roll = payload.pop('user', 'Unknown')
+        lang = payload.get('language', 'Unknown')
         
         logging.info(f"🚀 [Worker {worker_id}] Starting Job {job_id} for {user_roll}")
         
         try:
             # Execute with a system-level timeout as a backup
             result = run_code(**payload)
+            exit_code = result.get("exit_code", 0)
+            # --- NEW: Audit Tracking Logic ---
+            status = "✅ Success" if result.get("all_passed") else "❌ Failed"
+            
+            # Identify the "Wrong Work"
+            if exit_code == 152: status = "🚨 FORK BOMB / CPU LIMIT"
+            if exit_code == 137: status = "📉 MEMORY LIMIT"
+            if exit_code == 124: status = "🕒 TIMEOUT (NsJail)"
+
+            live_audit_log.appendleft({
+                "time": datetime.now().strftime("%H:%M:%S"),
+                "roll": user_roll,
+                "lang": lang,
+                "status": status,
+                "danger": exit_code in [152, 137]
+            })
             
             with results_lock:
                 results[job_id] = result
@@ -91,6 +112,7 @@ def submit_job(user, code, language, test_cases):
     job_events[job_id] = threading.Event()
     # We don't timestamp here because the worker handles it once finished
     job_queue.put((job_id, {
+        "user": user,
         "language": language, 
         "code": code, 
         "test_cases": test_cases

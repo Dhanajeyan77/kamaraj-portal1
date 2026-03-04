@@ -1,8 +1,18 @@
 nohup: ignoring input
-[2026-03-03 16:53:45 +0000] [153226] [INFO] Starting gunicorn 21.2.0
-[2026-03-03 16:53:45 +0000] [153226] [INFO] Listening at: http://0.0.0.0:10000 (153226)
-[2026-03-03 16:53:45 +0000] [153226] [INFO] Using worker: sync
-[2026-03-03 16:53:45 +0000] [153228] [INFO] Booting worker with pid: 153228
-[2026-03-03 16:53:45 +0000] [153229] [INFO] Booting worker with pid: 153229
-[2026-03-03 16:53:45 +0000] [153236] [INFO] Booting worker with pid: 153236
-[2026-03-03 16:53:45 +0000] [153243] [INFO] Booting worker with pid: 153243
+[2026-03-03 18:11:07 +0000] [175444] [INFO] Starting gunicorn 21.2.0
+[2026-03-03 18:11:07 +0000] [175444] [INFO] Listening at: http://0.0.0.0:10000 (175444)
+[2026-03-03 18:11:07 +0000] [175444] [INFO] Using worker: sync
+[2026-03-03 18:11:07 +0000] [175446] [INFO] Booting worker with pid: 175446
+[2026-03-03 18:11:07 +0000] [175447] [INFO] Booting worker with pid: 175447
+[2026-03-03 18:11:07 +0000] [175448] [INFO] Booting worker with pid: 175448
+[2026-03-03 18:11:07 +0000] [175449] [INFO] Booting worker with pid: 175449
+[2026-03-03 18:38:12 +0000] [175444] [INFO] Handling signal: hup
+[2026-03-03 18:38:12 +0000] [175444] [INFO] Hang up: Master
+[2026-03-03 18:38:12 +0000] [175444] [ERROR] Worker (pid:175449) was sent SIGHUP!
+[2026-03-03 18:38:12 +0000] [175444] [ERROR] Worker (pid:175448) was sent SIGHUP!
+[2026-03-03 18:38:12 +0000] [175444] [ERROR] Worker (pid:175446) was sent SIGHUP!
+[2026-03-03 18:38:12 +0000] [175444] [ERROR] Worker (pid:175447) was sent SIGHUP!
+[2026-03-03 18:38:12 +0000] [181187] [INFO] Booting worker with pid: 181187
+[2026-03-03 18:38:12 +0000] [181188] [INFO] Booting worker with pid: 181188
+[2026-03-03 18:38:12 +0000] [181189] [INFO] Booting worker with pid: 181189
+[2026-03-03 18:38:12 +0000] [181190] [INFO] Booting worker with pid: 181190

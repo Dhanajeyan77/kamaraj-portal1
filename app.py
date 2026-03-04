@@ -612,16 +612,25 @@ def engine_status():
     if "user" not in session or session["user"] != "24UCS027":
         return "Access Denied: Specialized Admin Clearance Required", 403
 
-    from queue_worker import get_queue_status
+    from queue_worker import get_queue_status, live_audit_log
     
     # Get live data from the threading engine
     stats = get_queue_status()
-    
+    stats["audit_log"] = list(live_audit_log)
     # Add a system timestamp so you know it's live
     stats["server_time"] = datetime.now().strftime("%H:%M:%S")
     
     return jsonify(stats)
+@app.route("/admin/clear-audit", methods=["POST"])
+def clear_audit():
+    # 🛡️ SECURITY: Only 24UCS027 can wipe the logs
+    if "user" not in session or session["user"] != "24UCS027":
+        return jsonify({"error": "Unauthorized"}), 403
 
+    from queue_worker import live_audit_log
+    live_audit_log.clear() # Wipes the 30 records
+    return jsonify({"status": "success", "message": "Audit log cleared"})
+    
 @app.route("/logout")
 def logout():
     session.clear()

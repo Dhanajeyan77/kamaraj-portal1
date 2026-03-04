@@ -247,23 +247,41 @@
     }
 </style>
 {% if session['user'] == '24UCS027' %}
-<div style="background: #0f172a; color: #38bdf8; padding: 20px; border-radius: 15px; margin-bottom: 30px; border: 1px solid #1e293b;">
-    <h3 style="margin-top:0; font-size: 0.9rem; letter-spacing: 2px;">🚀 ENGINE LIVE MONITOR (SECURE)</h3>
-    <div style="display: flex; gap: 40px;">
-        <div>
-            <span style="color: #94a3b8; font-size: 0.8rem;">PENDING JOBS</span>
-            <div id="q-depth" style="font-size: 1.5rem; font-weight: 900;">0</div>
+<div style="background: #0f172a; color: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 35px; border: 1px solid #1e293b; box-shadow: 0 20px 50px rgba(0,0,0,0.2);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h3 style="margin:0; font-size: 0.8rem; letter-spacing: 2px; color: #38bdf8;">ENGINE LIVE MONITOR</h3>
+        <button onclick="clearAudit()" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.7rem;">
+            CLEAR AUDIT FEED
+        </button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px;">
+        <div style="background: #1e293b; padding: 15px; border-radius: 12px;">
+            <span style="color: #94a3b8; font-size: 0.7rem; font-weight: 800;">QUEUE DEPTH</span>
+            <div id="q-depth" style="font-size: 1.8rem; font-weight: 900; color: #fbbf24;">0</div>
         </div>
-        <div>
-            <span style="color: #94a3b8; font-size: 0.8rem;">ACTIVE WORKERS</span>
-            <div id="w-count" style="font-size: 1.5rem; font-weight: 900;">5</div>
+        <div style="background: #1e293b; padding: 15px; border-radius: 12px;">
+            <span style="color: #94a3b8; font-size: 0.7rem; font-weight: 800;">WORKERS</span>
+            <div id="w-count" style="font-size: 1.8rem; font-weight: 900; color: #22c55e;">5</div>
         </div>
-        <div>
-            <span style="color: #94a3b8; font-size: 0.8rem;">CACHED RESULTS</span>
-            <div id="r-cache" style="font-size: 1.5rem; font-weight: 900;">0</div>
+        <div style="background: #1e293b; padding: 15px; border-radius: 12px;">
+            <span style="color: #94a3b8; font-size: 0.7rem; font-weight: 800;">CACHED</span>
+            <div id="r-cache" style="font-size: 1.8rem; font-weight: 900; color: #38bdf8;">0</div>
+        </div>
+    </div>
+
+    <div style="background: #020617; border-radius: 12px; padding: 15px; border: 1px solid #334155;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #475569; margin-bottom: 10px; font-weight: 800;">
+            <span>LIVE AUDIT FEED (LAST 30)</span>
+            <span id="server-time">--:--:--</span>
+        </div>
+        <div id="audit-feed" style="font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.8rem; height: 250px; overflow-y: auto; line-height: 1.6;">
+            <div style="color: #475569;">Waiting for engine heartbeat...</div>
         </div>
     </div>
 </div>
+
+
 
 <script>
     function updateMetrics() {
@@ -273,10 +291,32 @@
                 document.getElementById('q-depth').innerText = data.pending_jobs;
                 document.getElementById('w-count').innerText = data.active_workers;
                 document.getElementById('r-cache').innerText = data.completed_results_in_memory;
+                document.getElementById('server-time').innerText = data.server_time;
+
+                const feed = document.getElementById('audit-feed');
+                if (data.audit_log.length === 0) {
+                    feed.innerHTML = '<div style="color: #475569;">Feed empty. Waiting for submissions...</div>';
+                    return;
+                }
+
+                feed.innerHTML = data.audit_log.map(log => {
+                    const color = log.danger ? '#f87171' : (log.status.includes('Success') ? '#4ade80' : '#94a3b8');
+                    return `<div style="border-bottom: 1px solid #1e293b; padding: 4px 0; color: ${color}">
+                        [${log.time}] <b>${log.roll}</b> <span style="color: #38bdf8">${log.lang}</span>: ${log.status}
+                    </div>`;
+                }).join('');
             });
     }
-    // Refresh every 5 seconds
-    setInterval(updateMetrics, 5000);
+
+    function clearAudit() {
+        if(confirm("Totally clear the 30-record audit history?")) {
+            fetch('/admin/clear-audit', { method: 'POST' })
+                .then(() => updateMetrics());
+        }
+    }
+
+    // High-speed tracking: Update every 3 seconds
+    setInterval(updateMetrics, 3000);
     updateMetrics();
 </script>
 {% endif %}
