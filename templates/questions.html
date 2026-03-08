@@ -2,14 +2,19 @@
 {% block content %}
 <div class="container">
     <h2>Available Coding Challenges</h2>
-    <p>Select a date to start practicing.</p>
+    <p>Select a challenge to start practicing.</p>
     <hr>
     <div class="list-group">
         {% for q in questions %}
         <a href="{{ url_for('question_detail', qid=q.id) }}" class="question-card">
             <div class="q-info">
-                <strong>Challenge Date: {{ q.date }}</strong>
-                <span>Click to Solve &rarr;</span>
+                <div>
+                    <h4 style="margin: 0; color: #28a745;">{{ q.title }}</h4>
+                    <small class="text-muted">Challenge Date: {{ q.date }}</small>
+                </div>
+                <div class="q-action">
+                    <span>Solve Challenge &rarr;</span>
+                </div>
             </div>
         </a>
         {% endfor %}
@@ -20,21 +25,29 @@
     .question-card {
         display: block;
         padding: 20px;
-        margin-bottom: 10px;
-        background: #f8f9fa;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+        margin-bottom: 15px;
+        background: #ffffff;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
         text-decoration: none;
         color: #333;
-        transition: 0.3s;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .question-card:hover {
-        background: #e9ecef;
+        background: #f1f8f1;
         border-color: #28a745;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     .q-info {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+    }
+    .q-action {
+        font-weight: bold;
+        color: #28a745;
     }
 </style>
 {% endblock %}
