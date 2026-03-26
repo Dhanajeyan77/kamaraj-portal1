@@ -6,15 +6,82 @@ import shutil
 import json
 import traceback
 import sys
+import requests
+
+
+# 🚨 PUT THIS MISSING FUNCTION RIGHT HERE 🚨
+def send_telegram_alert(roll_no, issue_type, code):
+    """Sends an instant message to your Telegram bot."""
+    bot_token = "8721013528:AAFjFDPGW4COvtZz7nNvhWa5IjT7rH0voaU"
+    chat_id = "2073840068"
+    
+    code_snippet = code[:200] + "..." if len(code) > 200 else code
+    
+    message = (
+        f"🚨 KAMARAJ SERVER ALARM 🚨\n"
+        f"Roll No: {roll_no}\n"
+        f"Issue: {issue_type}\n"
+        f"Code:\n{code_snippet}"
+    )
+    
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    try:
+        requests.post(url, json={"chat_id": chat_id, "text": message}, timeout=3)
+    except Exception as e:
+        pass
 
 # 🔥 Use Absolute Path for Gunicorn stability
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NSJAIL_BIN = os.path.join(BASE_DIR, "bin", "nsjail")
 
-def run_code(language, code, test_cases):
+# =====================================================================
+# 🔥 SECURITY LAYER: Pre-execution Keyword Filter
+# =====================================================================
+def contains_dangerous_code(language, code):
+    """
+    Scans the raw student code for malicious imports and system calls.
+    Returns True if dangerous code is detected, False if it is safe.
+    """
+    # Strip spaces and newlines to prevent students from bypassing the filter 
+    # by typing "import    os" instead of "import os"
+    clean_code_lower = code.replace(" ", "").replace("\t", "").replace("\n", "").lower()
+
+    if language == "python":
+        blocked_keywords = [
+            "importos", "fromos", "importsubprocess", "fromsubprocess", 
+            "importsys", "fromsys", "importpty", "frompty", 
+            "__import__", "eval(", "exec(", "compile(", "open(", 
+            "importsocket", "fromsocket", "importurllib", "fromurllib", 
+            "importthreading", "fromthreading", "importmultiprocessing", "frommultiprocessing"
+        ]
+        return any(bad_word in clean_code_lower for bad_word in blocked_keywords)
+
+    elif language == "java":
+        blocked_keywords = [
+            "java.lang.runtime", "processbuilder", "system.getenv",
+            "java.io.file", "filereader", "filewriter", "java.net.", 
+            "httpurlconnection", "java.lang.reflect", "system.exit"
+        ]
+        return any(bad_word in clean_code_lower for bad_word in blocked_keywords)
+    
+    return False 
+# =====================================================================
+def run_code(language, code, test_cases, roll_no): # 🔥 ADDED roll_no HERE
+    # 🔥 1. RUN THE SECURITY SCAN FIRST
+    if contains_dangerous_code(language, code):
+        # 🚨 ALARM: Student tried to use a blocked keyword!
+        send_telegram_alert(roll_no, "Blocked Keyword Attempted", code)
+        
+        return {
+            "all_passed": False,
+            "test_results": [{"passed": False, "input": "N/A", "expected": "N/A", "actual": "ERROR: Security Violation (Restricted keyword or system call detected)", "error": "Blocked by pre-execution filter", "exit_code": 403}],
+            "summary": "Security Violation Detected",
+            "details": [] 
+        }
+
+    # If the code is safe, proceed normally
     submissions_dir = os.path.join(BASE_DIR, 'temp_submissions')
     os.makedirs(submissions_dir, exist_ok=True)
-    
     tmp_run_dir = tempfile.mkdtemp(dir=submissions_dir)
     # Ensure the directory is accessible to the nsjail process
     os.chmod(tmp_run_dir, 0o777)
@@ -54,18 +121,19 @@ def run_code(language, code, test_cases):
                 f.write(code)
             
             java_home = "/usr/lib/jvm/java-21-openjdk-amd64"
-            # 🔥 Command template for args[] injection
+            # 🔥 CHANGED to -Xmx2500m (2.5GB limit)
             java_run_template = (
                 f"export LD_LIBRARY_PATH={java_home}/lib/jli:{java_home}/lib:{java_home}/lib/server && "
                 f"{java_home}/bin/javac Solution.java && "
-                f"{java_home}/bin/java -Xmx512m -cp . Solution "
+                f"{java_home}/bin/java -Xmx2500m -cp . Solution "
             )
             run_cmd = []
-
+        
         elif language == "python":
             with open(os.path.join(tmp_run_dir, "s.py"), "w") as f:
                 f.write(code)
-            run_cmd = ["/bin/sh", "-c", "/usr/bin/python3 /app/s.py"]
+            # This matches the /app destination in your jail_cmd_base
+            run_cmd = ["/usr/bin/python3", "/app/s.py"]
 
         elif language == "javascript":
             with open(os.path.join(tmp_run_dir, "solution.js"), "w") as f:
@@ -84,7 +152,6 @@ def run_code(language, code, test_cases):
         ]
 
         # --- PHASE 3: EXECUTION LOOP ---
-        # --- PHASE 3: EXECUTION LOOP (UPDATED) ---
         for test in test_cases:
             try:
                 raw_input = test['input_data']
@@ -111,13 +178,30 @@ def run_code(language, code, test_cases):
                 # Initialize error reporting
                 stderr_output = process.stderr.strip() if process.stderr else ""
                 
-                if process.returncode == 137:
+                # =======================================================
+                # 🔥 ALARM TRAPS 🔥
+                # =======================================================
+                
+                if language == "java" and "OutOfMemoryError" in stderr_output:
+                    actual_raw = "ERROR: Memory Limit Exceeded (Java Heap limit)"
+                    is_passed = False
+                    # 🚨 ALARM: Java JVM 2.5GB limit hit!
+                    send_telegram_alert(roll_no, "Java Memory Leak! Exceeded 2.5GB JVM limit", code)
+
+                elif process.returncode == 137:
                     actual_raw = "ERROR: Time/Memory Limit Exceeded"
                     is_passed = False
+                    # 🚨 ALARM: Cgroup killed the process for memory/time limits!
+                    send_telegram_alert(roll_no, f"{language.upper()} Process Killed (OOM or Time Limit)", code)
+
                 elif process.returncode == 152:
-                    # 🔥 This catches the Fork Bomb or Infinite Loop instantly
                     actual_raw = "ERROR: CPU Time Limit Exceeded (Possible Infinite Loop or Fork Bomb)"
                     is_passed = False
+                    # 🚨 ALARM: Process tried to fork bomb or loop endlessly!
+                    send_telegram_alert(roll_no, "CPU Limit / Fork Bomb Blocked!", code)
+
+                # =======================================================
+
                 elif process.returncode == 139:
                     actual_raw = "ERROR: Segmentation Fault (Memory Access Error)"
                     is_passed = False

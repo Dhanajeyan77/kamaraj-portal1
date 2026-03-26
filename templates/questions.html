@@ -1,53 +1,95 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
-    <h2>Available Coding Challenges</h2>
-    <p>Select a challenge to start practicing.</p>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Available Coding Challenges</h2>
+        <span class="badge bg-dark p-2">
+            Progress: {{ solved_ids|length }} / {{ questions|length }}
+        </span>
+    </div>
+    <p class="text-muted">Select a challenge to start practicing.</p>
     <hr>
+    
     <div class="list-group">
         {% for q in questions %}
-        <a href="{{ url_for('question_detail', qid=q.id) }}" class="question-card">
+        <div class="question-card {% if q.id in solved_ids %}border-success-left{% else %}border-pending-left{% endif %}">
             <div class="q-info">
                 <div>
-                    <h4 style="margin: 0; color: #28a745;">{{ q.title }}</h4>
-                    <small class="text-muted">Challenge Date: {{ q.date }}</small>
+                    <a href="{{ url_for('question_detail', qid=q.id) }}" class="question-link">
+                        <span class="q-title" style="color: {% if q.id in solved_ids %}#28a745{% else %}#333{% endif %};">
+                            {{ q.title }}
+                        </span>
+                    </a>
+                    <p class="mb-0 text-muted" style="font-size: 0.85rem;">Released: {{ q.date }}</p>
                 </div>
-                <div class="q-action">
-                    <span>Solve Challenge &rarr;</span>
+                
+                <div class="q-status">
+                    {% if q.id in solved_ids %}
+                        <span class="status-badge solved">Completed ✅</span>
+                    {% else %}
+                        <span class="status-badge pending">Pending ⏳</span>
+                    {% endif %}
                 </div>
             </div>
-        </a>
+        </div>
         {% endfor %}
     </div>
 </div>
 
 <style>
+    /* Main Card Layout */
     .question-card {
-        display: block;
-        padding: 20px;
-        margin-bottom: 15px;
-        background: #ffffff;
-        border: 1px solid #dee2e6;
-        border-radius: 10px;
-        text-decoration: none;
-        color: #333;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        padding: 15px 20px;
+        margin-bottom: 12px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        transition: all 0.2s ease-in-out;
     }
+
+    /* Left Border Accent */
+    .border-success-left { border-left: 6px solid #28a745; }
+    .border-pending-left { border-left: 6px solid #dc3545; }
+
     .question-card:hover {
-        background: #f1f8f1;
-        border-color: #28a745;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: scale(1.01);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+
     .q-info {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .q-action {
+
+    .question-link {
+        text-decoration: none;
+    }
+
+    .q-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
         font-weight: bold;
-        color: #28a745;
+        text-transform: uppercase;
+    }
+
+    .solved {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        border: 1px solid #c8e6c9;
+    }
+
+    .pending {
+        background-color: #fff5f5;
+        color: #c53030;
+        border: 1px solid #feb2b2;
     }
 </style>
 {% endblock %}

@@ -119,19 +119,33 @@ def home():
     if "user" not in session:
         return redirect(url_for("login"))
     return render_template("home.html", user=session["user"])
-
 @app.route("/questions")
 def questions():
     if "user" not in session:
         return redirect(url_for("login"))
+    
     conn = get_db_connection()
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        
+        # 1. Fetch all questions
         cur.execute("SELECT * FROM questions ORDER BY id ASC")
         qs = cur.fetchall()
+        
+        # 2. Fetch IDs of questions this user has successfully solved
+        cur.execute("""
+            SELECT DISTINCT problem_id 
+            FROM submissions 
+            WHERE username = %s AND status = 'Success'
+        """, (session["user"],))
+        
+        # Create a simple set of solved IDs: {91, 92, 181, ...}
+        solved_ids = {r['problem_id'] for r in cur.fetchall()}
+        
     finally:
         release_db_connection(conn)
-    return render_template("questions.html", questions=qs)
+        
+    return render_template("questions.html", questions=qs, solved_ids=solved_ids)
 
 @app.route("/question/<int:qid>", methods=["GET", "POST"])
 def question_detail(qid):
@@ -181,6 +195,23 @@ def question_detail(qid):
             is_syntax_error = False
             error_msg = ""
             line_no = None
+            # =======================================================
+            # 🚨 2. NEW: DATABASE SECURITY LOGGING 🚨
+            # =======================================================
+            if first_fail and first_fail.get("exit_code") == 403:
+                try:
+                    cur.execute("""
+                        INSERT INTO security_violations (roll_no, language, blocked_keyword, submitted_code)
+                        VALUES (%s, %s, %s, %s)
+                    """, (session["user"], language, "Restricted Keyword/System Call", user_code))
+                    # We commit immediately so the evidence is saved
+                    conn.commit() 
+                except Exception as e:
+                    print(f"Failed to save security log to DB: {e}")
+                    conn.rollback()
+            # =======================================================
+
+
 
             if first_fail and first_fail.get("exit_code") != 0:
                 raw_error = first_fail.get("error", "")

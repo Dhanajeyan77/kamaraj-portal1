@@ -29,23 +29,35 @@ def worker(worker_id):
         logging.info(f"🚀 [Worker {worker_id}] Starting Job {job_id} for {user_roll}")
         
         try:
+            # 🟢 1. INJECT THE ROLL NO: 
+            # Add it back into the payload so executor.py receives it!
+            payload['roll_no'] = user_roll
+            
             # Execute with a system-level timeout as a backup
             result = run_code(**payload)
-            exit_code = result.get("exit_code", 0)
+            
+            # 🟢 2. FIND THE REAL EXIT CODE:
+            # We must dig into the first failed test case to find the exact reason it died
+            test_results = result.get("test_results", [])
+            first_fail = next((r for r in test_results if not r.get("passed")), None)
+            exit_code = first_fail.get("exit_code", 0) if first_fail else 0
+
             # --- NEW: Audit Tracking Logic ---
             status = "✅ Success" if result.get("all_passed") else "❌ Failed"
             
-            # Identify the "Wrong Work"
-            if exit_code == 152: status = "🚨 FORK BOMB / CPU LIMIT"
-            if exit_code == 137: status = "📉 MEMORY LIMIT"
-            if exit_code == 124: status = "🕒 TIMEOUT (NsJail)"
+            # Identify the "Wrong Work" including our new 403 Security block!
+            if exit_code == 403: status = "🚨 SECURITY VIOLATION (Blocked)"
+            elif exit_code == 152: status = "🚨 FORK BOMB / CPU LIMIT"
+            elif exit_code == 137: status = "📉 MEMORY LIMIT"
+            elif exit_code == 124: status = "🕒 TIMEOUT (NsJail)"
 
             live_audit_log.appendleft({
                 "time": datetime.now().strftime("%H:%M:%S"),
                 "roll": user_roll,
                 "lang": lang,
                 "status": status,
-                "danger": exit_code in [152, 137]
+                # 🟢 3. Highlight security threats in red on the admin dashboard
+                "danger": exit_code in [403, 152, 137] 
             })
             
             with results_lock:
@@ -69,7 +81,6 @@ def worker(worker_id):
             
             job_queue.task_done()
             logging.info(f"✅ [Worker {worker_id}] Finished Job {job_id}")
-
 # --- ADDITIONAL FUNCTIONS (DOES NOT AFFECT WORKER LOGIC) ---
 
 def cleanup_zombie_jobs():
