@@ -1,8 +1,18 @@
 nohup: ignoring input
-[2026-03-26 16:43:52 +0000] [66309] [INFO] Starting gunicorn 21.2.0
-[2026-03-26 16:43:52 +0000] [66309] [INFO] Listening at: http://0.0.0.0:10000 (66309)
-[2026-03-26 16:43:52 +0000] [66309] [INFO] Using worker: sync
-[2026-03-26 16:43:52 +0000] [66311] [INFO] Booting worker with pid: 66311
-[2026-03-26 16:43:53 +0000] [66312] [INFO] Booting worker with pid: 66312
-[2026-03-26 16:43:53 +0000] [66319] [INFO] Booting worker with pid: 66319
-[2026-03-26 16:43:53 +0000] [66326] [INFO] Booting worker with pid: 66326
+[2026-05-20 13:10:54 +0000] [214293] [INFO] Starting gunicorn 21.2.0
+[2026-05-20 13:10:54 +0000] [214293] [INFO] Listening at: http://0.0.0.0:10000 (214293)
+[2026-05-20 13:10:54 +0000] [214293] [INFO] Using worker: sync
+[2026-05-20 13:10:54 +0000] [214295] [INFO] Booting worker with pid: 214295
+[2026-05-20 13:10:54 +0000] [214296] [INFO] Booting worker with pid: 214296
+[2026-05-20 13:10:54 +0000] [214297] [INFO] Booting worker with pid: 214297
+[2026-05-20 13:10:54 +0000] [214298] [INFO] Booting worker with pid: 214298
+[2026-05-20 13:25:07 +0000] [214297] [INFO] Worker exiting (pid: 214297)
+[2026-05-20 13:25:07 +0000] [214296] [INFO] Worker exiting (pid: 214296)
+[2026-05-20 13:25:07 +0000] [214295] [INFO] Worker exiting (pid: 214295)
+[2026-05-20 13:25:07 +0000] [214298] [INFO] Worker exiting (pid: 214298)
+[2026-05-20 13:25:07 +0000] [214293] [INFO] Handling signal: term
+[2026-05-20 13:25:07 +0000] [214293] [ERROR] Worker (pid:214296) was sent SIGTERM!
+[2026-05-20 13:25:07 +0000] [214293] [ERROR] Worker (pid:214295) was sent SIGTERM!
+[2026-05-20 13:25:07 +0000] [214293] [ERROR] Worker (pid:214298) was sent SIGTERM!
+[2026-05-20 13:25:07 +0000] [214293] [ERROR] Worker (pid:214297) was sent SIGTERM!
+[2026-05-20 13:25:07 +0000] [214293] [INFO] Shutting down: Master

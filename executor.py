@@ -23,7 +23,6 @@ def send_telegram_alert(roll_no, issue_type, code):
         f"Issue: {issue_type}\n"
         f"Code:\n{code_snippet}"
     )
-    
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     try:
         requests.post(url, json={"chat_id": chat_id, "text": message}, timeout=3)
