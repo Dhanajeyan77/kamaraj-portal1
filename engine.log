@@ -1,0 +1,24 @@
+ * Tip: There are .env or .flaskenv files present. Do "pip install python-dotenv" to use them.
+ * Serving Flask app 'execution_api' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+2026-06-14 03:00:04,727 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2026-06-14 03:00:04,727 - INFO -  * Running on http://10.0.2.15:5000/ (Press CTRL+C to quit)
+2026-06-14 14:16:31,940 - INFO - 🚀 [Worker 0] Starting Job 18b91553-096e-4172-8bbe-96d03c12fa49 for 24UCS027 (Attempt 1)
+2026-06-14 14:16:32,097 - INFO - ✅ [Worker 0] Finished Job 18b91553-096e-4172-8bbe-96d03c12fa49
+2026-06-14 14:16:32,098 - INFO - 172.30.0.30 - - [14/Jun/2026 14:16:32] "POST /run HTTP/1.1" 200 -
+2026-06-14 14:27:17,268 - INFO - 🚀 [Worker 1] Starting Job cf574899-d2a1-4ce9-ad27-cc236f1e15e8 for 24UCS027 (Attempt 1)
+2026-06-14 14:27:17,494 - INFO - ✅ [Worker 1] Finished Job cf574899-d2a1-4ce9-ad27-cc236f1e15e8
+2026-06-14 14:27:17,495 - INFO - 172.30.0.30 - - [14/Jun/2026 14:27:17] "POST /run HTTP/1.1" 200 -
+2026-06-14 14:37:53,457 - INFO - 🚀 [Worker 2] Starting Job 59173a1d-35f7-4dfb-a557-be1963160065 for 24UCS027 (Attempt 1)
+2026-06-14 14:37:53,544 - INFO - ✅ [Worker 2] Finished Job 59173a1d-35f7-4dfb-a557-be1963160065
+2026-06-14 14:37:53,544 - INFO - 172.30.0.30 - - [14/Jun/2026 14:37:53] "POST /run HTTP/1.1" 200 -
+2026-06-14 14:38:30,056 - INFO - 🚀 [Worker 3] Starting Job a1e1f5c3-b0f1-42b5-8f77-c07ea3781d10 for 24UCS027 (Attempt 1)
+2026-06-14 14:38:30,136 - INFO - ✅ [Worker 3] Finished Job a1e1f5c3-b0f1-42b5-8f77-c07ea3781d10
+2026-06-14 14:38:30,137 - INFO - 172.30.0.30 - - [14/Jun/2026 14:38:30] "POST /run HTTP/1.1" 200 -
+2026-06-14 14:39:06,259 - INFO - 🚀 [Worker 4] Starting Job cda727d3-c90c-490f-a4c3-7ae3b00f0a29 for 24UCS027 (Attempt 1)
+2026-06-14 14:39:06,363 - INFO - ✅ [Worker 4] Finished Job cda727d3-c90c-490f-a4c3-7ae3b00f0a29
+2026-06-14 14:39:06,363 - INFO - 172.30.0.30 - - [14/Jun/2026 14:39:06] "POST /run HTTP/1.1" 200 -

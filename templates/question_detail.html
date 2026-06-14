@@ -8,379 +8,412 @@
 1. GLOBAL DESIGN SYSTEM & THEME
 ============================================================ */
 :root {
---lc-green: #2db55d;
---lc-orange: #ffa116;
---lc-border: #e2e8f0;
---editor-bg: #1e1e1e;
---modal-overlay: rgba(13, 17, 23, 0.98);
---font-main: 'Inter', -apple-system, system-ui, sans-serif;
+    --lc-green: #2db55d;
+    --lc-orange: #ffa116;
+    --lc-border: #e2e8f0;
+    --editor-bg: #1e1e1e;
+    --modal-overlay: rgba(13, 17, 23, 0.98);
+    --font-main: 'Inter', -apple-system, system-ui, sans-serif;
 }
 
 .coding-environment {
-padding: 20px;
-background-color: #f0f2f5;
-height: calc(100vh - 70px); 
-display: flex;
-flex-direction: column;
-overflow: hidden; 
-font-family: var(--font-main);
+    padding: 20px;
+    background-color: #f0f2f5;
+    height: calc(100vh - 70px); 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+    font-family: var(--font-main);
+    transition: filter 0.3s ease;
 }
 
 /* NEAT THREE-BOX GRID SYSTEM */
 .split-container {
-display: flex; 
-gap: 15px; 
-flex: 1; 
-width: 100%; 
-overflow: hidden; 
+    display: flex; 
+    gap: 15px; 
+    flex: 1; 
+    width: 100%; 
+    overflow: hidden; 
 }
 
 /* LEFT COLUMN: DESCRIPTION (BOX 1) & TERMINAL (BOX 2) */
 .left-column {
-flex: 1.1;
-display: flex;
-flex-direction: column;
-gap: 15px;
-height: 100%;
-overflow: hidden;
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    overflow: hidden;
 }
 
 .description-side {
-flex: 1.2;
-background: #ffffff;
-padding: 35px;
-border-radius: 16px;
-border: 1px solid var(--lc-border);
-overflow-y: auto;
-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1.2;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid var(--lc-border);
+    overflow-y: auto;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-/* 🔥 NEAT CONTENT PARAGRAPH ORGANIZATION 🔥 */
-.content-body {
-line-height: 1.9;
-color: #334155;
-font-size: 1rem;
-}
-
-.content-body h2 { 
-color: #1e293b; 
-margin-bottom: 25px; 
-font-weight: 900; 
-font-size: 1.8rem;
-border-bottom: 3px solid #f1f5f9; 
-padding-bottom: 12px; 
-}
-
-.content-body h3 { 
-color: #1e293b; 
-margin: 30px 0 15px 0; 
-font-size: 1.25rem; 
-font-weight: 800; 
-display: block; 
-}
-
-.content-body p { 
-margin-bottom: 18px; 
-text-align: justify; 
-}
-
-.content-body strong { 
-color: #d97706; 
-background: #fff7ed; 
-padding: 2px 6px; 
-border-radius: 4px; 
-font-weight: 700; 
-}
-
+.content-body { line-height: 1.9; color: #334155; font-size: 1rem; }
+.content-body h2 { color: #1e293b; margin-bottom: 25px; font-weight: 900; font-size: 1.8rem; border-bottom: 3px solid #f1f5f9; padding-bottom: 12px; }
+.content-body h3 { color: #1e293b; margin: 30px 0 15px 0; font-size: 1.25rem; font-weight: 800; display: block; }
+.content-body p { margin-bottom: 18px; text-align: justify; }
+.content-body strong { color: #d97706; background: #fff7ed; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
 .content-body ul { padding-left: 20px; margin-bottom: 25px; }
 .content-body li { margin-bottom: 10px; }
 
 /* BOX 2: EXECUTION TERMINAL */
 .terminal {
-flex: 1;
-background: white;
-border: 1px solid var(--lc-border);
-border-radius: 16px;
-display: flex;
-flex-direction: column;
-overflow: hidden;
-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    background: white;
+    border: 1px solid var(--lc-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .terminal-header {
-background: #f8fafc;
-padding: 12px 20px;
-font-weight: 800;
-font-size: 0.8rem;
-color: #64748b;
-border-bottom: 1px solid var(--lc-border);
-display: flex;
-justify-content: space-between;
+    background: #f8fafc;
+    padding: 12px 20px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: #64748b;
+    border-bottom: 1px solid var(--lc-border);
+    display: flex;
+    justify-content: space-between;
 }
 
 .output-text {
-padding: 20px;
-overflow-y: auto;
-flex: 1;
-background: #ffffff;
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    background: #ffffff;
 }
 
 /* BOX 3: EDITOR WORKSPACE (Right Side) */
 .editor-side {
-flex: 1.5; 
-height: 100%;
-display: flex;
-flex-direction: column;
+    flex: 1.5; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .editor-wrapper {
-flex: 1;
-display: flex;
-flex-direction: column;
-background: var(--editor-bg);
-border-radius: 16px;
-overflow: hidden;
-border: 1px solid #333;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--editor-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #333;
 }
 
 .editor-header {
-background: #2d2d2d;
-padding: 15px 25px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+    background: #2d2d2d;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#monaco-container {
-flex: 1;
-width: 100%;
-}
+#monaco-container { flex: 1; width: 100%; }
 
-/* POPUP ERROR MODAL SYSTEM */
+/* MODALS & OVERLAYS */
 .modal-overlay {
-display: none;
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background: var(--modal-overlay);
-backdrop-filter: blur(15px);
-z-index: 10000;
-justify-content: center;
-align-items: center;
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--modal-overlay);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-card {
-background: #1e1e1e;
-width: 580px;
-border-radius: 28px;
-border: 1px solid #333;
-overflow: hidden;
-box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+    background: #1e1e1e;
+    width: 580px;
+    border-radius: 28px;
+    border: 1px solid #333;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7);
 }
 
 .modal-card.error { border-top: 10px solid #ef4444; }
 .modal-card.success { border-top: 10px solid #2db55d; }
-
 .modal-header { padding: 35px 35px 15px 35px; }
 .modal-body { padding: 0 35px 35px 35px; color: #f1f5f9; }
 
-/* Exact Server Error Badge */
 .error-badge {
-background: #450a0a;
-color: #fca5a5;
-padding: 8px 16px;
-border-radius: 8px;
-font-weight: 900;
-font-size: 0.8rem;
-margin-bottom: 20px;
-display: inline-block;
-border: 1px solid #991b1b;
-text-transform: uppercase;
-letter-spacing: 1.5px;
-}
-
-/* ANTI-CHEATING SECURITY */
-#cheating-overlay {
-display: none;
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(2, 6, 23, 0.995);
-color: white;
-z-index: 99999;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-text-align: center;
+    background: #450a0a;
+    color: #fca5a5;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 900;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: 1px solid #991b1b;
+    text-transform: uppercase;
 }
 
 .blur-guard { filter: blur(45px); pointer-events: none; }
 
 .run-btn {
-background: var(--lc-green);
-color: white;
-padding: 12px 35px;
-border-radius: 12px;
-font-weight: 800;
-border: none;
-cursor: pointer;
-transition: all 0.25s ease;
+    background: var(--lc-green);
+    color: white;
+    padding: 12px 35px;
+    border-radius: 12px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
 
 .run-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .run-btn:disabled { background: #334155 !important; cursor: not-allowed; opacity: 0.8; }
-.errorLineDecoration { background: rgba(239, 68, 68, 0.3); width: 100% !important; }
-/* ============================================================
-   MOBILE RESPONSIVENESS (PHONES & TABLETS)
-   ============================================================ */
-@media (max-width: 1024px) {
-    .coding-environment {
-        height: auto; /* Allow scrolling on mobile */
-        min-height: 100vh;
-        overflow-y: auto;
-        padding: 10px;
-    }
 
-    .split-container {
-        flex-direction: column; /* Stack boxes vertically */
-        height: auto;
-        gap: 10px;
-    }
+/* 🔥 SECURE EXAM START OVERLAY 🔥 */
+#exam-start-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #0f172a; z-index: 999999;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
 
-    .left-column, .editor-side {
-        flex: none;
-        width: 100%;
-        height: auto;
-    }
-
-    /* Make the editor a fixed height on mobile so it's usable */
-    .editor-wrapper {
-        height: 500px; 
-        min-height: 400px;
-    }
-
-    .description-side {
-        max-height: 400px; /* Prevent description from being too long */
-        padding: 20px;
-    }
-
-    .terminal {
-        height: 300px;
-    }
-
-    .modal-card {
-        width: 90%; /* Fit modal to mobile screens */
-        margin: 10px;
-    }
-
-    .run-btn {
-        width: 100%; /* Full width buttons for easier tapping */
-        padding: 15px;
-    }
+/* 🔥 CUSTOM SECURITY TOAST (Replaces Alert) 🔥 */
+#security-toast {
+    position: fixed; top: 30px; right: -400px;
+    background: #ef4444; color: white; padding: 20px 30px;
+    border-radius: 12px; font-weight: 800; z-index: 999999;
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+    transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 </style>
 
-<div id="result-modal" class="modal-overlay">
-<div class="modal-card" id="modal-card">
-<div class="modal-header">
-<h2 id="modal-title" style="margin:0; font-size: 1.8rem; font-weight: 900;"></h2>
-</div>
-<div class="modal-body">
-<div id="error-badge-container"></div>
-<p id="modal-msg" style="font-size: 1.2rem; line-height: 1.6; margin-top: 10px; color: #94a3b8;"></p>
-<div id="error-details" style="display:none; background:#0f172a; padding:20px; border-radius:12px; margin-top:30px; font-family: monospace; border: 1px solid #1e293b; font-size: 0.85rem; color: #e2e8f0;"></div>
-<button onclick="closeModal()" class="run-btn" style="width:100%; margin-top:40px; background:#475569; font-size: 1.1rem;">Continue Task</button>
-</div>
-</div>
+
+
+<div id="mobile-block-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: white; z-index: 9999999; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+    <h1 style="font-size: 4rem; margin: 0;">💻</h1>
+    <h1 style="font-size: 2.5rem; color: #ef4444; font-weight: 900; text-transform: uppercase;">Laptops & Desktops Only</h1>
+    <p style="font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-top: 20px; line-height: 1.6;">
+        Mobile devices and tablets are strictly prohibited in this secure environment due to OS-level search features. <br><br><strong>Requesting "Desktop Site" will not bypass this lock.</strong> Please open the Kamaraj Portal on a PC.
+    </p>
 </div>
 
-<div id="cheating-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.99); color: white; z-index: 999999; flex-direction: column; justify-content: center; align-items: center; text-align: center; backdrop-filter: blur(10px);">
+<div id="exam-start-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h1 style="color: white; font-size: 3rem; font-weight: 900;">Secure Exam Environment</h1>
+    <p style="color: #94a3b8; font-size: 1.2rem; margin-bottom: 40px;">Leaving full-screen or copying code will result in immediate failure.</p>
+    <button onclick="startSecureExam()" class="run-btn" style="font-size: 1.5rem; padding: 20px 50px;">Enter Full Screen & Start</button>
+</div>
+
+<div id="force-fullscreen-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.95); color: white; z-index: 999998; flex-direction: column; justify-content: center; align-items: center; text-align: center; backdrop-filter: blur(15px);">
+    <h2 style="font-size: 3rem; color: #ffa116; font-weight: 900; margin: 0;">⚠️ EDITOR LOCKED</h2>
+    <p style="font-size: 1.2rem; color: #e2e8f0; margin: 20px 0 40px 0;">You pressed ESC and exited full screen. You cannot write code until you return.</p>
+    <button onclick="restoreFullscreen()" class="run-btn" style="font-size: 1.5rem; padding: 15px 40px; background: #ffa116;">Return to Full Screen</button>
+</div>
+
+<div id="cheating-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.99); color: white; z-index: 999999; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
     <div style="padding: 60px; border: 4px solid #ef4444; border-radius: 40px; background: rgba(0,0,0,0.6);">
-        <h1 style="font-size: 5rem; font-weight: 900; color: #ef4444; margin: 0;">STOP</h1>
-        <p style="font-size: 1.5rem; margin-top: 20px;">SECURITY BREACH: TAB SWITCH DETECTED</p>
-        <p style="color: #94a3b8;">As a result, your code has been wiped.</p>
-        <button onclick="handleUnblur()" class="run-btn" style="margin-top: 40px; background: #ef4444;">Resume Challenge</button>
+        <h1 style="font-size: 5rem; font-weight: 900; color: #ef4444; margin: 0;">EXAM TERMINATED</h1>
+        <p id="cheat-reason" style="font-size: 1.5rem; margin-top: 20px;"></p>
+        <p id="cheat-details" style="color: #94a3b8;"></p>
+        <button onclick="handleUnblur()" class="run-btn" style="margin-top: 40px; background: #ef4444;">Acknowledge</button>
     </div>
 </div>
 
-<div class="coding-environment" id="main-content" oncontextmenu="return false;"> 
-<div class="split-container">
-<div class="left-column">
-<div class="description-side">
-<div style="color:var(--lc-orange); font-weight:900; font-size: 0.9rem; letter-spacing: 4px; margin-bottom: 20px;">
-HAPPY CODING ✨
-</div>
-<div class="content-body" id="dynamic-content">
-<h2>{{ question.title }}</h2>
-<div id="parsed-body">{{ question.content|safe }}</div>
+<div id="security-toast">🚨 Security Violation Detected!</div>
+
+<div id="result-modal" class="modal-overlay">
+    <div class="modal-card" id="modal-card">
+        <div class="modal-header">
+            <h2 id="modal-title" style="margin:0; font-size: 1.8rem; font-weight: 900;"></h2>
+        </div>
+        <div class="modal-body">
+            <div id="error-badge-container"></div>
+            <p id="modal-msg" style="font-size: 1.2rem; line-height: 1.6; margin-top: 10px; color: #94a3b8;"></p>
+            <div id="error-details" style="display:none; background:#0f172a; padding:20px; border-radius:12px; margin-top:30px; font-family: monospace; border: 1px solid #1e293b; font-size: 0.85rem; color: #e2e8f0;"></div>
+            <button onclick="closeModal()" class="run-btn" style="width:100%; margin-top:40px; background:#475569; font-size: 1.1rem;">Continue Task</button>
+        </div>
+    </div>
 </div>
 
-<div class="setup-instructions" style="margin-top:60px; padding:35px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:20px;">
-<h4 style="margin-top:0; color: #0f172a; font-weight: 900; font-size: 1.2rem;">📋 Evaluation Guidelines:</h4>
-<div id="lang-instructions" style="color: #475569; font-size: 1rem; line-height: 1.7; margin-top: 10px;"></div>
-</div>
-</div>
+<div class="coding-environment" id="main-content"> 
+    <div class="split-container">
+        
+        <div class="left-column">
+            <div class="description-side">
+                <div style="color:var(--lc-orange); font-weight:900; font-size: 0.9rem; letter-spacing: 4px; margin-bottom: 20px;">KAMARAJ SECURE PORTAL</div>
+                <div class="content-body" id="dynamic-content">
+                    <h2>{{ question.title }}</h2>
+                    <div id="parsed-body">{{ question.content|safe }}</div>
+                </div>
+                <div class="setup-instructions" style="margin-top:60px; padding:35px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:20px;">
+                    <h4 style="margin-top:0; color: #0f172a; font-weight: 900; font-size: 1.2rem;">📋 Evaluation Guidelines:</h4>
+                    <div id="lang-instructions" style="color: #475569; font-size: 1rem; line-height: 1.7; margin-top: 10px;"></div>
+                </div>
+            </div>
 
-<div class="terminal">
-<div class="terminal-header">
-<span>● Live Execution Result Console</span>
-<span id="test-summary" style="font-weight: 900; color: var(--lc-green);"></span>
-</div>
-<div class="output-text" id="terminal-output">
-<div id="results-container">
-<div style="text-align:center; margin-top:100px; color:#94a3b8;">
-<p style="font-size: 1.4rem; font-weight: 700;">Submissions Awaiting</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span>● Live Execution Result Console</span>
+                    <span id="test-summary" style="font-weight: 900; color: var(--lc-green);"></span>
+                </div>
+                <div class="output-text" id="terminal-output">
+                    <div id="results-container">
+                        <div style="text-align:center; margin-top:100px; color:#94a3b8;">
+                            <p style="font-size: 1.4rem; font-weight: 700;">Submissions Awaiting</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="editor-side">
-<div class="editor-wrapper">
-<div class="editor-header">
-<div style="display:flex; align-items:center; gap:20px;">
-<span style="color:#94a3b8; font-size:0.8rem; font-weight:900; letter-spacing: 1px;">LANGUAGE:</span>
-<select id="lang_choice" style="background:#334155; color:#fff; border:none; padding:12px 25px; border-radius:15px; font-weight:700; cursor:pointer; font-size: 0.9rem;">
-<option value="python">Python 3.11</option>
-<option value="cpp">C++ 20 (GCC)</option>
-<option value="java">Java 21 (LTS)</option>
-<option value="javascript">Node.js 18</option> 
-</select>
-</div>
-<button id="submit-btn" class="run-btn">Run & Submit</button>
-</div>
-<div id="monaco-container"></div>
-</div>
-</div>
+        <div class="editor-side">
+            <div class="editor-wrapper">
+                <div class="editor-header">
+                    <div style="display:flex; align-items:center; gap:20px;">
+                        <span style="color:#94a3b8; font-size:0.8rem; font-weight:900; letter-spacing: 1px;">LANGUAGE:</span>
+                        <select id="lang_choice" style="background:#334155; color:#fff; border:none; padding:12px 25px; border-radius:15px; font-weight:700; cursor:pointer;">
+                            <option value="python">Python 3.11</option>
+                            <option value="cpp">C++ 20 (GCC)</option>
+                            <option value="java">Java 21 (LTS)</option>
+                            <option value="javascript">Node.js 18</option> 
+                        </select>
+                    </div>
+                    <button id="submit-btn" class="run-btn">Run & Submit</button>
+                </div>
+                <div id="monaco-container"></div>
+            </div>
+        </div>
 
-</div>
+    </div>
 </div>
 
 <script>
+
+// ============================================================
+// 0. HARDWARE-LEVEL MOBILE & TABLET BLOCKER
+// ============================================================
+function enforceDesktopOnly() {
+    // 1. Check for mobile User Agents
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // 2. Defeat "Desktop Site" spoofing by checking hardware touch points
+    const hasTouchScreen = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+    
+    // 3. If they are on a phone, or using a touch-device with a small screen
+    if (isMobileUA || (hasTouchScreen && window.innerWidth < 1024)) {
+        document.getElementById('mobile-block-overlay').style.display = 'flex';
+        // Erase the main content from the DOM so they can't inspect it
+        document.getElementById('main-content').innerHTML = ""; 
+        return true;
+    }
+    return false;
+}
+
+// Run the check instantly before anything else loads
+if (enforceDesktopOnly()) {
+    throw new Error("Execution stopped: Mobile device detected.");
+}
 /* ============================================================
-   1. GLOBAL CONFIGURATIONS
+   1. EXAM SECURITY ENGINE & SMART BLUR
    ============================================================ */
 let editor; 
 let isSubmitting = false; 
-let lastLength = 0;
+let examStarted = false;
+
+// 🛡️ THE HALL PASS: Tells the anti-cheat that the system is doing something safe
+let isSystemAction = false; 
+
+function startSecureExam() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen().then(() => {
+            document.getElementById('exam-start-overlay').style.display = 'none';
+            examStarted = true;
+        }).catch(err => {
+            alert("Error: Fullscreen is required to take this exam.");
+        });
+    }
+}
+
+function showSecurityToast(message) {
+    const toast = document.getElementById('security-toast');
+    toast.innerText = message;
+    toast.style.right = '30px'; // Slide in
+    setTimeout(() => { toast.style.right = '-400px'; }, 3000); // Slide out
+}
 
 const executeTotalWipe = (reason, details) => {
-    if (editor) {
-        editor.setValue(""); // The "Wipeout"
-    }
+    if (editor) editor.setValue(""); // The Wipeout
+    document.getElementById('cheat-reason').innerText = reason;
+    document.getElementById('cheat-details').innerText = details;
     document.getElementById('main-content').classList.add('blur-guard');
     document.getElementById('cheating-overlay').style.display = 'flex';
 };
 
-// Detect if they click away from the browser window entirely
-window.addEventListener('blur', () => {
-    executeTotalWipe('Window Focus Lost', 'Interaction with external software detected.');
-});
-
-// Update handleUnblur to be simpler (No fullscreen needed)
 function handleUnblur() {
     document.getElementById('cheating-overlay').style.display = 'none';
     document.getElementById('main-content').classList.remove('blur-guard');
 }
+
+// 🚨 ANTI-CHEAT LISTENERS 🚨
+// 🚨 UPGRADED ANTI-CHEAT: THE ESCAPE TRAP 🚨
+document.addEventListener('fullscreenchange', () => {
+    // If they leave fullscreen and it WAS NOT caused by a system popup
+    if (examStarted && !document.fullscreenElement && !isSystemAction) {
+        
+        // Lock the editor behind the blur and show the return button
+        document.getElementById('force-fullscreen-overlay').style.display = 'flex';
+        document.getElementById('main-content').classList.add('blur-guard');
+        
+        // Optional: Count this as an "infraction" in your tabSwitchCount
+        console.log("Security: User dropped full screen.");
+    }
+});
+
+// The function attached to the "Return" button
+function restoreFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen().then(() => {
+            // Unlock the screen once they are back in
+            document.getElementById('force-fullscreen-overlay').style.display = 'none';
+            document.getElementById('main-content').classList.remove('blur-guard');
+        }).catch(err => {
+            showSecurityToast("Browser denied full screen request.");
+        });
+    }
+}
+
+window.addEventListener('blur', () => {
+    // If they click another tab and it WAS NOT caused by a system popup
+    if (examStarted && !isSystemAction) {
+        executeTotalWipe('Window Focus Lost', 'You switched tabs or opened another application.');
+    }
+});
+
+// Kill Right Click completely
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Kill Browser Paste/Copy (Using Toast instead of Alert to protect Fullscreen)
+const killClipboard = (e) => {
+    if(examStarted) {
+        e.preventDefault();
+        showSecurityToast("🚨 Copy/Paste is strictly forbidden.");
+    }
+};
+document.addEventListener('copy', killClipboard);
+document.addEventListener('cut', killClipboard);
+document.addEventListener('paste', killClipboard);
+
+/* ============================================================
+   2. MONACO EDITOR SETUP
+   ============================================================ */
 const configs = {
     python: { inst: "Input Method: <code>n = int(input())</code>." },
     cpp: { inst: "Compiler: GCC 13.2. Use <code>cin >> n;</code>." },
@@ -396,185 +429,179 @@ function formatContent() {
     container.innerHTML = raw;
 }
 
-
-/* ============================================================
-2. CORE JAVASCRIPT & MONACO ENGINE
-============================================================ */
 require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' }});
 require(['vs/editor/editor.main'], function() {
-formatContent(); 
-editor = monaco.editor.create(document.getElementById('monaco-container'), {
-value: "", 
-language: 'python',
-theme: 'vs-dark',
-automaticLayout: true,
-fontSize: 18,
-tabSize: 4, 
-insertSpaces: true,
-autoIndent: 'full',
-contextmenu: false, 
-minimap: { enabled: false },
-scrollBeyondLastLine: false,
-padding: { top: 30 },
-// Add smooth cursor for a more premium feel
-cursorBlinking: "smooth",
-cursorSmoothCaretAnimation: "on"
-});
-// This ensures 'editor' is defined when the event fires!
+    formatContent(); 
+    editor = monaco.editor.create(document.getElementById('monaco-container'), {
+        value: "", 
+        language: 'python',
+        theme: 'vs-dark',
+        automaticLayout: true,
+        fontSize: 18,
+        tabSize: 4, 
+        insertSpaces: true,
+        autoIndent: 'full',
+        contextmenu: false, 
+        minimap: { enabled: false }
+    });
 
+    // Auto-clear error highlights on typing
+    editor.onDidChangeModelContent(() => {
+        const model = editor.getModel();
+        monaco.editor.setModelMarkers(model, "owner", []);
+    });
 
+    // 🛡️ THE ULTIMATE KEYBOARD FIREWALL
+    editor.onKeyDown((e) => {
+        // We bypass Monaco's internal codes and read the raw keyboard event directly
+        const key = e.browserEvent.key.toLowerCase();
+        const ctrlOrCmd = e.browserEvent.ctrlKey || e.browserEvent.metaKey;
+        const shift = e.browserEvent.shiftKey;
 
- 
-// 🟢 NEW: AUTO-CLEAR ERROR HIGHLIGHTS
-// As soon as the student changes the code, the red warnings disappear.
-editor.onDidChangeModelContent(() => {
-const model = editor.getModel();
-monaco.editor.setModelMarkers(model, "owner", []);
-});
+        // The Blacklist: Every known shortcut for Copy, Cut, and Paste
+        const isStandardPaste = ctrlOrCmd && (key === 'c' || key === 'v' || key === 'x');
+        const isNinjaPaste = shift && key === 'insert';      // Shift + Insert (Paste)
+        const isNinjaCopy = ctrlOrCmd && key === 'insert';   // Ctrl + Insert (Copy)
+        const isNinjaCut = shift && key === 'delete';        // Shift + Delete (Cut)
 
-// RUNTIME SWITCHER
-const langSelect = document.getElementById('lang_choice');
-langSelect.addEventListener('change', (e) => {
-const lang = e.target.value;
-const monacoLang = lang === 'cpp' ? 'cpp' : lang;
-monaco.editor.setModelLanguage(editor.getModel(), monacoLang);
-document.getElementById('lang-instructions').innerHTML = configs[lang].inst;
-});
-document.getElementById('lang-instructions').innerHTML = configs.python.inst;
+        if (isStandardPaste || isNinjaPaste || isNinjaCopy || isNinjaCut) {
+            // CRUSH THE EVENT: Stop the browser from doing anything
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Show the slick red warning without breaking Full Screen
+            showSecurityToast("🚨 Unauthorized keyboard shortcut blocked.");
+        }
+    });
 
-editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyC, () => alert("SECURITY: Buffer copying restricted."));
-editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => alert("SECURITY: Buffer pasting restricted."));
-editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyV, () => { alert("PASTE BLOCKED: Please type your logic manually."); });
-
-
-// Disable right-click in the editor specifically
-document.getElementById('monaco-container').addEventListener('contextmenu', e => e.preventDefault());
+    const langSelect = document.getElementById('lang_choice');
+    langSelect.addEventListener('change', (e) => {
+        const lang = e.target.value;
+        const monacoLang = lang === 'cpp' ? 'cpp' : lang;
+        monaco.editor.setModelLanguage(editor.getModel(), monacoLang);
+        document.getElementById('lang-instructions').innerHTML = configs[lang].inst;
+    });
+    document.getElementById('lang-instructions').innerHTML = configs.python.inst;
 });
 
 /* ============================================================
-3. ASYNCHRONOUS EVALUATION ENGINE & MODAL PIPELINE
-============================================================ */
+   3. ASYNCHRONOUS EVALUATION ENGINE
+   ============================================================ */
 document.getElementById('submit-btn').addEventListener('click', async () => {
-if (isSubmitting) return;
-const code = editor.getValue();
-const lang = document.getElementById('lang_choice').value;
-if (!code.trim()) { alert("Workspace is empty."); return; }
+    if (isSubmitting) return;
+    const code = editor.getValue();
+    const lang = document.getElementById('lang_choice').value;
+    
+    if (!code.trim()) { 
+        showSecurityToast("Workspace is empty."); 
+        return; 
+    }
 
-isSubmitting = true;
-const btn = document.getElementById('submit-btn');
-btn.disabled = true; 
-btn.innerText = "⏳ VALIDATING...";
+    // 🛑 GRANT HALL PASS: Tell Anti-Cheat we are evaluating code
+    isSystemAction = true; 
 
-// Clear previous error markers from Monaco
-const model = editor.getModel();
-monaco.editor.setModelMarkers(model, "owner", []);
+    isSubmitting = true;
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true; 
+    btn.innerText = "⏳ VALIDATING...";
 
-try {
-const response = await fetch(window.location.href, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ user_code: code, lang_choice: lang })
-});
-const data = await response.json();
-// 1. CHECK FOR SYNTAX/COMPILATION ERRORS
-if (data.status === 'error' && data.is_syntax_error) {
-// SHOW BRIGHT POPUP - DON'T TOUCH TERMINAL TABLE
-showModal(
-'error', 
-'🚨 SYNTAX ERROR', 
-'Your code has a spelling or formatting mistake.', 
-`<strong>Compiler Output:</strong><br><pre style="color:#fca5a5; margin-top:10px;">${data.message}</pre>`, 
-"SYNTAX ERROR"
-);
+    const model = editor.getModel();
+    monaco.editor.setModelMarkers(model, "owner", []);
 
-// HIGHLIGHT THE LINE IN MONACO
-if (data.line) {
-monaco.editor.setModelMarkers(model, "owner", [{
-message: data.message,
-severity: monaco.MarkerSeverity.Error,
-startLineNumber: data.line,
-startColumn: 1,
-endLineNumber: data.line,
-endColumn: 1000
-}]);
-editor.revealLineInCenter(data.line);
-}
-} 
-// 2. CHECK FOR LOGIC ERRORS (Test cases ran but failed)
-else {
-// RENDER TABLE IN TERMINAL
-renderResults(data.test_results, data.terminal_output);
-
-if (data.status === 'success') {
-showModal('success', '🏆 VALIDATION PASSED', 'All verification tests cleared successfully.', null);
-} else {
-// LOGIC FAILURE POPUP (No line highlight needed)
-showModal('error', '❌ EVALUATION FAILED', 'Logic does not meet requirements.', 'Check the actual output in the terminal box.', 'LOGIC ERROR');
-}
-}
-} catch (e) { 
-alert("Communication Error: eval server unreachable."); 
-}
-finally { 
-setTimeout(() => { 
-isSubmitting = false; 
-btn.disabled = false; 
-btn.innerText = "Run & Submit"; 
-}, 1500); // Reduced delay for better feel
-}
+    try {
+        const response = await fetch(window.location.href, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_code: code, lang_choice: lang })
+        });
+        const data = await response.json();
+        
+        if (data.status === 'error' && data.is_syntax_error) {
+            showModal('error', '🚨 SYNTAX ERROR', 'Your code has a spelling or formatting mistake.', `<strong>Compiler Output:</strong><br><pre style="color:#fca5a5; margin-top:10px;">${data.message}</pre>`, "SYNTAX ERROR");
+            if (data.line) {
+                monaco.editor.setModelMarkers(model, "owner", [{
+                    message: data.message, severity: monaco.MarkerSeverity.Error,
+                    startLineNumber: data.line, startColumn: 1, endLineNumber: data.line, endColumn: 1000
+                }]);
+                editor.revealLineInCenter(data.line);
+            }
+        } else {
+            renderResults(data.test_results, data.terminal_output);
+            if (data.status === 'success') {
+                showModal('success', '🏆 VALIDATION PASSED', 'All verification tests cleared successfully.', null);
+            } else {
+                showModal('error', '❌ EVALUATION FAILED', 'Logic does not meet requirements.', 'Check the actual output in the terminal box.', 'LOGIC ERROR');
+            }
+        }
+    } catch (e) { 
+        showSecurityToast("Communication Error: Server unreachable."); 
+    } finally { 
+        setTimeout(() => { 
+            isSubmitting = false; 
+            btn.disabled = false; 
+            btn.innerText = "Run & Submit"; 
+        }, 1500);
+    }
 });
 
-// 🔥 ENHANCED TEST CASE RENDERER: INCLUDES "ACTUAL" OUTPUT 🔥
+// 🔥 ENHANCED TEST CASE RENDERER: BLOCKS HARDCODING 🔥
 function renderResults(results, summary) {
-const container = document.getElementById('results-container');
-document.getElementById('test-summary').innerText = summary || "";
-if (!results || results.length === 0) return;
-let html = '';
-results.forEach((res, i) => {
-const color = res.passed ? '#16a34a' : '#ef4444';
-const bg = res.passed ? '#f0fdf4' : '#fef2f2';
-html += `
-<details open style="margin-bottom:18px; border: 1px solid ${color}40; border-radius:15px; overflow:hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-<summary style="padding:20px; background:${bg}; cursor:pointer; list-style:none; display:flex; justify-content:space-between;">
-<span style="font-weight:900; color:${color}; letter-spacing: 0.5px;">EVAL CASE ${i + 1}: ${res.passed ? 'PASSED' : 'FAILED'}</span>
-<span style="font-size:0.75rem; color:#64748b; font-weight:700;">LOGS ▾</span>
-</summary>
-<div style="padding:25px; font-family: 'Fira Code', monospace; font-size:0.9rem; background:#fff; border-top: 1px solid #f1f5f9; line-height: 1.6;">
-<div style="margin-bottom:10px;"><strong style="color:#64748b;">SYSTEM INPUT:</strong><br>${res.input}</div>
-<div style="margin-bottom:10px;"><strong style="color:#64748b;">EXPECTED STATE:</strong><br><span style="color:#16a34a;">${res.expected}</span></div>
-<div><strong style="color:#64748b;">ACTUAL GENERATED:</strong><br><span style="color:${color};">${res.actual || '(No output detected)'}</span></div>
-</div></details>`;
-});
-container.innerHTML = html;
-// Auto-scroll execution box to top for new results
-document.getElementById('terminal-output').scrollTop = 0;
+    const container = document.getElementById('results-container');
+    document.getElementById('test-summary').innerText = summary || "";
+    if (!results || results.length === 0) return;
+    
+    let html = '';
+    
+    results.forEach((res, i) => {
+        const color = res.passed ? '#16a34a' : '#ef4444';
+        const bg = res.passed ? '#f0fdf4' : '#fef2f2';
+        
+        // 🔒 THE ANTI-CHEAT RULE: Lock any test case after the first 2
+        const isHidden = i >= 2; 
+
+        if (isHidden) {
+            // 🛑 WHAT THEY SEE FOR HIDDEN TEST CASES
+            html += `
+            <div style="margin-bottom:18px; border: 1px solid ${color}40; border-radius:15px; padding:20px; background:${bg}; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:900; color:${color};">🔒 HIDDEN CASE ${i + 1}: ${res.passed ? 'PASSED' : 'FAILED'}</span>
+                ${!res.passed ? `<span style="font-size:0.8rem; color:#ef4444; font-weight:700;">(Details Hidden to prevent hardcoding)</span>` : ''}
+            </div>`;
+        } else {
+            // ✅ WHAT THEY SEE FOR PUBLIC TEST CASES (Normal View)
+            html += `
+            <details open style="margin-bottom:18px; border: 1px solid ${color}40; border-radius:15px; overflow:hidden;">
+                <summary style="padding:20px; background:${bg}; cursor:pointer; list-style:none; display:flex; justify-content:space-between;">
+                    <span style="font-weight:900; color:${color};">👁️ PUBLIC CASE ${i + 1}: ${res.passed ? 'PASSED' : 'FAILED'}</span>
+                </summary>
+                <div style="padding:25px; font-family: monospace; font-size:0.9rem; background:#fff;">
+                    <div style="margin-bottom:10px;"><strong>SYSTEM INPUT:</strong><br>${res.input}</div>
+                    <div style="margin-bottom:10px;"><strong>EXPECTED:</strong><br><span style="color:#16a34a;">${res.expected}</span></div>
+                    <div><strong>ACTUAL:</strong><br><span style="color:${color};">${res.actual || '(No output)'}</span></div>
+                </div>
+            </details>`;
+        }
+    });
+    
+    container.innerHTML = html;
+    document.getElementById('terminal-output').scrollTop = 0;
 }
 
 function showModal(type, title, msg, details, errorType = null) {
-const modal = document.getElementById('result-modal');
-document.getElementById('modal-card').className = 'modal-card ' + type;
-document.getElementById('modal-title').innerText = title;
-document.getElementById('modal-msg').innerHTML = msg; // Changed to innerHTML to allow styling
-if (errorType) {
-document.getElementById('error-badge-container').innerHTML = `<span class="error-badge">${errorType}</span>`;
-} else {
-document.getElementById('error-badge-container').innerHTML = "";
-}
-const dBox = document.getElementById('error-details');
-if (details) { 
-dBox.innerHTML = details; 
-dBox.style.display = 'block'; 
-} else { 
-dBox.style.display = 'none'; 
-}
-modal.style.display = 'flex'; 
+    const modal = document.getElementById('result-modal');
+    document.getElementById('modal-card').className = 'modal-card ' + type;
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-msg').innerHTML = msg; 
+    document.getElementById('error-badge-container').innerHTML = errorType ? `<span class="error-badge">${errorType}</span>` : "";
+    const dBox = document.getElementById('error-details');
+    if (details) { dBox.innerHTML = details; dBox.style.display = 'block'; } else { dBox.style.display = 'none'; }
+    modal.style.display = 'flex'; 
 }
 
 function closeModal() {
-document.getElementById('result-modal').style.display = 'none';
+    document.getElementById('result-modal').style.display = 'none';
+    
+    // 🛑 REVOKE HALL PASS: Turn anti-cheat back on when modal closes!
+    setTimeout(() => { isSystemAction = false; }, 200);
 }
-
-
-
 </script>
 {% endblock %}

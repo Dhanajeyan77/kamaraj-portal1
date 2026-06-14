@@ -11,7 +11,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import datetime
 # 🔥 INTERNAL MODULES
 from test_cases_data import TEST_CASES_DICT  
-from queue_worker import submit_job, get_result 
+import requests
 import csv
 from io import StringIO
 from flask import Response, make_response
@@ -180,8 +180,29 @@ def question_detail(qid):
                 language = request.form.get("lang_choice", "python")
 
             # PROCESS SUBMISSION VIA QUEUE
-            job_id = submit_job(user=session["user"], code=user_code, language=language, test_cases=test_cases)
-            result = get_result(job_id)
+            # 🔥 PROCESS SUBMISSION VIA NETWORK TO QEMU VM
+            payload = {
+                "code": user_code,
+                "language": language,
+                "test_cases": test_cases,
+                "roll_no": session["user"]
+            }
+            headers = {"X-API-Key": "kamaraj-engine-2026"}
+            
+            try:
+                # 🚨 IMPORTANT: Replace 192.168.X.X with your actual QEMU VM IP address!
+                api_response = requests.post("http://192.168.69.2:5000/run", json=payload, headers=headers, timeout=25)
+                
+                if api_response.status_code == 429:
+                    # Spam Protection Triggered
+                    result = {"all_passed": False, "test_results": [{"passed": False, "error": "SPAM BLOCK: Please wait 3 seconds.", "exit_code": 429}], "summary": "Spam Block"}
+                else:
+                    result = api_response.json().get("results", {})
+                    
+            except Exception as e:
+                print(f"API Bridge Error: {e}")
+                result = {"all_passed": False, "test_results": [], "summary": "System Error: Cannot reach VM"}
+
 
             # Extract data from the result object
             test_results = result.get("test_results") or []
@@ -641,27 +662,30 @@ def my_stats():
 def engine_status():
     # 🛡️ HARD LOCK: Only your Roll No can access this
     if "user" not in session or session["user"] != "24UCS027":
-        return "Access Denied: Specialized Admin Clearance Required", 403
+        return "Access Denied", 403
 
-    from queue_worker import get_queue_status, live_audit_log
-    
-    # Get live data from the threading engine
-    stats = get_queue_status()
-    stats["audit_log"] = list(live_audit_log)
-    # Add a system timestamp so you know it's live
-    stats["server_time"] = datetime.now().strftime("%H:%M:%S")
-    
-    return jsonify(stats)
+    headers = {"X-API-Key": "kamaraj-engine-2026"}
+    try:
+        # 🚨 Replace 192.168.X.X with your actual QEMU VM IP address!
+        api_response = requests.get("http://192.168.69.2:5000/health", headers=headers, timeout=5)
+        return jsonify(api_response.json().get("metrics", {}))
+    except:
+        return jsonify({"status": "offline", "message": "VM Unreachable"})
+
 @app.route("/admin/clear-audit", methods=["POST"])
 def clear_audit():
     # 🛡️ SECURITY: Only 24UCS027 can wipe the logs
     if "user" not in session or session["user"] != "24UCS027":
         return jsonify({"error": "Unauthorized"}), 403
 
-    from queue_worker import live_audit_log
-    live_audit_log.clear() # Wipes the 30 records
-    return jsonify({"status": "success", "message": "Audit log cleared"})
-    
+    # Send the command across the bridge to the VM
+    headers = {"X-API-Key": "kamaraj-engine-2026"}
+    try:
+        # 🚨 IMPORTANT: Replace with your QEMU VM IP Address!
+        requests.post("http://192.168.69.2:5000/clear", headers=headers, timeout=5)
+        return jsonify({"status": "success", "message": "Audit log cleared on VM"})
+    except:
+        return jsonify({"status": "error", "message": "VM Unreachable"}), 500  
 @app.route("/logout")
 def logout():
     session.clear()

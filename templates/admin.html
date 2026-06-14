@@ -249,7 +249,7 @@
 {% if session['user'] == '24UCS027' %}
 <div style="background: #0f172a; color: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 35px; border: 1px solid #1e293b; box-shadow: 0 20px 50px rgba(0,0,0,0.2);">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-        <h3 style="margin:0; font-size: 0.8rem; letter-spacing: 2px; color: #38bdf8;">ENGINE LIVE MONITOR</h3>
+        <h3 style="margin:0; font-size: 0.8rem; letter-spacing: 2px; color: #38bdf8;">ENGINE LIVE MONITOR (QEMU VM)</h3>
         <button onclick="clearAudit()" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.7rem;">
             CLEAR AUDIT FEED
         </button>
@@ -265,14 +265,14 @@
             <div id="w-count" style="font-size: 1.8rem; font-weight: 900; color: #22c55e;">5</div>
         </div>
         <div style="background: #1e293b; padding: 15px; border-radius: 12px;">
-            <span style="color: #94a3b8; font-size: 0.7rem; font-weight: 800;">CACHED</span>
-            <div id="r-cache" style="font-size: 1.8rem; font-weight: 900; color: #38bdf8;">0</div>
+            <span style="color: #94a3b8; font-size: 0.7rem; font-weight: 800;">VM RAM USAGE</span>
+            <div style="font-size: 1.8rem; font-weight: 900; color: #ef4444;"><span id="ram-use">0</span> MB</div>
         </div>
     </div>
 
     <div style="background: #020617; border-radius: 12px; padding: 15px; border: 1px solid #334155;">
         <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #475569; margin-bottom: 10px; font-weight: 800;">
-            <span>LIVE AUDIT FEED (LAST 30)</span>
+            <span>LIVE AUDIT FEED</span>
             <span id="server-time">--:--:--</span>
         </div>
         <div id="audit-feed" style="font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.8rem; height: 250px; overflow-y: auto; line-height: 1.6;">
@@ -281,20 +281,19 @@
     </div>
 </div>
 
-
-
 <script>
     function updateMetrics() {
         fetch('/admin/engine-status')
             .then(res => res.json())
             .then(data => {
-                document.getElementById('q-depth').innerText = data.pending_jobs;
-                document.getElementById('w-count').innerText = data.active_workers;
-                document.getElementById('r-cache').innerText = data.completed_results_in_memory;
-                document.getElementById('server-time').innerText = data.server_time;
+                // 🔥 Updated to match the Microservices keys
+                document.getElementById('q-depth').innerText = data.queue_depth || 0;
+                document.getElementById('w-count').innerText = data.worker_count || 0;
+                document.getElementById('ram-use').innerText = data.memory_usage_mb || 0;
+                document.getElementById('server-time').innerText = data.server_time || '--:--:--';
 
                 const feed = document.getElementById('audit-feed');
-                if (data.audit_log.length === 0) {
+                if (!data.audit_log || data.audit_log.length === 0) {
                     feed.innerHTML = '<div style="color: #475569;">Feed empty. Waiting for submissions...</div>';
                     return;
                 }
@@ -305,17 +304,16 @@
                         [${log.time}] <b>${log.roll}</b> <span style="color: #38bdf8">${log.lang}</span>: ${log.status}
                     </div>`;
                 }).join('');
-            });
+            }).catch(err => console.error("Engine offline:", err));
     }
 
     function clearAudit() {
-        if(confirm("Totally clear the 30-record audit history?")) {
+        if(confirm("Totally clear the audit history on the VM?")) {
             fetch('/admin/clear-audit', { method: 'POST' })
                 .then(() => updateMetrics());
         }
     }
 
-    // High-speed tracking: Update every 3 seconds
     setInterval(updateMetrics, 3000);
     updateMetrics();
 </script>
